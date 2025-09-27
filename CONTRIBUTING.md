@@ -1,4 +1,4 @@
-# Contributing to the Framework
+# Contributing to SparkJS
 
 Thank you for considering contributing! 🎉  
 Your contributions help improve the framework and make it safer and more developer-friendly.

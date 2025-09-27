@@ -1,4 +1,4 @@
-# Security Policy for the Framework
+# Security Policy for SparkJS
 
 ## Supported Versions
 
