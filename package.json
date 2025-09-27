@@ -1,5 +1,5 @@
 {
-    "name": "spark",
+    "name": "twiggle",
     "version": "0.0.0",
     "main": "./src/index.ts",
     "type": "module",
@@ -8,13 +8,13 @@
         "Hrutav Modha"
     ],
     "files": [
-        "./dist",
+        "./dist/twiggle-es.js",
         "./package.json",
         "./README.md"
     ],
     "exports": {
         ".": {
-            "import": "./dist/build-es.js"
+            "import": "./dist/twiggle-es.js"
         }
     },
     "scripts": {

@@ -21,11 +21,16 @@ export default defineConfig({
     build: {
         lib: {
             entry: 'src/index.ts',
+            name: 'twiggle',
             formats: [
-                'es'
+                'es',
+                'cjs',
+                'iife',
+                'system',
+                'umd'
             ],
             fileName: (format) => {
-                return `build-${format}.js`
+                return `twiggle-${format}.js`
             }
         }
     }

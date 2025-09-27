@@ -1,6 +1,6 @@
-# SparkJS
+# Twiggle
 
-Spark is a simple and lightweight frontend framework for building web applications.
+TwiggleJS is a simple and lightweight frontend framework for building web applications.
 
 ## Features
 
@@ -23,7 +23,7 @@ To get started with the framework, you can use the example application as a star
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/hrutavmodha/spark.git
+git clone https://github.com/hrutavmodha/twiggle.git
 ```
 
 2. Install the dependencies:
@@ -67,7 +67,7 @@ function MyComponent() {
 The framework provides a simple and powerful router to handle client-side routing. You can define your routes in your main application component.
 
 ```tsx
-import { Route, Routes } from 'spark';
+import { Route, Routes } from 'twiggle';
 import Home from './pages/Home';
 import About from './pages/About';
 
@@ -84,7 +84,7 @@ function App() {
 You can use the `Link` component to navigate between routes.
 
 ```tsx
-import { Link } from 'spark';
+import { Link } from 'twiggle';
 
 function MyComponent() {
   return <Link to="/about">About</Link>;
@@ -94,7 +94,7 @@ function MyComponent() {
 You can also navigate programmatically using the `navigate` function.
 
 ```tsx
-import { navigate } from 'spark';
+import { navigate } from 'twiggle';
 
 function MyComponent() {
   return <button onclick={() => navigate("/about")}>About</button>;
@@ -106,7 +106,7 @@ function MyComponent() {
 The framework provides a basic state management system to manage your application's state. You can create a state object using the `createState` function.
 
 ```tsx
-import { createState } from 'spark';
+import { createState } from 'twiggle';
 
 const counter = createState(0);
 

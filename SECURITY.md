@@ -1,4 +1,4 @@
-# Security Policy for SparkJS
+# Security Policy for TwiggleJS
 
 ## Supported Versions
 
