@@ -1,0 +1,30 @@
+{
+    "name": "framework",
+    "version": "1.0.0",
+    "main": "./src/index.ts",
+    "type": "module",
+    "author": "Hrutav Modha",
+    "maintainers": [
+        "Hrutav Modha"
+    ],
+    "files": [
+        "./dist",
+        "./package.json",
+        "./README.md"
+    ],
+    "exports": {
+        ".": {
+            "import": "./dist/build-es.js"
+        }
+    },
+    "scripts": {
+        "start": "vite",
+        "build": "vite build"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "@types/node": "^24.5.2",
+        "typescript": "^5.9.2",
+        "vite": "^7.1.7"
+    }
+}
