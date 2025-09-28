@@ -11,10 +11,10 @@ export default function createState<T>(value: T): {
     }
     index++;
     return {
-        get() {
+        get: () => {
             return state[currentIndex]
         },
-        set(newValue) {
+        set: (newValue) => {
             state[currentIndex] = newValue
         }
     }

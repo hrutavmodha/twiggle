@@ -1,0 +1,17 @@
+{
+  "name": "vite-plugin-twiggle",
+  "version": "1.0.0",
+  "description": "The Vite Plugin for Runtime of Twiggle",
+  "main": "index.js",
+  "keywords": [
+    "vite",
+    "twiggle-plugin",
+    "jsx",
+    "transpiler"
+  ],
+  "author": "Hrutav Modha",
+  "maintainers": [
+    "Hrutav Modha"
+  ],
+  "license": "MIT"
+}
