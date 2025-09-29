@@ -1,29 +1,30 @@
 import { createState } from '../state/state';
 import navigate from '../router/router';
+
+const count = createState(0);
+
 export default function Home() {
-    const count = createState(0)
-    console.log(count.get())
     return (
         <>
-            <h1>Hello World</h1>
+            <h1>Home Page</h1>
+            <p>Count: {() => count.get()}</p>
             <button onclick={() => {
-                navigate('/home')
+                count.set(count.get() + 1);
             }}>
-                Go Home
+                Increase Count
             </button>
             <br />
             <button onclick={() => {
-                navigate('/about')
+                navigate('/about');
             }}>
-                Go About
+                Go to About
             </button>
             <br />
-            <p>{count.get()}</p>
             <button onclick={() => {
-                count.set(count.get() + 1)
+                navigate('/home');
             }}>
-                Increase
+                Go to Service
             </button>
         </>
-    )
+    );
 }

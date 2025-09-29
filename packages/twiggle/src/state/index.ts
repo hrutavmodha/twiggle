@@ -1,1 +1,4 @@
-export { default as createState } from './state'
+export {
+    createState,
+    runSideEffect
+} from './state'
