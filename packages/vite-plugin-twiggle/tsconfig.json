@@ -3,6 +3,7 @@
         "module": "es2022",
         "target": "esnext",
         "types": [],
+        "outDir": "dist",
         "sourceMap": true,
         "declaration": true,
         "declarationMap": true,

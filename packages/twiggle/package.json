@@ -1,6 +1,6 @@
 {
     "name": "twiggle",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "main": "./src/index.ts",
     "type": "module",
     "author": "Hrutav Modha",
@@ -12,6 +12,12 @@
         "./package.json",
         "./README.md"
     ],
+    "keywords": [
+        "frontend",
+        "twiggle",
+        "routing",
+        "state management"
+    ],
     "exports": {
         ".": {
             "import": "./dist/twiggle-es.js"
@@ -19,13 +25,17 @@
     },
     "scripts": {
         "start": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "test": "vitest",
+        "test:ui": "vitest --ui"
     },
     "license": "MIT",
     "devDependencies": {
         "@types/babel__helper-plugin-utils": "^7.10.3",
         "@types/node": "^24.5.2",
         "typescript": "^5.9.2",
-        "vite": "^7.1.7"
+        "vite": "^7.1.7",
+        "vitest": "^1.0.0",
+        "@vitest/ui": "^1.0.0"
     }
 }

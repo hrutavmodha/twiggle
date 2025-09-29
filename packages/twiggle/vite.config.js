@@ -4,14 +4,13 @@ import {
     join
 } from 'path'
 import { fileURLToPath } from 'url' 
-import twigglePlugin from 'vite-plugin-twiggle' // Import the plugin
-
+import twigglePlugin from 'vite-plugin-twiggle'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 export default defineConfig({
     plugins: [
-        twigglePlugin() // Add the plugin here
+        twigglePlugin()
     ],
     resolve: {
         alias: {
@@ -37,5 +36,10 @@ export default defineConfig({
                 return `twiggle-${format}.js`
             }
         }
+    },
+    test: { 
+        globals: true,
+        environment: 'jsdom',
+        include: ['src/**/*.{test,spec}.{js,ts,jsx,tsx}'],
     }
 })
