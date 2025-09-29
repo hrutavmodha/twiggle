@@ -1,3 +1,5 @@
+import { runSideEffect } from "../state/state";
+
 export default function handleChildren(
     element: HTMLElement,
     children: any
@@ -13,6 +15,12 @@ export default function handleChildren(
         ) {
             const text = document.createTextNode(String(child))
             element.appendChild(text)
+        } else if (typeof child === 'function') {
+            const text = document.createTextNode('')
+            element.appendChild(text)
+            runSideEffect(() => {
+                text.textContent = child()
+            })
         }
         else {
             element.appendChild(child as Node)

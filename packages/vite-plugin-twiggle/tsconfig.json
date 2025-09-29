@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "nodenext",
+        "module": "es2022",
         "target": "esnext",
         "types": [],
         "sourceMap": true,
@@ -14,6 +14,7 @@
         "isolatedModules": true,
         "noUncheckedSideEffectImports": true,
         "moduleDetection": "force",
+        "moduleResolution": "bundler",
         "skipLibCheck": true,
     }
 }

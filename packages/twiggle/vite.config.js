@@ -4,11 +4,15 @@ import {
     join
 } from 'path'
 import { fileURLToPath } from 'url' 
+import twigglePlugin from 'vite-plugin-twiggle' // Import the plugin
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 export default defineConfig({
+    plugins: [
+        twigglePlugin() // Add the plugin here
+    ],
     resolve: {
         alias: {
             '@jsx': join(__dirname, 'src', 'jsx')

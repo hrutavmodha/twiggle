@@ -1,3 +1,4 @@
+import { runSideEffect } from "../state/state";
 import handleChildren from './handleChildren'
 
 export default function handleProps(
@@ -14,6 +15,11 @@ export default function handleProps(
         }
         else if (key === 'children') {
             handleChildren(element, props[key])
+        }
+        else if (typeof props[key] === 'function') {
+            runSideEffect(() => {
+                element.setAttribute(key, props[key]())
+            })
         }
         else {
             element.setAttribute(key, props[key])

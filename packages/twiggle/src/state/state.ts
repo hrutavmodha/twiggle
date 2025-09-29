@@ -1,21 +1,33 @@
-let state: Array<any> = []
-let index: number = 0
+const context: Array<() => void> = []
 
-export default function createState<T>(value: T): {
-    get: () => T,
+export function runSideEffect(fn: () => void) {
+    context.push(fn)
+    fn()
+    context.pop()
+}
+
+export function createState<T>(
+    value: T
+): {
+    get: () => T
     set: (newValue: T) => void
 } {
-    const currentIndex = index
-    if (state[currentIndex] == undefined) {
-        state[currentIndex] = value
-    }
-    index++;
-    return {
-        get: () => {
-            return state[currentIndex]
-        },
-        set: (newValue) => {
-            state[currentIndex] = newValue
+    const subscribers = new Set<() => void>()
+    const getter = () => {
+        const currentEffect = context[context.length - 1]
+        if (currentEffect) {
+            subscribers.add(currentEffect)
         }
+        return value
+    }
+    const setter = (newValue: T) => {
+        value = newValue
+        for (const sub of subscribers) {
+            sub()
+        }
+    }
+    return {
+        get: getter,
+        set: setter
     }
 }

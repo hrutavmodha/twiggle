@@ -4,4 +4,4 @@ export default function render(
 ): void {
     parent.innerHTML = ''
     parent.appendChild(element)
-} 
+}

@@ -13,7 +13,12 @@ export function setRoutes(newRoutes: { [key: `/${string}`]: Function }): void {
 
 function renderRoute(to: `/${string}`): void {
     if (routes[to]) {
-        render(routes[to], document.body)
+        const rootElement = document.getElementById('root');
+        if (rootElement) {
+            render(routes[to](), rootElement); // <--- Changed here
+        } else {
+            console.error('Root element with ID "root" not found.');
+        }
     }
 }
 
