@@ -1,4 +1,4 @@
-# Twiggle — Tiny front-end primitives (monorepo)
+# Twiggle — Tiny front-end primitives
 
 A small, focused collection of front-end primitives for building tiny component-based apps with a custom JSX runtime, minimal renderer, router, and reactive state system.
 
@@ -44,7 +44,7 @@ Vite plugin: `packages/vite-plugin-twiggle` — a plugin which configures Babel 
 
 ---
 
-## Quick Start (Local dev)
+## Quick Start
 
 This repository uses Yarn/NPM workspaces. From the monorepo root you can run the regular scripts inside `packages/twiggle` when developing that package.
 
@@ -120,7 +120,7 @@ function Greeting(props: { name: string }) {
 render(<Greeting name="Alice" />, document.getElementById('root'))
 ```
 
-### Router (basic)
+### Router
 
 Twiggle provides a tiny router with `Routes`, `Route`, and `Link` helpers plus a `navigate` function.
 
@@ -164,7 +164,7 @@ Router internals:
 - `Route({ to, element })` — returns a plain object used by `Routes`.
 - `Link({ to, children })` — renders an `<a>` that prevents default and calls `navigate`.
 
-### State (reactive primitive)
+### State
 
 Twiggle's state system is intentionally tiny. It supports basic subscriptions via an effect stack.
 
@@ -199,7 +199,7 @@ Note: To update the UI when state changes, structure your components to re-run `
 
 ---
 
-## API Reference (concise)
+## API Reference
 
 From `packages/twiggle` exports (see `src/index.ts` which re-exports modules):
 
