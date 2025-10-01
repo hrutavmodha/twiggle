@@ -25,17 +25,13 @@
     },
     "scripts": {
         "start": "vite",
-        "build": "vite build",
-        "test": "vitest",
-        "test:ui": "vitest --ui"
+        "build": "vite build"
     },
     "license": "MIT",
     "devDependencies": {
         "@types/babel__helper-plugin-utils": "^7.10.3",
         "@types/node": "^24.5.2",
         "typescript": "^5.9.2",
-        "vite": "^7.1.7",
-        "vitest": "^1.0.0",
-        "@vitest/ui": "^1.0.0"
+        "vite": "^7.1.7"
     }
 }
