@@ -21,7 +21,6 @@
         "skipLibCheck": true
     },
     "exclude": [
-        "client/src/example",
         "client/**/*.{jsx,tsx,js}",
         "client/tests",
         "server/tests"

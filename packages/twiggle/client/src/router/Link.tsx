@@ -7,7 +7,7 @@ export default function Link(props: {
     return (
         <a
             href={props.to}
-            onclick={(e: Event) => {
+            onClick={(e: Event) => {
                 e.preventDefault()
                 navigate(props.to)
             }}
