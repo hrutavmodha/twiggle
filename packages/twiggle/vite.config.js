@@ -14,7 +14,7 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
-            '@jsx': join(__dirname, 'src', 'jsx')
+            '@jsx': join(__dirname, 'client', 'src', 'jsx')
         }
     },
     esbuild: {
@@ -23,7 +23,7 @@ export default defineConfig({
     },
     build: {
         lib: {
-            entry: 'src/index.ts',
+            entry: 'client/index.ts',
             name: 'twiggle',
             formats: [
                 'es',

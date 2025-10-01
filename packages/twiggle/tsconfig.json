@@ -11,7 +11,7 @@
         "strict": true,
         "baseUrl": ".",
         "jsx": "react-jsx",
-        "jsxImportSource": "src/jsx",
+        "jsxImportSource": "client/src/jsx",
         "verbatimModuleSyntax": true,
         "isolatedModules": true,
         "noUncheckedSideEffectImports": true,

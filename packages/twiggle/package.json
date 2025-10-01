@@ -1,7 +1,7 @@
 {
     "name": "twiggle",
     "version": "1.1.2",
-    "main": "./src/index.ts",
+    "main": "./client/index.ts",
     "type": "module",
     "author": "Hrutav Modha",
     "maintainers": [
