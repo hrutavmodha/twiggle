@@ -8,7 +8,7 @@
         "Hrutav Modha"
     ],
     "files": [
-        "./dist/twiggle-es.js",
+        "./dist",
         "./package.json",
         "./README.md"
     ],
@@ -20,18 +20,23 @@
     ],
     "exports": {
         ".": {
-            "import": "./dist/twiggle-es.js"
+            "import": "./dist/index.js"
         }
     },
     "scripts": {
         "start": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "test": "vitest",
+        "test:ui": "vitest --ui"
     },
     "license": "MIT",
     "devDependencies": {
         "@types/babel__helper-plugin-utils": "^7.10.3",
         "@types/node": "^24.5.2",
+        "@vitest/ui": "^1.6.0",
+        "jsdom": "^27.0.0",
         "typescript": "^5.9.2",
-        "vite": "^7.1.7"
+        "vite": "^7.1.7",
+        "vitest": "^1.6.0"
     }
 }

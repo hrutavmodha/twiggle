@@ -2,6 +2,7 @@
     "compilerOptions": {
         "module": "es2015",
         "target": "esnext",
+        "outDir": "dist",
         "types": [],
         "sourceMap": true,
         "declaration": true,
@@ -17,6 +18,12 @@
         "noUncheckedSideEffectImports": true,
         "moduleResolution": "bundler",
         "moduleDetection": "force",
-        "skipLibCheck": true,
-    }
+        "skipLibCheck": true
+    },
+    "exclude": [
+        "client/src/example",
+        "client/**/*.{jsx,tsx,js}",
+        "client/tests",
+        "server/tests"
+    ]
 }

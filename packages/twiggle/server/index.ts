@@ -1,1 +1,1 @@
-export { default as renderToString } from './renderToString'
+export * from './src/index'
