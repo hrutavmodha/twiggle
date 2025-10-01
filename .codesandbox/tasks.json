@@ -1,0 +1,15 @@
+{
+  "setup": {
+    "name": "Install Dependencies",
+    "command": "npm install"
+  },
+  "start": {
+    "name": "Start Dev Server",
+    "command": "npm run start -w twiggle",
+    "runAtStart": true,
+    "preview": {
+      "port": 5173,
+      "open": true
+    }
+  }
+}
