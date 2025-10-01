@@ -8,7 +8,7 @@ import { createRequire } from 'module'
 
 const require = createRequire(import.meta.url)
 const _mod = require('vite-plugin-twiggle')
-let twigglePlugin = null
+let twigglePlugin: any = null
 
 if (typeof _mod === 'function') {
     twigglePlugin = _mod
