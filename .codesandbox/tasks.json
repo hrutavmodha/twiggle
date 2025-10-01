@@ -4,12 +4,14 @@
     "command": "npm install"
   },
   "start": {
-    "name": "Start Dev Server",
-    "command": "npm run start -w twiggle",
+    "name": "Start Playground Dev Server",
+    "command": "npm run dev",
     "runAtStart": true,
     "preview": {
       "port": 5173,
-      "open": true
-    }
+      "open": true,
+      "manager": "web"
+    },
+    "workingDirectory": "playground"
   }
 }
