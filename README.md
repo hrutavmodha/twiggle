@@ -4,11 +4,11 @@ Tiny, focused front-end primitives: a custom JSX runtime, minimal DOM renderer, 
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
 [![Version](https://img.shields.io/badge/version-1.1.1-brightgreen)](https://www.npmjs.com/package/twiggle)
-[![Bundle Size](https://img.shields.io/bundlephobia/minzip/twiggle)](#)
 
 > **Note:** Twiggle is currently in its early stage and should not be used in the production apps.
 
-Maintainer: Hrutav Modha · License: MIT
+Maintainer: Hrutav Modha
+License: MIT
 
 ---
 
@@ -42,7 +42,6 @@ Twiggle is intentionally minimal. It focuses on clarity and a small runtime surf
 Design principles:
 
 - Minimal and transparent (small, well-commented code).
-- No virtual DOM — we work with real DOM nodes and fragments.
 - Simple reactivity — explicit effect tracking and subscription.
 - Works with modern tooling via a small Vite plugin.
 
@@ -50,7 +49,7 @@ Design principles:
 
 ## Installation
 
-Install from npm (when published):
+Install from npm:
 
 ```bash
 npm install twiggle
