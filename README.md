@@ -1,189 +1,149 @@
-# Twiggle — Tiny front-end primitives (monorepo)
+# Twiggle
 
-A small, focused collection of front-end primitives for building tiny component-based apps with a custom JSX runtime, minimal renderer, router, and reactive state system.
+Tiny, focused front-end primitives: a custom JSX runtime, minimal DOM renderer, a tiny router, and a reactive state primitive.
 
-This repository is a monorepo (workspace) containing:
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
+[![Version](https://img.shields.io/badge/version-1.1.1-brightgreen)](https://www.npmjs.com/package/twiggle)
+[![Bundle Size](https://img.shields.io/bundlephobia/minzip/twiggle)](#)
 
-- `packages/twiggle` — the core library (JSX runtime, renderer, router, state).
-- `packages/vite-plugin-twiggle` — a Vite/Rollup plugin that compiles JSX to use Twiggle's runtime and applies a small Babel plugin for reactive expressions.
+> **Note:** Twiggle is currently in its early stage and should not be used in the production apps.
 
-Author: Hrutav Modha
-License: MIT
-
----
-
-## Why Twiggle?
-
-Twiggle is intentionally minimal. It provides a tiny, dependency-free set of building blocks for rendering DOM nodes, writing function components with a custom JSX runtime, routing, and a simple reactive state API. It's ideal for learning, tiny demos, playgrounds, or embedding in projects that need a very small runtime surface area.
-
-Goals:
-
-- Understandable source and small footprint.
-- Zero virtual DOM — direct DOM manipulation through a simple renderer.
-- A minimal reactive state primitive with subscriber tracking.
-- A small router for single-page apps.
-- Integration with modern tooling via a Vite plugin.
+Maintainer: Hrutav Modha · License: MIT
 
 ---
 
-## Packages
+## Table of contents
 
-Root workspace: `twiggle-monorepo` (see `package.json`)
-
-Primary published package: `twiggle` (located at `packages/twiggle`).
-
-Key files and exports (from `packages/twiggle`):
-
-- `src/index.ts` — aggregate exports: renderer, router, state, jsx.
-- `src/renderer` — `createElement`, `render`, and helpers.
-- `src/router` — `navigate`, `setRoutes`, `Routes`, `Route`, `Link`.
-- `src/state` — `createState`, `runSideEffect`.
-- `src/jsx/*` — custom JSX runtime files (JSX dev/runtime wrappers and types).
-
-Vite plugin: `packages/vite-plugin-twiggle` — a plugin which configures Babel to transform JSX to use `twiggle/jsx` as the import source and runs a custom Babel plugin for reactive expressions.
-
----
-
-## Quick Start (Local dev)
-
-This repository uses Yarn/NPM workspaces. From the monorepo root you can run the regular scripts inside `packages/twiggle` when developing that package.
-
-Install dependencies (mono-repo root):
-
-```bash
-# If you use npm (v7+ workspaces) or yarn
-npm install
-# or
-# yarn
-```
-
-Open the example dev server for the `twiggle` package:
-
-```bash
-cd packages/twiggle
-npm run start
-```
-
-Available package scripts (from `packages/twiggle/package.json`):
-
-- `start` — run Vite dev server.
-- `build` — build for production (Vite build).
-- `test` — run unit tests via Vitest.
-- `test:ui` — run Vitest with UI.
+- [Why Twiggle](#why-twiggle)
+- [Installation](#installation)
+- [Quick start](#quick-start)
+- [Core concepts](#core-concepts)
+  - [JSX & createElement](#jsx--createelement)
+  - [Renderer](#renderer)
+  - [State primitive](#state-primitive)
+  - [Router](#router)
+- [Vite plugin](#vite-plugin)
+- [API reference](#api-reference)
+- [Development](#development)
+- [Contributing](#contributing)
+- [FAQ](#faq)
+- [License](#license)
 
 ---
 
-## Installing the package
+## Why Twiggle
 
-If you want to use the published package (when published to npm):
+Twiggle is intentionally minimal. It focuses on clarity and a small runtime surface for use-cases like:
+
+- Learning how frameworks work under the hood.
+- Small demos, playgrounds, documentation sites.
+- Projects that prefer direct DOM manipulation and minimal dependencies.
+
+Design principles:
+
+- Minimal and transparent (small, well-commented code).
+- No virtual DOM — we work with real DOM nodes and fragments.
+- Simple reactivity — explicit effect tracking and subscription.
+- Works with modern tooling via a small Vite plugin.
+
+---
+
+## Installation
+
+Install from npm (when published):
 
 ```bash
 npm install twiggle
 ```
 
-Or, to use the local package in another local project with npm link or via a workspace, reference the package path or add the monorepo workspace.
+Or use the package from the monorepo during local development (root of workspace):
+
+```bash
+npm install
+cd packages/twiggle
+npm run start
+```
+
+Available scripts (in `packages/twiggle/package.json`):
+
+- `start` — start Vite dev server
+- `build` — run Vite build
+- `test` — run Vitest
+- `test:ui` — run Vitest UI
 
 ---
 
-## Basic usage examples
+## Quick start
 
-Note: Twiggle exposes a small runtime for JSX and DOM creation. The examples below show the common patterns used in the `packages/twiggle` example app.
-
-### Rendering a simple component
-
-The renderer expects DOM nodes (or fragments) created by the `createElement` function (the JSX transform will call this automatically when you use JS/TSX).
+Minimal example (TypeScript / TSX):
 
 ```tsx
-import { render } from 'twiggle'
-import App from './pages/App'
+/** src/main.tsx */
+import render from 'twiggle'
+import Home from './pages/Home'
 
-const root = document.getElementById('root') as HTMLDivElement
+const root = document.getElementById('root')!
 render(<Home />, root)
 ```
 
-### Function components and createElement
-
-Twiggle's `createElement` supports:
-
-- string tag names (e.g. `'div'`) — creates DOM elements and applies props/children
-- `Fragment` — returns a `DocumentFragment`
-- function components — the function is called with `props` and should return a DOM node or fragment
-
-Example function component (JSX):
+Function component example:
 
 ```tsx
 function Greeting(props: { name: string }) {
   return <div>Hello, {props.name}!</div>
 }
 
-// Render
 render(<Greeting name="Alice" />, document.getElementById('root'))
 ```
 
-### Router (basic)
+Note: The JSX transform must target Twiggle's runtime (see Vite plugin section) or you can import the runtime directly in your build config.
 
-Twiggle provides a tiny router with `Routes`, `Route`, and `Link` helpers plus a `navigate` function.
+---
 
-Important note: `Route` in Twiggle accepts an `element` prop that is a function returning the rendered element. `Routes` collects the `Route` children and registers them via `setRoutes`.
+## Core concepts
 
-Example:
+### JSX & createElement
 
-```tsx
-import { 
-  Routes,
-  Route,
-  Link,
-  navigate
-} from 'twiggle'
+Twiggle implements a small JSX runtime. When JSX is compiled it calls `createElement(type, props)`. Supported `type` values:
 
-function Home() { 
-  return <div>Home</div> 
-}
-function About() { 
-  return <div>About</div> 
-}
+- string tag (e.g. `'div'`) — creates a DOM element and applies props/children
+- `'Fragment'` — returns a `DocumentFragment`
+- function component — `type(props)` is invoked and must return a DOM node or fragment
 
-// Register routes (JSX example inside an entry point)
-<Routes>
-  <Route to="/" element={() => <Home />} />
-  <Route to="/about" element={() => <About />} />
-</Routes>
+Props convention:
 
-// Use Links
-<Link to="/about">About</Link>
+- `children` may be string, number, element, array of elements
+- DOM event handlers use lowercase names (e.g. `onclick`, not `onClick`)
 
-// Programmatic navigation
-navigate('/about')
-```
+### Renderer
 
-Router internals:
+`render(element, parent)` mounts a DOM node or fragment to the `parent` node. The current implementation clears `parent.innerHTML` and appends the element. This is intentionally simple to keep the runtime small.
 
-- `navigate(to: string)` — updates history and renders the route.
-- `setRoutes(routes)` — internal function called by `Routes` to set the routing table.
-- `Routes(props)` — a helper component: it inspects `props.children`, maps `to` -> `element` and calls `setRoutes`.
-- `Route({ to, element })` — returns a plain object used by `Routes`.
-- `Link({ to, children })` — renders an `<a>` that prevents default and calls `navigate`.
+### State primitive
 
-### State (reactive primitive)
+API:
 
-Twiggle's state system is intentionally tiny. It supports basic subscriptions via an effect stack.
+- `createState<T>(initial)` — returns `{ get: () => T, set: (v: T) => void }`
+- `runSideEffect(fn)` — runs `fn` and tracks any `get()` calls performed during the execution. When a tracked state updates, the effect is re-run.
 
-- `createState<T>(initialValue)` — returns `{ get: () => T, set: (newValue: T) => void }`.
-- `runSideEffect(fn: () => void)` — runs `fn` and tracks reads to `createState().get()` while executing. When a state used by a tracked effect is updated, the effect is re-run.
+This is a minimal reactive system built around an effect stack and per-state subscriber lists. It is not a full reactive framework but is tiny and easy to reason about.
 
 Example counter:
 
 ```tsx
-import { createState, runSideEffect } from 'twiggle/state/state'
+import { 
+  createState, 
+  runSideEffect 
+} from 'twiggle'
 
 const counter = createState(0)
 
-function Counter() {
-  // an effect that depends on counter.get()
+export default function Counter() {
   runSideEffect(() => {
+    // reads counter.get() to subscribe
     const value = counter.get()
-    // This effect will re-run whenever `counter.set` changes the value
-    console.log('counter is now', value)
+    // re-run when counter.set is called
+    console.log('counter', value)
   })
 
   return (
@@ -195,43 +155,35 @@ function Counter() {
 }
 ```
 
-Note: To update the UI when state changes, structure your components to re-run `runSideEffect` while reading `state.get()` so that the effect is subscribed.
+### Router
 
----
+Twiggle ships a tiny client-side router built on the History API.
 
-## API Reference (concise)
+Components and functions:
 
-From `packages/twiggle` exports (see `src/index.ts` which re-exports modules):
+- `Routes` — collects `Route` children and registers them via `setRoutes`
+- `Route({ to, element })` — lightweight route descriptor; `element` is a function that returns the element to render
+- `Link({ to, children })` — anchor element that prevents default navigation and calls `navigate`
+- `navigate(to)` — programmatic navigation; pushes a new history entry and renders the route
 
-Renderer
+Example:
 
-- `createElement(type, props)` — internal JSX runtime entry. `type` may be a string tag, `'Fragment'`, or a function component. `props.children` may be strings, numbers, arrays, or other elements.
-- `render(element, parent)` — mounts a DOM node or fragment to `parent` (clears `parent.innerHTML` and appends the element).
+```tsx
+<Routes>
+  <Route to="/" element={() => <Home />} />
+  <Route to="/about" element={() => <About />} />
+</Routes>
 
-Router
-
-- `navigate(to: string)` — push new history entry and render the route.
-- `setRoutes(routes)` — set internal routing table (used by `Routes`).
-- `Routes(props)` — JSX helper to collect `Route` children and register them.
-- `Route({ to, element })` — returns an object with `to` and `element` keys (intended to be used as a child of `Routes`).
-- `Link({ to, children })` — anchor element that uses `navigate` under the hood.
-
-State
-
-- `createState<T>(initial: T)` — returns `{ get: () => T, set: (newVal: T) => void }`.
-- `runSideEffect(fn: () => void)` — runs and tracks the effect; re-runs when tracked state values change.
-
-JSX Runtime
-
-- The repository contains custom `jsx-runtime` and `jsx-dev-runtime` files configured to be used as an import source for JSX (see Vite plugin section below).
+<Link to="/about">About</Link>
+```
 
 ---
 
 ## Vite plugin
 
-`packages/vite-plugin-twiggle` provides a plugin that transforms JS/TS/JSX/TSX files via Babel and sets the JSX runtime to use Twiggle's custom JSX source.
+Use the official Vite plugin in this monorepo to compile JSX for Twiggle and enable reactive transforms.
 
-Typical usage in `vite.config.js`:
+Install and add to `vite.config.js`:
 
 ```js
 import { defineConfig } from 'vite'
@@ -242,48 +194,107 @@ export default defineConfig({
 })
 ```
 
-The plugin configures Babel to use `@babel/preset-react` with `runtime: 'automatic'` and `importSource: 'twiggle/jsx'`. It also runs a small custom Babel plugin shipped in `packages/vite-plugin-twiggle/src/babel-plugin-twiggle-jsx.ts` for reactive expression transforms.
+What the plugin does:
+
+- Runs Babel to transform JSX using `@babel/preset-react` configured with `runtime: 'automatic'` and `importSource: 'twiggle/jsx'`.
+- Applies a small custom Babel plugin bundled in `packages/vite-plugin-twiggle` to support reactive expression transforms used by Twiggle's runtime.
+
+If you don't use the plugin, ensure your JSX compiler targets the Twiggle runtime or import the proper runtime functions directly.
 
 ---
 
-## Development notes
+## API reference
 
-- Code is authored in TypeScript and uses Vite for development in the `packages/twiggle` package.
-- Tests are configured with Vitest. Run `npm run test` in the package directory.
-- The JSX runtime is intentionally small; if you change its shape, update the Vite plugin `importSource` accordingly.
+Renderer
 
-Quality gates (when contributing):
+- `createElement(type, props)` — internal JSX entry point.
+- `render(element: HTMLElement | DocumentFragment, parent: HTMLElement): void` — mount node to parent.
 
-- Build passes: `cd packages/twiggle && npm run build`
-- Tests pass: `cd packages/twiggle && npm run test`
-- Linting/typing: add TypeScript checks as needed (this project includes `tsconfig.json`).
+Router
+
+- `navigate(to: string): void`
+- `setRoutes(routes: Record<string, () => HTMLElement>): void` — internal
+- `Routes(props: { children: any[] }): null`
+- `Route(props: { to: string, element: () => HTMLElement }): any`
+- `Link(props: { to: string, children: any }): HTMLElement`
+
+State
+
+- `createState<T>(value: T): { get: () => T; set: (v: T) => void }`
+- `runSideEffect(fn: () => void): void`
+
+See the `src` folder for implementation details and comments.
+
+---
+
+## Development
+
+Clone and install dependencies from the monorepo root:
+
+```bash
+git clone https://github.com/hrutavmodha/twiggle.git
+npm install
+```
+
+Run the example/dev server for the `twiggle` package:
+
+```bash
+cd packages/twiggle
+npm run start
+```
+
+Build the package:
+
+```bash
+cd packages/twiggle
+npm run build
+```
+
+Run tests:
+
+```bash
+cd packages/twiggle
+npm run test
+```
+
+Quality checks you should run before opening a PR:
+
+- Build: `npm run build`
+- Tests: `npm run test`
+- Type checks (optional): `tsc --noEmit` from the package directory
 
 ---
 
 ## Contributing
 
-Contributions are welcome. Please follow the repository's contribution guidelines:
+Contributions are welcome. Please follow these guidelines:
 
-1. Fork the repository and create a feature branch.
-2. Keep changes small and focused; add tests for new behavior.
-3. Open a PR with a clear description and motivation.
+1. Fork the repo and create a descriptive branch name.
+2. Keep changes small and focused. Add tests where applicable.
+3. Run the test suite and ensure the build passes.
+4. Open a pull request describing the problem, approach, and any migration notes.
 
-See `CONTRIBUTING.md` for more details.
+See `CONTRIBUTING.md` for the project's broader contribution rules.
+
+---
+
+## FAQ
+
+1. Is Twiggle a full framework?
+
+  No. Twiggle is a tiny set of primitives meant for learning, demos, and small apps. 
+It lacks many features of full frameworks (advanced component lifecycles, SSR, etc.)
+
+2. Can I use Twiggle in production?
+
+  You can, but consider the tradeoffs (small feature set, simpler reactivity). For production apps that need scaling, a more feature-complete framework is recommended.
 
 ---
 
 ## License
 
-This project is licensed under the MIT License — see the `LICENSE` file.
+MIT — see the `LICENSE` file for details.
 
 ---
 
-## Contact / Maintainers
-
-Maintainer: Hrutav Modha
-
-If you discover bugs or have feature requests, please open an issue in this repository.
-
----
-
-Thank you for checking out Twiggle!
+Maintainer: Hrutav Modha — please open issues for bugs or feature requests.
