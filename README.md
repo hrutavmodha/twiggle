@@ -8,6 +8,7 @@ Tiny, focused front-end primitives: a custom JSX runtime, minimal DOM renderer, 
 > **Note:** Twiggle is currently in its early stage and should not be used in the production apps.
 
 Maintainer: Hrutav Modha
+
 License: MIT
 
 ---
