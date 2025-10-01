@@ -2,8 +2,8 @@
     "name": "vite-plugin-twiggle",
     "version": "1.0.0",
     "description": "The Vite Plugin for Runtime of Twiggle",
-    "main": "./dist/index.js",
-    "type": "module",
+    "main": "./dist/index.cjs",
+    "type": "commonjs",
     "keywords": [
         "vite",
         "twiggle-plugin",
@@ -21,12 +21,9 @@
     ],
     "license": "MIT",
     "devDependencies": {
-        "@babel/core": "^7.24.0",
         "@babel/generator": "^7.28.3",
         "@babel/helper-plugin-utils": "^7.27.1",
         "@babel/plugin-transform-react-jsx": "^7.23.4",
-        "@babel/preset-react": "^7.27.1",
-        "@babel/preset-typescript": "^7.27.1",
         "@babel/traverse": "^7.28.4",
         "@babel/types": "^7.28.4",
         "@types/babel__generator": "^7.27.0",
@@ -35,12 +32,23 @@
         "typescript": "^5.9.2"
     },
     "scripts": {
-        "build": "esbuild src/index.ts --bundle --platform=node --format=esm --outfile=dist/index.js"
+        "build": "esbuild src/index.ts --bundle --platform=node --format=cjs --outfile=dist/index.cjs --external:@babel/core --external:@babel/preset-react --external:@babel/preset-typescript",
+        "prepare": "npm run build",
+        "prepublishOnly": "npm run build"
+    },
+    "exports": {
+        ".": {
+            "require": "./dist/index.cjs",
+            "import": "./dist/index.cjs"
+        }
     },
     "peerDependencies": {
         "vite": "^7.1.7"
     },
     "dependencies": {
+        "@babel/core": "^7.24.0",
+        "@babel/preset-react": "^7.27.1",
+        "@babel/preset-typescript": "^7.27.1",
         "@babel/parser": "^7.28.4",
         "@rollup/pluginutils": "^5.3.0"
     }
