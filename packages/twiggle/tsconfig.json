@@ -2,7 +2,6 @@
     "compilerOptions": {
         "module": "es2020",
         "target": "esnext",
-        "outDir": "dist",
         "types": [],
         "sourceMap": true,
         "declaration": true,
@@ -20,9 +19,4 @@
         "moduleDetection": "force",
         "skipLibCheck": true
     },
-    "exclude": [
-        "client/**/*.{jsx,tsx,js}",
-        "client/tests",
-        "server/tests"
-    ]
 }

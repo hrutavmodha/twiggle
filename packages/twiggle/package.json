@@ -19,13 +19,23 @@
         "state management"
     ],
     "exports": {
-        ".": {
-            "import": "./dist/twiggle-es.js"
+        "./client": {
+            "import": "./dist/client/twiggle-es.js"
+        },
+        "./jsx-runtime": { 
+            "import": "./dist/client/twiggle-es.js"
+        },
+        "./jsx-dev-runtime": {
+            "import": "./dist/client/twiggle-es.js"
+        },
+        "./server": {
+            "import": "./dist/server/twiggle-es.js"
         }
     },
     "scripts": {
         "start": "vite",
-        "build": "vite build",
+        "build:client": "vite build --config vite.config.client.js",
+        "build:server": "vite build --config vite.config.server.js",
         "test": "vitest",
         "test:ui": "vitest --ui"
     },
