@@ -3,8 +3,24 @@ import {
     dirname,
     join
 } from 'path'
-import { fileURLToPath } from 'url' 
-import twigglePlugin from 'vite-plugin-twiggle'
+import { fileURLToPath } from 'url'
+import { createRequire } from 'module'
+
+// Load the plugin in a way that works for both CJS and ESM builds of the plugin.
+const require = createRequire(import.meta.url)
+const _mod = require('vite-plugin-twiggle')
+let twigglePlugin = null
+if (typeof _mod === 'function') {
+    twigglePlugin = _mod
+} else if (_mod && typeof _mod.default === 'function') {
+    twigglePlugin = _mod.default
+} else if (_mod && _mod.__esModule && typeof _mod.default === 'function') {
+    twigglePlugin = _mod.default
+}
+
+if (typeof twigglePlugin !== 'function') {
+    throw new Error(`vite-plugin-twiggle did not export a plugin function. Imported value keys: ${_mod ? Object.keys(_mod).join(',') : 'null'}`)
+}
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
