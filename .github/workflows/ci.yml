@@ -16,6 +16,8 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm install
+      - name: Build vite-plugin-twiggle
+        run: npm run build --workspace=vite-plugin-twiggle
       - name: Build
         run: npm run build --workspace=twiggle
       - name: Test
