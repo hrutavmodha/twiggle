@@ -3,6 +3,7 @@
     "container": {
         "node": "22"
     },
+    "entry": "playground",
     "tasks": {
         "dev": {
             "command": "npx vite",
