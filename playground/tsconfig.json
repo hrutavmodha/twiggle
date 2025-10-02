@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "module": "es2022",
+    "target": "esnext",
+    "types": [],
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "strict": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "../packages/twiggle/client/src/jsx",
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "moduleResolution": "bundler",
+    "skipLibCheck": true,
+  }
+}

@@ -35,6 +35,9 @@
         },
         "./server": {
             "import": "./dist/server/twiggle-es.js"
+        },
+        "./types": {
+            "import": "./types"
         }
     },
     "scripts": {

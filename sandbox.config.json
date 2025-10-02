@@ -1,0 +1,16 @@
+{
+    "template": "node",
+    "container": {
+        "node": "22"
+    },
+    "tasks": {
+        "dev": {
+            "command": "npx vite",
+            "runAtStart": true,
+            "preview": {
+                "port": 5173,
+                "open": true
+            }
+        }
+    }
+}
