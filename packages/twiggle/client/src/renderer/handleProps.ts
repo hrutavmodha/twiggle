@@ -11,7 +11,7 @@ export default function handleProps(
     element = element as HTMLElement
     for (let key in props) {
         if (key.startsWith('on')) {
-            element.addEventListener(key.substring(2), props[key])
+            element.addEventListener(key.substring(2).toLowerCase(), props[key])
         }
         else if (key === 'children') {
             handleChildren(element, props[key])
