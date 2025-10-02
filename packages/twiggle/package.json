@@ -1,14 +1,16 @@
 {
     "name": "twiggle",
-    "version": "1.1.4",
-    "main": "./client/index.ts",
+    "version": "1.1.5",
+    "main": "./dist/index.js",
     "type": "module",
     "author": "Hrutav Modha",
     "maintainers": [
         "Hrutav Modha"
     ],
+    "types": "./types",
     "files": [
         "./dist",
+        "./types",
         "./package.json",
         "./README.md"
     ],
@@ -19,6 +21,9 @@
         "state management"
     ],
     "exports": {
+        ".": {
+            "import": "./dist/index.js"
+        },
         "./client": {
             "import": "./dist/client/twiggle-es.js"
         },
@@ -36,7 +41,7 @@
         "start": "vite",
         "build:client": "vite build --config vite.config.client.js",
         "build:server": "vite build --config vite.config.server.js",
-        "build": "npm run build:client && npm run build:server && printf \"export * from './client/twiggle-es.js';\\nexport * from './server/twiggle-es.js';\\n\" > dist/index.js",
+        "build": "sh ./build.sh",
         "test": "vitest",
         "test:ui": "vitest --ui"
     },

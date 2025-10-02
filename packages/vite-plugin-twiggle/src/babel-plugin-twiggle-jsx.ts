@@ -1,9 +1,10 @@
 import * as t from '@babel/types';
 import { declare } from '@babel/helper-plugin-utils';
 
-// Helper function to check for expressions like `state.get()`
-function isStateGetCall(node) {
-  if (!t.isCallExpression(node)) return false;
+function isStateGetCall(node: any) {
+  if (!t.isCallExpression(node)) {
+    return false;
+  }
   const callee = node.callee;
   return t.isMemberExpression(callee) && t.isIdentifier(callee.property) && callee.property.name === 'get';
 }
@@ -16,8 +17,6 @@ export default declare((api) => {
     visitor: {
       CallExpression(path) {
         const callee = path.node.callee;
-
-        // Check if this is a jsx() or jsxDEV() call
         let isJsxCall = false;
         if (t.isIdentifier(callee) && (callee.name === 'jsxDEV' || callee.name === 'jsx')) {
           isJsxCall = true;
@@ -25,34 +24,28 @@ export default declare((api) => {
           isJsxCall = true;
         }
 
-        if (!isJsxCall) return;
-
+        if (!isJsxCall) {
+          return
+        };
         const props = path.node.arguments[1];
-
         if (t.isObjectExpression(props)) {
           props.properties.forEach((prop) => {
             if (!t.isObjectProperty(prop)) return;
-
-            // Handle the 'children' prop specifically
             if (t.isIdentifier(prop.key) && prop.key.name === 'children') {
               const children = prop.value;
-
-              // Case: <p>{state.get()}</p>
               if (isStateGetCall(children)) {
-                prop.value = t.arrowFunctionExpression([], children);
+                prop.value = t.arrowFunctionExpression([], children as any);
               }
-              // Case: <p>Hello {state.get()}</p>
               else if (t.isArrayExpression(children)) {
                 children.elements.forEach((child, index) => {
                   if (isStateGetCall(child)) {
-                    children.elements[index] = t.arrowFunctionExpression([], child);
+                    children.elements[index] = t.arrowFunctionExpression([], child as any);
                   }
                 });
               }
             }
-            // Handle all other props
             else if (isStateGetCall(prop.value)) {
-              prop.value = t.arrowFunctionExpression([], prop.value);
+              prop.value = t.arrowFunctionExpression([], prop.value as any);
             }
           });
         }

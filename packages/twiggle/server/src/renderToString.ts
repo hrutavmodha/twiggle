@@ -40,8 +40,6 @@ export default function renderToString(element: any): string {
         return `<${type}${renderProps(props)} />`
     }
     else {
-        return `<${type}${renderProps(props)}>
-            ${children}
-        </${type}>`
+        return `<${type}${renderProps(props)}>${children}</${type}>`
     }
 }
