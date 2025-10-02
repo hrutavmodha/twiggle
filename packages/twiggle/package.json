@@ -1,13 +1,13 @@
 {
     "name": "twiggle",
-    "version": "1.1.5",
+    "version": "1.1.7",
     "main": "./dist/index.js",
     "type": "module",
     "author": "Hrutav Modha",
     "maintainers": [
         "Hrutav Modha"
     ],
-    "types": "./types",
+    "types": "./types/twiggle.d.ts",
     "files": [
         "./dist",
         "./types",
@@ -22,29 +22,23 @@
     ],
     "exports": {
         ".": {
-            "import": "./dist/index.js"
-        },
-        "./client": {
-            "import": "./dist/client/twiggle-es.js"
+            "import": "./dist/index.js",
+            "types": "./types/twiggle.d.ts"
         },
         "./jsx-runtime": {
-            "import": "./dist/client/twiggle-es.js"
+            "import": "./dist/client/twiggle-es.js",
+            "types": "./types/jsx.d.ts"
         },
         "./jsx-dev-runtime": {
-            "import": "./dist/client/twiggle-es.js"
-        },
-        "./server": {
-            "import": "./dist/server/twiggle-es.js"
-        },
-        "./types": {
-            "import": "./types"
+            "import": "./dist/client/twiggle-es.js",
+            "types": "./types/jsx.d.ts"
         }
     },
     "scripts": {
         "start": "vite",
         "build:client": "vite build --config vite.config.client.js",
         "build:server": "vite build --config vite.config.server.js",
-        "build": "sh ./build.sh",
+        "build": "npm run build:client && npm run build:server && printf \"export * from './client/twiggle-es.js'\\nexport * from './server/twiggle-es.js'\\n\" > dist/index.js && echo \"Build successfully\"",
         "test": "vitest",
         "test:ui": "vitest --ui"
     },

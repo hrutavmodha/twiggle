@@ -1,8 +1,8 @@
 {
     "name": "vite-plugin-twiggle",
-    "version": "1.0.0",
+    "version": "1.0.5",
     "description": "The Vite Plugin for Runtime of Twiggle",
-    "main": "./dist/index.cjs",
+    "main": "./dist/index.js",
     "type": "module",
     "keywords": [
         "vite",
@@ -32,22 +32,23 @@
         "typescript": "^5.9.2"
     },
     "scripts": {
-        "build": "esbuild src/index.ts --bundle --platform=node --format=esm --outfile=dist/index.js --external:@babel/core --external:@babel/preset-react --external:@babel/preset-typescript"
+        "build": "esbuild src/index.ts --bundle --platform=node --format=esm --outfile=dist/index.js --external:@babel/core --external:@babel/parser --external:@babel/preset-react --external:@babel/preset-typescript --external:@rollup/pluginutils && tsc --emitDeclarationOnly"
     },
     "exports": {
         ".": {
-            "require": "./dist/index.cjs",
-            "import": "./dist/index.cjs"
+            "import": "./dist/index.js",
+            "types": "./dist/index.d.ts"
         }
     },
     "peerDependencies": {
-        "vite": "^7.1.7"
+        "vite": "^7.1.8"
     },
     "dependencies": {
         "@babel/core": "^7.24.0",
+        "@babel/parser": "^7.28.4",
         "@babel/preset-react": "^7.27.1",
         "@babel/preset-typescript": "^7.27.1",
-        "@babel/parser": "^7.28.4",
-        "@rollup/pluginutils": "^5.3.0"
+        "@rollup/pluginutils": "^5.3.0",
+        "@types/node": "^24.6.2"
     }
 }

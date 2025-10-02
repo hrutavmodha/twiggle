@@ -1,16 +1,10 @@
-
 declare namespace JSX {
     type Element = string;
     interface ElementAttributesProperty { props: {}; }
     interface ElementChildrenAttribute { children: {}; }
-
-    // IntrinsicElements will be extended by specific HTML and SVG elements
     interface IntrinsicElements {
-        // Allow any custom element with any props for now, but specific elements will override this.
         [tagName: string]: any;
     }
-
-    // --- DOM Attributes ---
     interface DOMAttributes<T> {
         children?: any;
         dangerouslySetInnerHTML?: {
