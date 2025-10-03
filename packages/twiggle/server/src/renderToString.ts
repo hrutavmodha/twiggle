@@ -1,6 +1,6 @@
 import renderProps from './utils/renderProps';
 
-function _renderToString(element: any, context: any): string {
+function renderElement(element: any, context: any): string {
     if (typeof element === 'string' || typeof element === 'number') {
         return String(element);
     }
@@ -8,17 +8,18 @@ function _renderToString(element: any, context: any): string {
         return '';
     }
     if (Array.isArray(element)) {
-        return element.map((el) => _renderToString(el, context)).join('');
+        return element.map((el) => renderElement(el, context)).join('');
     }
     if (typeof element === 'function') {
-        return _renderToString(element(), context);
+        return renderElement(element(), context);
     }
     const { type, props } = element;
+    console.log('type:', type, 'props:', props);
     if (typeof type === 'function') {
-        return _renderToString(type(props), context);
+        return renderElement(type(props), context);
     }
 
-    const children = props.children ? _renderToString(props.children, context) : '';
+    const children = props.children ? renderElement(props.children, context) : '';
     const selfClosingTags = [
         'area',
         'base',
@@ -49,7 +50,7 @@ export default function renderToString(element: any): { html: string; script: st
         eventIdCounter: 0,
     };
 
-    const html = _renderToString(element, context);
+    const html = renderElement(element, context);
 
     let script = '<script>\n';
     script += 'document.addEventListener("DOMContentLoaded", () => {\n';
