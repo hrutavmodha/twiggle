@@ -1,7 +1,12 @@
 import renderToString from '../renderToString'
-export { Fragment } from './jsx-runtime'
 
-export function jsxDEV(type: any, props: any): string {
+export function jsxDEV(type: any, props: any) {
     const vdom = { type, props: props || {} }
     return renderToString(vdom)
 }
+
+export {
+    jsx,
+    jsxs,
+    Fragment
+} from './jsx-runtime'
