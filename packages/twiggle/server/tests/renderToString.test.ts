@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import renderToString from '../src/renderToString';
+import renderToString from '../src/renderToString/renderToString';
 
 describe('renderToString', () => {
     it('should be a function', () => {
