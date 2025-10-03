@@ -1,4 +1,4 @@
-import renderProps from '../utils/renderProps';
+import renderProps from './renderProps';
 
 function renderElement(element: any, context: any): string {
     if (typeof element === 'string' || typeof element === 'number') {
