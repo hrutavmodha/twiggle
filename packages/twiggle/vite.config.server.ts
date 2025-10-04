@@ -1,12 +1,12 @@
 import { defineConfig } from 'vite'
 import { join } from 'path'
-import { __dirname } from './constants'
+import { __dirname } from '../constants'
 
 export default defineConfig({
     resolve: {
         alias: {
-            '@jsx': join(__dirname, 'server', 'src', 'jsx'),
-            '@server': join(__dirname, 'server')
+            '@jsx': join(__dirname, 'twiggle', 'server', 'src', 'jsx'),
+            '@server': join(__dirname, 'twiggle','server')
         }
     },
     esbuild: {

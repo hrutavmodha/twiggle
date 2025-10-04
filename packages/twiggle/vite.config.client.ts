@@ -6,8 +6,8 @@ export default defineConfig({
     resolve: {
         alias: {
             '@jsx': join(__dirname, 'twiggle', 'client', 'src', 'jsx'),
-            '@client': join(__dirname, 'twiggle, 'client')
-        }
+            '@client': join(__dirname, 'twiggle', 'client'),
+        },
     },
     esbuild: {
         jsx: 'automatic',

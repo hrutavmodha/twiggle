@@ -1,6 +1,6 @@
 {
     "name": "twiggle",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "type": "module",
     "author": "Hrutav Modha",
     "maintainers": [
@@ -21,35 +21,35 @@
     ],
     "exports": {
         "./client": {
-            "import": "./dist/client/twiggle-es.js",
-            "types": "./types/jsx.d.ts"
+            "types": "./types/jsx.d.ts",
+            "import": "./dist/client/twiggle-es.js"
         },
         "./server": {
+            "types": "./types/twiggle.d.ts",
             "import": "./dist/server/twiggle-es.js",
-            "require": "./dist/server/twiggle-es.js",
-            "types": "./types/twiggle.d.ts"
+            "require": "./dist/server/twiggle-es.js"
         },
         "./client/jsx-runtime": {
-            "import": "./dist/client/twiggle-es.js",
-            "types": "./types/jsx.d.ts"
+            "types": "./types/jsx.d.ts",
+            "import": "./dist/client/twiggle-es.js"
         },
         "./client/jsx-dev-runtime": {
-            "import": "./dist/client/twiggle-es.js",
-            "types": "./types/jsx.d.ts"
+            "types": "./types/jsx.d.ts",
+            "import": "./dist/client/twiggle-es.js"
         },
         "./server/jsx-runtime": {
-            "import": "./dist/server/twiggle-es.js",
-            "types": "./types/jsx.d.ts"
+            "types": "./types/jsx.d.ts",
+            "import": "./dist/server/twiggle-es.js"
         },
         "./server/jsx-dev-runtime": {
-            "import": "./dist/server/twiggle-es.js",
-            "types": "./types/jsx.d.ts"
+            "types": "./types/jsx.d.ts",
+            "import": "./dist/server/twiggle-es.js"
         }
     },
     "scripts": {
         "start": "vite",
-        "build:client": "vite build --config vite.config.client.js",
-        "build:server": "vite build --config vite.config.server.js",
+        "build:client": "vite build --config vite.config.client.ts",
+        "build:server": "vite build --config vite.config.server.ts",
         "build": "npm run build:client && npm run build:server && echo \"Build successfully\"",
         "test": "vitest",
         "test:ui": "vitest --ui"
