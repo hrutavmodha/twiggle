@@ -12,7 +12,7 @@ The `vite-plugin-twiggle` is the official Vite plugin meticulously crafted to se
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [How it Works](#how-it-works)
+- [How It Works](#how-it-works)
 - [Configuration Options](#configuration-options)
 - [Troubleshooting](#troubleshooting)
 - [Development](#development)
@@ -146,7 +146,7 @@ The plugin ensures that the JSX in `App.tsx` is correctly transformed into `crea
 
 ---
 
-## How it Works
+## How It Works
 
 The `vite-plugin-twiggle` operates by hooking into Vite's transformation pipeline. When Vite processes a JavaScript or TypeScript file, the plugin steps in and applies a series of Babel transformations. This process can be broken down into several key stages:
 

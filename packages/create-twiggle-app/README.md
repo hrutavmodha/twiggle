@@ -31,7 +31,7 @@ The process of initiating a new frontend project can often be time-consuming and
 
 `create-twiggle-app` is engineered for simplicity, efficiency, and developer convenience, offering a range of features to enhance your Twiggle development workflow:
 
-*   **Rapid Project Scaffolding:** Quickly generates a new Twiggle project with an opinionated and well-structured directory layout, promoting maintainability and scalability.
+**Example End-to-End Workflow:**
 *   **Integrated Build System (Vite):** Comes pre-configured with Vite, a next-generation frontend tooling that provides an extremely fast development server with Hot Module Replacement (HMR) and highly optimized production builds.
 *   **Seamless Twiggle Plugin Integration:** Automatically sets up and configures `vite-plugin-twiggle` within your new project, ensuring that JSX syntax is correctly transformed for Twiggle's runtime and that reactive expressions are enabled out-of-the-box, eliminating manual configuration steps.
 *   **Automated Dependency Management:** Handles the installation of all necessary project dependencies. It intelligently uses your preferred package manager (npm, Yarn, or pnpm) to ensure a smooth setup process.

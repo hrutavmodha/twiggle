@@ -13,7 +13,7 @@ License: MIT
 
 ---
 
-## Table of contents
+## Table of Contents
 
 - [Why Twiggle](#why-twiggle)
 - [Installation](#installation)
@@ -73,7 +73,7 @@ Available scripts (in `packages/twiggle/package.json`):
 
 ---
 
-## Quick start
+## Quick Start
 
 Minimal example (TypeScript / TSX):
 
@@ -100,9 +100,9 @@ Note: The JSX transform must target Twiggle's runtime (see Vite plugin section) 
 
 ---
 
-## Core concepts
+## Core Concepts
 
-### JSX & createElement
+### JSX & CreateElement
 
 Twiggle implements a small JSX runtime. When JSX is compiled it calls `createElement(type, props)`. Supported `type` values:
 
@@ -119,7 +119,7 @@ Props convention:
 
 `render(element, parent)` mounts a DOM node or fragment to the `parent` node. The current implementation clears `parent.innerHTML` and appends the element. This is intentionally simple to keep the runtime small.
 
-### State primitive
+### State Primitive
 
 API:
 
@@ -179,7 +179,7 @@ Example:
 
 ---
 
-## Vite plugin
+## Vite Plugin
 
 Use the official Vite plugin in this monorepo to compile JSX for Twiggle and enable reactive transforms.
 
@@ -203,7 +203,7 @@ If you don't use the plugin, ensure your JSX compiler targets the Twiggle runtim
 
 ---
 
-## API reference
+## API Reference
 
 Renderer
 

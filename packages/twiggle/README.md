@@ -156,7 +156,7 @@ Your Twiggle application should now be running in your browser!
 
 Understanding these core concepts will help you leverage Twiggle's full potential:
 
-### JSX & `createElement`
+### JSX & CreateElement
 
 Twiggle's approach to UI construction is centered around JSX, a syntax extension for JavaScript. When your code is compiled, JSX elements are transformed into calls to Twiggle's `createElement` function.
 
@@ -188,17 +188,6 @@ Twiggle's state management is built around a simple yet effective reactive primi
 *   **`runSideEffect(fn: () => void)`**: This function is central to Twiggle's reactivity. It executes the provided `fn` function. During its execution, any `createState().get()` calls are observed, and the `fn` is registered as a subscriber to those state variables. Consequently, whenever any of those subscribed state variables are updated via `set()`, the `fn` will automatically re-execute, ensuring your UI or other logic remains synchronized with your application's state.
 
 This minimal reactive system, based on an effect stack and per-state subscriber lists, offers a transparent and easy-to-reason-about approach to reactivity, without the complexity of a full-blown reactive framework.
-
-### Router
-
-Twiggle includes a lightweight client-side router that leverages the browser's History API to enable single-page application navigation without full page reloads.
-
-*   **`Routes` Component**: This component acts as a container for your application's route definitions. It collects all `Route` children and registers them internally.
-*   **`Route({ to, element })` Component**: Defines a specific route.
-    *   `to`: The URL path (e.g., `"/home"`, `"/users/:id"`) that this route will match.
-    *   `element`: A function that returns the Twiggle element (component) to be rendered when this route is active.
-*   **`Link({ to, children })` Component**: A convenience component that renders an HTML anchor tag (`<a>`). When clicked, it intercepts the default navigation behavior and uses Twiggle's `navigate` function to perform client-side routing.
-*   **`navigate(path: string)` Function**: Allows for programmatic navigation within your application. Calling this function pushes a new entry onto the browser's history stack and triggers the router to render the corresponding route.
 
 ---
 

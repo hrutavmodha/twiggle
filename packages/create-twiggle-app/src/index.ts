@@ -6,7 +6,8 @@ import fs from 'fs'
 import { execSync } from 'child_process'
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
-
+import { version } from '../package.json'
+    
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
@@ -15,13 +16,12 @@ const program = new Command()
 program
     .name('create-twiggle-app')
     .description('CLI to create a Twiggle project')
-    .version('1.0.0')
-
+    .version(version)
 
 function copyRecursiveSync(src: string, dest: string) {
     const exists = fs.existsSync(src)
     const stats = exists && fs.statSync(src)
-    const isDirectory = exists && stats && stats.isDirectory() 
+    const isDirectory = exists && stats && stats.isDirectory()
     if (isDirectory) {
         fs.mkdirSync(dest, { recursive: true })
         fs.readdirSync(src).forEach(function (childItemName) {
@@ -31,12 +31,12 @@ function copyRecursiveSync(src: string, dest: string) {
         fs.copyFileSync(src, dest)
     }
 }
+
 program
     .argument('[project-name]', 'Name of the project')
     .action(async (projectName: any) => {
         console.log(chalk.hex('#00FFFF')('✨ Welcome to create-twiggle-app! ✨\n'))
         console.log(chalk.gray('----------------------------------------\n'))
-
         if (!projectName) {
             const answers = await inquirer.prompt([
                 {
@@ -56,8 +56,8 @@ program
             process.exit(1)
         }
 
-    console.log(chalk.green(`🚀 Creating a new Twiggle app in ${projectPath}\n`))
-    console.log(chalk.gray('----------------------------------------\n'))
+        console.log(chalk.green(`🚀 Creating a new Twiggle app in ${projectPath}\n`))
+        console.log(chalk.gray('----------------------------------------\n'))
 
         const templatePath = path.join(__dirname, '../template')
 
@@ -69,8 +69,7 @@ program
             process.exit(1)
         }
 
-
-    console.log(chalk.hex('#FFFF99')('📦 Installing dependencies... This might take a moment.'))
+        console.log(chalk.hex('#FFFF99')('📦 Installing dependencies... This might take a moment.'))
         try {
             execSync('npm install', { cwd: projectPath, stdio: 'inherit' })
             console.log(chalk.hex('#00CED1')('✔ Dependencies installed successfully.'))
@@ -79,12 +78,12 @@ program
             process.exit(1)
         }
 
-    console.log(chalk.green('🎉 Project created successfully!'))
-    console.log(chalk.gray('----------------------------------------'))
-    console.log(chalk.cyan('👉 Next steps:'))
-    console.log(chalk.cyan(`  cd ${projectName}`))
-    console.log(chalk.cyan('  npm run dev'))
-    console.log(chalk.gray('----------------------------------------'))
+        console.log(chalk.green('🎉 Project created successfully!'))
+        console.log(chalk.gray('----------------------------------------'))
+        console.log(chalk.cyan('👉 Next steps:'))
+        console.log(chalk.cyan(`  cd ${projectName}`))
+        console.log(chalk.cyan('  npm run dev'))
+        console.log(chalk.gray('----------------------------------------'))
     })
 
 program.parse(process.argv)
