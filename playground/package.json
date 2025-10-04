@@ -10,12 +10,15 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@babel/standalone": "^7.28.4",
-        "@types/babel__standalone": "^7.1.9",
+        "@babel/core": "^7.28.4",
+        "@monaco-editor/react": "^4.7.0",
+        "@tailwindcss/vite": "^4.1.14",
         "monaco-editor": "^0.53.0",
         "react": "^19.1.1",
         "react-dom": "^19.1.1",
-        "vite-plugin-monaco-editor": "^1.1.0"
+        "tailwindcss": "^4.1.14",
+        "vite-plugin-monaco-editor": "^1.1.0",
+        "vite-plugin-twiggle": "file:../packages/vite-plugin-twiggle"
     },
     "devDependencies": {
         "@types/node": "^24.6.0",
