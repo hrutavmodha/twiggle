@@ -1,4 +1,4 @@
-# create-twiggle-app
+# Create Twiggle App
 
 `create-twiggle-app` is the official command-line interface (CLI) tool meticulously designed to provide a streamlined and efficient way to bootstrap new Twiggle projects. It automates the initial setup of your development environment, including project structure, build configurations, and essential dependencies, allowing you to focus immediately on developing your Twiggle application without the hassle of manual configuration. This tool is built to adhere to best practices and seamlessly integrates with the Twiggle ecosystem, ensuring a consistent and optimized starting point for all your projects.
 

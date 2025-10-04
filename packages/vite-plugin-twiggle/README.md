@@ -1,4 +1,4 @@
-# vite-plugin-twiggle
+# Vite Plugin Twiggle
 
 The `vite-plugin-twiggle` is the official Vite plugin meticulously crafted to seamlessly integrate the Twiggle frontend library into your development environment. This plugin is an essential component for any Twiggle project, as it intelligently handles the complex JSX transformations and enables the powerful reactive expression capabilities that are fundamental to Twiggle's runtime. By abstracting away the underlying configuration, it ensures a smooth, efficient, and highly productive development experience for Twiggle applications.
 
