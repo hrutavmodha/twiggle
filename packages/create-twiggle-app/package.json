@@ -1,0 +1,33 @@
+{
+    "name": "create-twiggle-app",
+    "version": "0.0.1",
+    "description": "Scaffold a new Twiggle project",
+    "main": "dist/index.js",
+    "type": "module",
+    "bin": {
+        "create-twiggle-app": "./dist/index.js"
+    },
+    "scripts": {
+        "build": "tsc && sed -i '1i#!/usr/bin/env node' dist/index.js",
+        "start": "node dist/index.js"
+    },
+    "files": [
+        "./dist",
+        "./template",
+        "./README.md",
+        "./package.json"
+    ],
+    "keywords": [
+        "twiggle",
+        "scaffolding",
+        "cli"
+    ],
+    "author": "Hrutav Modha",
+    "license": "MIT",
+    "devDependencies": {
+        "chalk": "^5.3.0",
+        "commander": "^12.1.0",
+        "inquirer": "^10.1.2",
+        "typescript": "^5.9.2"
+    }
+}

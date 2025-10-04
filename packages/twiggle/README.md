@@ -1,300 +1,273 @@
 # Twiggle
 
-Tiny, focused front-end primitives: a custom JSX runtime, minimal DOM renderer, a tiny router, and a reactive state primitive.
+Twiggle is a tiny, focused frontend library designed for building user interfaces. It provides core primitives for JSX rendering, reactive state management, and client-side routing, aiming for clarity and a minimal runtime footprint.
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
-[![Version](https://img.shields.io/badge/version-1.1.1-brightgreen)](https://www.npmjs.com/package/twiggle)
-[![Bundle Size](https://img.shields.io/bundlephobia/minzip/twiggle)](#)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/hrutavmodha/twiggle/blob/main/LICENSE)
+[![Version](https://img.shields.io/badge/version-1.2.0-brightgreen)](https://www.npmjs.com/package/twiggle)
+[![Bundle Size](https://img.shields.io/bundlephobia/minzip/twiggle)](https://bundlephobia.com/package/twiggle)
 
-> **Note:** Twiggle is currently in its early stage and should not be used in the production apps.
+## Table of Contents
 
-Maintainer: Hrutav Modha · License: MIT
-
----
-
-## Table of contents
-
-- [Why Twiggle](#why-twiggle)
+- [Overview](#overview)
+- [Features](#features)
 - [Installation](#installation)
-- [Quick start](#quick-start)
-- [Core concepts](#core-concepts)
+- [Quick Start](#quick-start)
+- [Core Concepts](#core-concepts)
   - [JSX & createElement](#jsx--createelement)
   - [Renderer](#renderer)
-  - [State primitive](#state-primitive)
+  - [State Primitive](#state-primitive)
   - [Router](#router)
-- [Vite plugin](#vite-plugin)
-- [API reference](#api-reference)
 - [Development](#development)
+- [Testing](#testing)
 - [Contributing](#contributing)
-- [FAQ](#faq)
 - [License](#license)
 
 ---
 
-## Why Twiggle
+## Overview
 
-Twiggle is intentionally minimal. It focuses on clarity and a small runtime surface for use-cases like:
+Twiggle is an innovative, minimalist frontend library that empowers developers to construct dynamic and responsive user interfaces with unparalleled clarity and efficiency. Unlike larger, more opinionated frameworks, Twiggle focuses on providing essential primitives: a custom JSX runtime for declarative UI composition, a robust reactive state management system for predictable data flow, and a lightweight client-side router for seamless navigation. Its design philosophy prioritizes a minimal runtime footprint and direct manipulation of the DOM, making it an ideal choice for projects where performance and control are paramount. Twiggle is perfect for learning the intricacies of frontend frameworks, building small to medium-sized applications, or integrating into existing projects where a lightweight, yet powerful, UI solution is needed.
 
-- Learning how frameworks work under the hood.
-- Small demos, playgrounds, documentation sites.
-- Projects that prefer direct DOM manipulation and minimal dependencies.
+---
 
-Design principles:
+## Features
 
-- Minimal and transparent (small, well-commented code).
-- No virtual DOM — we work with real DOM nodes and fragments.
-- Simple reactivity — explicit effect tracking and subscription.
-- Works with modern tooling via a small Vite plugin.
+Twiggle offers a carefully curated set of features, each designed to be powerful yet easy to understand and use:
+
+*   **Custom JSX Runtime:**
+    *   At its core, Twiggle provides its own JSX runtime, allowing you to write declarative UI code that feels familiar to React developers.
+    *   This runtime directly translates your JSX into efficient DOM operations, bypassing the need for a virtual DOM and offering direct control over the browser's rendering engine.
+
+*   **Minimal DOM Renderer:**
+    *   Twiggle's renderer is optimized for performance and simplicity. It efficiently mounts and updates real DOM nodes and fragments.
+    *   The design ensures that updates are precise and performant, leading to highly responsive user interfaces.
+
+*   **Reactive State Primitive:**
+    *   Experience predictable and manageable state with Twiggle's reactive state primitive.
+    *   `createState<T>(initialValue: T)`: Easily create state variables that hold any type of data.
+    *   `get()`: Retrieve the current value of a state variable.
+    *   `set(newValue: T)`: Update the state, triggering automatic re-renders of components that depend on it.
+    *   `runSideEffect(fn: () => void)`: A powerful mechanism to define side effects that automatically re-run when any observed state changes, providing a clean way to manage complex interactions and data flows.
+
+*   **Client-Side Router:**
+    *   Build single-page applications with ease using Twiggle's lightweight client-side router, built on the browser's History API.
+    *   `Routes`: Define a collection of routes for your application.
+    *   `Route({ to, element })`: Map specific URL paths (`to`) to the Twiggle component (`element`) that should be rendered.
+    *   `Link({ to, children })`: A component that renders an anchor tag (`<a>`) and handles navigation internally, preventing full page reloads.
+    *   `navigate(path)`: Programmatically change the current route, allowing for dynamic navigation within your application.
 
 ---
 
 ## Installation
 
-Install from npm (when published):
+To integrate Twiggle into your project, you can easily install it using your preferred Node.js package manager:
 
 ```bash
 npm install twiggle
+# or using yarn
+yarn add twiggle
+# or using pnpm
+pnpm add twiggle
 ```
-
-Or use the package from the monorepo during local development (root of workspace):
-
-```bash
-npm install
-cd packages/twiggle
-npm run start
-```
-
-Available scripts (in `packages/twiggle/package.json`):
-
-- `start` — start Vite dev server
-- `build` — run Vite build
-- `test` — run Vitest
-- `test:ui` — run Vitest UI
 
 ---
 
-## Quick start
+## Quick Start
 
-Minimal example (TypeScript / TSX):
+Get your first Twiggle application up and running in minutes. This example demonstrates a simple counter application using Twiggle's state management and JSX rendering.
 
-```tsx
-/** src/main.tsx */
-import render from 'twiggle'
-import Home from './pages/Home'
-
-const root = document.getElementById('root')!
-render(<Home />, root)
-```
-
-Function component example:
+**1. Create your main application file (e.g., `src/main.tsx`):**
 
 ```tsx
-function Greeting(props: { name: string }) {
-  return <div>Hello, {props.name}!</div>
-}
+// src/main.tsx
+import { render, createState } from 'twiggle';
 
-render(<Greeting name="Alice" />, document.getElementById('root'))
-```
+function Counter() {
+  const count = createState(0);
 
-Note: The JSX transform must target Twiggle's runtime (see Vite plugin section) or you can import the runtime directly in your build config.
-
----
-
-## Core concepts
-
-### JSX & createElement
-
-Twiggle implements a small JSX runtime. When JSX is compiled it calls `createElement(type, props)`. Supported `type` values:
-
-- string tag (e.g. `'div'`) — creates a DOM element and applies props/children
-- `'Fragment'` — returns a `DocumentFragment`
-- function component — `type(props)` is invoked and must return a DOM node or fragment
-
-Props convention:
-
-- `children` may be string, number, element, array of elements
-- DOM event handlers use lowercase names (e.g. `onclick`, not `onClick`)
-
-### Renderer
-
-`render(element, parent)` mounts a DOM node or fragment to the `parent` node. The current implementation clears `parent.innerHTML` and appends the element. This is intentionally simple to keep the runtime small.
-
-### State primitive
-
-API:
-
-- `createState<T>(initial)` — returns `{ get: () => T, set: (v: T) => void }`
-- `runSideEffect(fn)` — runs `fn` and tracks any `get()` calls performed during the execution. When a tracked state updates, the effect is re-run.
-
-This is a minimal reactive system built around an effect stack and per-state subscriber lists. It is not a full reactive framework but is tiny and easy to reason about.
-
-Example counter:
-
-```tsx
-import { 
-  createState, 
-  runSideEffect 
-} from 'twiggle'
-
-const counter = createState(0)
-
-export default function Counter() {
-  runSideEffect(() => {
-    // reads counter.get() to subscribe
-    const value = counter.get()
-    // re-run when counter.set is called
-    console.log('counter', value)
-  })
+  const increment = () => {
+    count.set(count.get() + 1);
+  };
 
   return (
     <div>
-      <span>{counter.get()}</span>
-      <button onclick={() => counter.set(counter.get() + 1)}>Increment</button>
+      <h1>Counter App</h1>
+      <p>Count: {count.get()}</p>
+      <button onclick={increment}>Increment</button>
     </div>
-  )
+  );
+}
+
+const root = document.getElementById('root');
+if (root) {
+  render(<Counter />, root);
 }
 ```
 
-### Router
+**2. Ensure your `index.html` has a root element:**
 
-Twiggle ships a tiny client-side router built on the History API.
-
-Components and functions:
-
-- `Routes` — collects `Route` children and registers them via `setRoutes`
-- `Route({ to, element })` — lightweight route descriptor; `element` is a function that returns the element to render
-- `Link({ to, children })` — anchor element that prevents default navigation and calls `navigate`
-- `navigate(to)` — programmatic navigation; pushes a new history entry and renders the route
-
-Example:
-
-```tsx
-<Routes>
-  <Route to="/" element={() => <Home />} />
-  <Route to="/about" element={() => <About />} />
-</Routes>
-
-<Link to="/about">About</Link>
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Twiggle App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
 ```
 
----
+**3. Configure your `vite.config.ts` (if using Vite):**
 
-## Vite plugin
+Make sure you have `vite-plugin-twiggle` installed and configured in your Vite setup to handle JSX transformations correctly.
 
-Use the official Vite plugin in this monorepo to compile JSX for Twiggle and enable reactive transforms.
-
-Install and add to `vite.config.js`:
-
-```js
-import { defineConfig } from 'vite'
-import twiggle from 'vite-plugin-twiggle'
+```typescript
+// vite.config.ts
+import { defineConfig } from 'vite';
+import twiggle from 'vite-plugin-twiggle'; 
 
 export default defineConfig({
-  plugins: [twiggle()]
-})
+  plugins: [
+    twiggle()
+  ],
+  esbuild: {
+    jsx: 'automatic',
+    jsxDev: true, // Set to false for production
+    jsxImportSource: 'twiggle/client', // Ensure this points to Twiggle's client-side JSX runtime
+  },
+});
 ```
 
-What the plugin does:
+**4. Run your development server:**
 
-- Runs Babel to transform JSX using `@babel/preset-react` configured with `runtime: 'automatic'` and `importSource: 'twiggle/jsx'`.
-- Applies a small custom Babel plugin bundled in `packages/vite-plugin-twiggle` to support reactive expression transforms used by Twiggle's runtime.
+```bash
+npm run dev
+```
 
-If you don't use the plugin, ensure your JSX compiler targets the Twiggle runtime or import the proper runtime functions directly.
+Your Twiggle application should now be running in your browser!
 
 ---
 
-## API reference
+## Core Concepts
 
-Renderer
+Understanding these core concepts will help you leverage Twiggle's full potential:
 
-- `createElement(type, props)` — internal JSX entry point.
-- `render(element: HTMLElement | DocumentFragment, parent: HTMLElement): void` — mount node to parent.
+### JSX & `createElement`
 
-Router
+Twiggle's approach to UI construction is centered around JSX, a syntax extension for JavaScript. When your code is compiled, JSX elements are transformed into calls to Twiggle's `createElement` function.
 
-- `navigate(to: string): void`
-- `setRoutes(routes: Record<string, () => HTMLElement>): void` — internal
-- `Routes(props: { children: any[] }): null`
-- `Route(props: { to: string, element: () => HTMLElement }): any`
-- `Link(props: { to: string, children: any }): HTMLElement`
+*   **`type`**: This argument determines the kind of element to create. It can be:
+    *   A `string` (e.g., `'div'`, `'span'`, `'p'`) to create standard HTML DOM elements.
+    *   The special string `'Fragment'` to create a `DocumentFragment`, useful for grouping multiple children without adding an extra node to the DOM tree.
+    *   A `function` (your component) which will be invoked with `props` and is expected to return a DOM node or fragment.
+*   **`props`**: An object containing attributes, event handlers, and children for the element.
+    *   `children`: A special prop that can be a `string`, `number`, another Twiggle `Element`, or an `Array` of these types.
+    *   **DOM Event Handlers**: Twiggle expects DOM event handlers to be named in lowercase (e.g., `onclick`, `oninput`, `onchange`), aligning with native DOM event attributes.
 
-State
+### Renderer
 
-- `createState<T>(value: T): { get: () => T; set: (v: T) => void }`
-- `runSideEffect(fn: () => void): void`
+The `render(element, parent)` function is the entry point for mounting your Twiggle application into the DOM.
 
-See the `src` folder for implementation details and comments.
+*   `element`: The Twiggle element (or component instance) you wish to render.
+*   `parent`: The target HTML DOM element where your Twiggle application will be attached.
+
+The current implementation is intentionally straightforward: it clears the `parent.innerHTML` and then appends the `element`. This direct approach contributes to Twiggle's small bundle size and high performance.
+
+### State Primitive
+
+Twiggle's state management is built around a simple yet effective reactive primitive, allowing for explicit control over data flow and UI updates.
+
+*   **`createState<T>(initialValue: T)`**: This function initializes a new reactive state variable. It returns an object with two methods:
+    *   `get(): T`: Retrieves the current value of the state. When called within a `runSideEffect`, it automatically registers the effect as a subscriber to this state.
+    *   `set(newValue: T)`: Updates the state variable to `newValue`. This action triggers all registered side effects that depend on this state to re-execute.
+
+*   **`runSideEffect(fn: () => void)`**: This function is central to Twiggle's reactivity. It executes the provided `fn` function. During its execution, any `createState().get()` calls are observed, and the `fn` is registered as a subscriber to those state variables. Consequently, whenever any of those subscribed state variables are updated via `set()`, the `fn` will automatically re-execute, ensuring your UI or other logic remains synchronized with your application's state.
+
+This minimal reactive system, based on an effect stack and per-state subscriber lists, offers a transparent and easy-to-reason-about approach to reactivity, without the complexity of a full-blown reactive framework.
+
+### Router
+
+Twiggle includes a lightweight client-side router that leverages the browser's History API to enable single-page application navigation without full page reloads.
+
+*   **`Routes` Component**: This component acts as a container for your application's route definitions. It collects all `Route` children and registers them internally.
+*   **`Route({ to, element })` Component**: Defines a specific route.
+    *   `to`: The URL path (e.g., `"/home"`, `"/users/:id"`) that this route will match.
+    *   `element`: A function that returns the Twiggle element (component) to be rendered when this route is active.
+*   **`Link({ to, children })` Component**: A convenience component that renders an HTML anchor tag (`<a>`). When clicked, it intercepts the default navigation behavior and uses Twiggle's `navigate` function to perform client-side routing.
+*   **`navigate(path: string)` Function**: Allows for programmatic navigation within your application. Calling this function pushes a new entry onto the browser's history stack and triggers the router to render the corresponding route.
 
 ---
 
 ## Development
 
-Clone and install dependencies from the monorepo root:
+For those interested in contributing to Twiggle or exploring its internal architecture, follow these steps to set up your development environment:
 
-```bash
-git clone https://github.com/hrutavmodha/twiggle.git
-npm install
-```
+1.  **Clone the Monorepo:**
+    Twiggle is developed as part of a monorepo. Begin by cloning the entire repository from GitHub:
 
-Run the example/dev server for the `twiggle` package:
+    ```bash
+    git clone https://github.com/hrutavmodha/twiggle.git
+    cd twiggle
+    ```
 
-```bash
-cd packages/twiggle
-npm run start
-```
+2.  **Install Dependencies:**
+    Navigate to the `twiggle` package directory and install all its development and runtime dependencies:
 
-Build the package:
+    ```bash
+    cd packages/twiggle
+    npm install
+    ```
 
-```bash
-cd packages/twiggle
-npm run build
-```
+3.  **Start Development Server:**
+    To run the example/dev server for the `twiggle` package and see changes live:
 
-Run tests:
+    ```bash
+    npm run start
+    ```
+
+4.  **Build the Package:**
+    To compile the Twiggle library for distribution:
+
+    ```bash
+    npm run build
+    ```
+
+---
+
+## Testing
+
+Twiggle uses Vitest for its testing framework. To run the test suite and ensure all components are functioning as expected:
 
 ```bash
 cd packages/twiggle
 npm run test
 ```
 
-Quality checks you should run before opening a PR:
+You can also run the tests with a UI for a more interactive experience:
 
-- Build: `npm run build`
-- Tests: `npm run test`
-- Type checks (optional): `tsc --noEmit` from the package directory
+```bash
+npm run test:ui
+```
 
 ---
 
 ## Contributing
 
-Contributions are welcome. Please follow these guidelines:
+We warmly welcome contributions to Twiggle! Your efforts help improve the library for everyone. Please refer to the main [CONTRIBUTING.md](https://github.com/hrutavmodha/twiggle/blob/main/CONTRIBUTING.md) file in the monorepo root for comprehensive guidelines on how to contribute effectively to the Twiggle project.
 
-1. Fork the repo and create a descriptive branch name.
-2. Keep changes small and focused. Add tests where applicable.
-3. Run the test suite and ensure the build passes.
-4. Open a pull request describing the problem, approach, and any migration notes.
+Before submitting a pull request, please ensure that you have:
 
-See `CONTRIBUTING.md` for the project's broader contribution rules.
-
----
-
-## FAQ
-
-1. Is Twiggle a full framework?
-
-  No. Twiggle is a tiny set of primitives meant for learning, demos, and small apps. 
-It lacks many features of full frameworks (advanced component lifecycles, SSR, etc.)
-
-2. Can I use Twiggle in production?
-
-  You can, but consider the tradeoffs (small feature set, simpler reactivity). For production apps that need scaling, a more feature-complete framework is recommended.
+*   Adhered to the project's established coding style and conventions.
+*   Crafted clear, concise, and descriptive commit messages.
+*   Added new tests or updated existing ones to cover your changes.
+*   Verified that all existing tests pass successfully.
 
 ---
 
 ## License
 
-MIT — see the `LICENSE` file for details.
-
----
-
-Maintainer: Hrutav Modha — please open issues for bugs or feature requests.
+Twiggle is open-source software, freely available under the terms of the [MIT License](https://github.com/hrutavmodha/twiggle/blob/main/LICENSE).

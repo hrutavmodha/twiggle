@@ -1,8 +1,6 @@
-// @ts-ignore
 import { createFilter } from '@rollup/pluginutils';
 import * as babel from '@babel/core';
-// @ts-ignore
-import twiggleJsxReactiveExpressions from './babel-plugin-twiggle-jsx.ts';
+import twiggleJsxReactiveExpressions from './babel-plugin-twiggle-jsx';
 
 export default function twiggle() {
     const filter = createFilter(/\.(js|ts|jsx|tsx)$/, /node_modules/);
@@ -16,16 +14,14 @@ export default function twiggle() {
                 const result = babel.transformSync(code, {
                     filename: id,
                     presets: [
-                        // Preset for React JSX transformation, configured for Twiggle's custom JSX runtime
                         ['@babel/preset-react', { runtime: 'automatic', importSource: 'twiggle/jsx' }],
-                        // Preset for TypeScript if the file is a TypeScript file
                         isTypeScript && ['@babel/preset-typescript'],
-                    ].filter(Boolean), // Filter out any null presets
+                    ].filter(Boolean),
                     plugins: [
-                        twiggleJsxReactiveExpressions, // Our custom plugin for reactive expressions
+                        twiggleJsxReactiveExpressions,
                     ],
-                    sourceMaps: true, // Generate source maps
-                    ast: false, // Do not return AST
+                    sourceMaps: true,
+                    ast: false,
                 });
 
                 return {
