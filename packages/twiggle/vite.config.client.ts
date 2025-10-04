@@ -5,8 +5,8 @@ import { __dirname } from '../constants'
 export default defineConfig({
     resolve: {
         alias: {
-            '@jsx': join(__dirname, 'client', 'src', 'jsx'),
-            '@client': join(__dirname, 'client')
+            '@jsx': join(__dirname, 'twiggle', 'client', 'src', 'jsx'),
+            '@client': join(__dirname, 'twiggle, 'client')
         }
     },
     esbuild: {
