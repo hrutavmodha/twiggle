@@ -34,14 +34,15 @@ function copyRecursiveSync(src: string, dest: string) {
 program
     .argument('[project-name]', 'Name of the project')
     .action(async (projectName: any) => {
-        console.log(chalk.blue('Welcome to create-twiggle-app!'))
+        console.log(chalk.hex('#00FFFF')('✨ Welcome to create-twiggle-app! ✨\n'))
+        console.log(chalk.gray('----------------------------------------\n'))
 
         if (!projectName) {
             const answers = await inquirer.prompt([
                 {
                     type: 'input',
                     name: 'projectName',
-                    message: 'What is your project name?',
+                    message: 'What is your project name?\n',
                     default: 'my-twiggle-app',
                 },
             ])
@@ -51,37 +52,39 @@ program
         const projectPath = path.join(process.cwd(), projectName)
 
         if (fs.existsSync(projectPath)) {
-            console.error(chalk.red(`Error: Directory '${projectName}' already exists.`))
+            console.error(chalk.inverse.red(`Error: Directory '${projectName}' already exists.\n`))
             process.exit(1)
         }
 
-        console.log(chalk.green(`Creating a new Twiggle app in ${projectPath}`))
+    console.log(chalk.green(`🚀 Creating a new Twiggle app in ${projectPath}\n`))
+    console.log(chalk.gray('----------------------------------------\n'))
 
         const templatePath = path.join(__dirname, '../template')
 
-
         try {
             copyRecursiveSync(templatePath, projectPath)
-            console.log(chalk.green('Template files copied successfully.'))
+            console.log(chalk.hex('#32CD32')('✔ Template files copied successfully.'))
         } catch (error) {
-            console.error(chalk.red('Error copying template files:'), error)
+            console.error(chalk.inverse.red('Error copying template files:'), error)
             process.exit(1)
         }
 
 
-        console.log(chalk.green('Installing dependencies... This might take a moment.'))
+    console.log(chalk.hex('#FFFF99')('📦 Installing dependencies... This might take a moment.'))
         try {
             execSync('npm install', { cwd: projectPath, stdio: 'inherit' })
-            console.log(chalk.green('Dependencies installed successfully.'))
+            console.log(chalk.hex('#00CED1')('✔ Dependencies installed successfully.'))
         } catch (error) {
-            console.error(chalk.red('Error installing dependencies: '), error)
+            console.error(chalk.inverse.red('Error installing dependencies: '), error)
             process.exit(1)
         }
 
-        console.log(chalk.green('Project created successfully!'))
-        console.log(chalk.yellow('Next steps:'))
-        console.log(chalk.yellow(`  cd ${projectName}`))
-        console.log(chalk.yellow('  npm run dev'))
+    console.log(chalk.green('🎉 Project created successfully!'))
+    console.log(chalk.gray('----------------------------------------'))
+    console.log(chalk.cyan('👉 Next steps:'))
+    console.log(chalk.cyan(`  cd ${projectName}`))
+    console.log(chalk.cyan('  npm run dev'))
+    console.log(chalk.gray('----------------------------------------'))
     })
 
 program.parse(process.argv)
