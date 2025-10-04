@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import { join } from 'path'
-import { __dirname } from './constants'
+import { __dirname } from '../constants'
 
 export default defineConfig({
     resolve: {
