@@ -1,7 +1,9 @@
 import { type Plugin } from 'vite';
 import { transformAsync } from '@babel/core';
 // @ts-ignore
-import twiggleJsx from 'vite-plugin-twiggle';
+import reactPreset from '@babel/preset-react';
+// @ts-ignore
+import { twiggleJsx } from 'vite-plugin-twiggle';
 
 export function transpileApi(): Plugin {
   return {
@@ -22,11 +24,16 @@ export function transpileApi(): Plugin {
             const { code } = JSON.parse(body);
             console.log('Server: Received code for transpilation:', code);
             const result = await transformAsync(code, {
-              plugins: ['vite-plugin-twiggle'],
+              presets: [[reactPreset, {
+                runtime: 'automatic',
+                importSource: 'twiggle/client'
+              }]],
+              plugins: [twiggleJsx],
             });
 
             if (result && result.code) {
               console.log('Server: Transpilation successful. Result code length:', result.code.length);
+              console.log('Transpiled code is:', result.code)
               res.setHeader('Content-Type', 'application/javascript');
               res.end(result.code);
             } else {

@@ -8,8 +8,7 @@ function isStateGetCall(node: any) {
   const callee = node.callee;
   return t.isMemberExpression(callee) && t.isIdentifier(callee.property) && callee.property.name === 'get';
 }
-
-export default declare((api) => {
+const twiggleJsx = declare((api) => {
   api.assertVersion(7);
 
   return {
@@ -53,3 +52,5 @@ export default declare((api) => {
     },
   };
 });
+
+export default twiggleJsx

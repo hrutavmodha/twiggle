@@ -1,6 +1,8 @@
 import { createFilter } from '@rollup/pluginutils';
 import * as babel from '@babel/core';
-import twiggleJsxReactiveExpressions from './babel-plugin-twiggle-jsx';
+import { default as twiggleJsxReactiveExpressions } from './babel-plugin-twiggle-jsx';
+
+export { default as twiggleJsx } from './babel-plugin-twiggle-jsx';
 
 export default function twiggle() {
     const filter = createFilter(/\.(js|ts|jsx|tsx)$/, /node_modules/);

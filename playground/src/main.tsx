@@ -1,10 +1,13 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import Playground from './App.tsx'
+// @ts-ignore
+import { render } from 'twiggle/client'
+// @ts-ignore
+import { jsx } from 'twiggle/client'
 
-createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-        <Playground />
-    </StrictMode>,
-)
+function App() {
+    return jsx(
+        'h1', {
+        children: 'Hello from Twiggle!'
+    })
+}
+
+render(App(), document.getElementById('root'))
