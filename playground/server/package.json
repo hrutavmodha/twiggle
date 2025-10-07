@@ -1,0 +1,17 @@
+{
+    "name": "twiggle-playground-server",
+    "version": "1.0.0",
+    "description": "",
+    "type": "module",
+    "main": "index.js",
+    "keywords": [],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "express": "^5.1.0"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.10",
+        "ts-node": "^10.9.2"
+    }
+}
