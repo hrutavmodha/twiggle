@@ -58,7 +58,9 @@ app.get('/', (req, res) => {
       </head>
       <body>
         <div id="root">${html}</div>
-        ${script}
+        <script>
+          ${script}
+        </script>
       </body>
     </html>
   `);

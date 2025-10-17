@@ -44,7 +44,12 @@ function renderElement(element: any, context: any): string {
     }
 }
 
-export default function renderToString(element: any): { html: string; script: string } {
+export default function renderToString(
+    element: any
+): {
+    html: string,
+    script: string
+} {
     const context = {
         events: new Map(),
         eventIdCounter: 0,
@@ -52,7 +57,7 @@ export default function renderToString(element: any): { html: string; script: st
 
     const html = renderElement(element, context);
 
-    let script = '<script>\n';
+    let script = '';
     script += 'document.addEventListener("DOMContentLoaded", () => {\n';
     script += 'const eventsMap = {\n';
     for (const [eventId, { eventName, handler }] of context.events) {

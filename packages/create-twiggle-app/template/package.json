@@ -1,6 +1,6 @@
 {
   "name": "twiggle-app",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,9 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "twiggle": "^1.2.0"
+    "twiggle": "^1.0.0"
   },
   "devDependencies": {
-    "vite": "^7.1.7"
+    "vite": "^7.1.7",
+    "vite-plugin-twiggle": "^1.0.0"
   }
 }

@@ -1,6 +1,6 @@
 import { createState } from 'twiggle/client';
 
-function App() {
+export default function App() {
   const count = createState(0);
 
   const increment = () => {
@@ -8,12 +8,10 @@ function App() {
   };
 
   return (
-    <div>
+    <div class="container">
       <h1>Hello, Twiggle!</h1>
       <p>Count: {count.get()}</p>
-      <button onclick={increment}>Increment</button>
+      <button class="button" onclick={increment}>Increment</button>
     </div>
   );
 }
-
-export default App;
