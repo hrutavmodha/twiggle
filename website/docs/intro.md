@@ -36,8 +36,7 @@ This will create a new directory called `my-twiggle-app` with the following stru
 
 ```
 my-twiggle-app/
-├── public/
-│   └── index.html
+├── index.html
 ├── src/
 │   ├── App.tsx
 │   └── main.tsx
@@ -52,4 +51,4 @@ cd my-twiggle-app
 npm run dev
 ```
 
-This will start a development server at `http://localhost:3000`, where you can see your new Twiggle application in action.
+This will start a development server at `http://localhost:5173`, where you can see your new Twiggle application in action.

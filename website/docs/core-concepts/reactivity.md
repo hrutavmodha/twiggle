@@ -63,7 +63,10 @@ For convenience, you can destructure the `get` and `set` functions from the obje
 ```tsx
 import { createState } from 'twiggle';
 
-const { get: getCount, set: setCount } = createState(0);
+const { 
+  get: getCount, 
+  set: setCount 
+} = createState(0);
 
 function Counter() {
   const increment = () => {
@@ -93,8 +96,15 @@ const { get, set } = createState('hello'); // Error: get and set are already def
 This is why renaming is important:
 
 ```javascript
-const { get: getCount, set: setCount } = createState(0);
-const { get: getText, set: setText } = createState('hello');
+const { 
+  get: getCount, 
+  set: setCount 
+} = createState(0);
+
+const { 
+  get: getText, 
+  set: setText 
+} = createState('hello');
 ```
 
 ## Computed State
