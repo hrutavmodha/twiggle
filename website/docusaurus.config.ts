@@ -62,7 +62,7 @@ const config: Config = {
     footer: {
       style: 'dark',
       links: [],
-      copyright: `Copyright &copy ${new Date().getFullYear()} Hrutav Modha. Built with Docusaurus.`,
+      copyright: `Copyright &copy ${new Date().getFullYear()} Hrutav Modha`,
     },
     prism: {
       theme: prismThemes.github,
