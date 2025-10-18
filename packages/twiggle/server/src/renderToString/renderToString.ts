@@ -71,9 +71,6 @@ export default function renderToString(
     script += '    el.addEventListener(eventsMap[eventId].eventName, eventsMap[eventId].handler);\n';
     script += '  }\n';
     script += '}\n';
-
-    script += '});\n';
-    script += '</script>';
-
+    script += '});';
     return { html, script };
 }
