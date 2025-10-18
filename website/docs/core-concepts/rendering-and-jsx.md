@@ -2,29 +2,36 @@
 title: Rendering and JSX
 ---
 
-# Rendering and JSX
+## Rendering and JSX
 
-Twiggle uses JSX to define the structure of your UI. If you've used React, you'll feel right at home. However, Twiggle's approach to rendering is different from React's. Twiggle does not use a virtual DOM. Instead, it directly manipulates the DOM, which can be more efficient in many cases.
+Twiggle uses JSX as the developer-facing syntax for describing UI. Unlike React, Twiggle compiles JSX into direct DOM-producing calls and uses a small, dependency-tracking runtime to update the DOM in place.
 
-## JSX
+### How JSX is transformed
 
-JSX is a syntax extension for JavaScript that allows you to write HTML-like code in your JavaScript files. Here's an example of a simple Twiggle component using JSX:
+During build time the `vite-plugin-twiggle` runs a transform which:
+
+- Rewrites JSX into `createElement`/runtime calls compatible with Twiggle's renderer.
+- Wraps `state.get()` reads inside tracked accessors so the runtime knows which components depend on which state.
+
+This means runtime bookkeeping is minimal — dependency graphs are primarily discovered at compile time and wired to lightweight subscriber lists.
+
+### Components
+
+A component is a plain function that returns a JSX element. There are no special lifecycle hooks; the lifecycle is the simple sequence of mount -> update -> unmount.
+
+Mount: the returned DOM nodes are created and attached to the parent.
+
+Update: when a dependency used during the render changes, Twiggle re-runs the function and patches only mutated parts of the DOM.
+
+Unmount: when a component is removed from the tree (for example a parent conditionally renders it away), Twiggle calls any cleanup returned by `runSideEffect` and detaches DOM nodes.
+
+### Example: props and composition
 
 ```tsx
-function Greeting({ name }) {
+function Greeting({ name }: { name: string }) {
   return <h1>Hello, {name}!</h1>;
 }
-```
 
-When you build your application, the `vite-plugin-twiggle` transpiles this JSX into JavaScript function calls that Twiggle can understand.
-
-## Components and Props
-
-Components are the building blocks of your UI. In Twiggle, a component is just a JavaScript function that returns a JSX element. You can compose components to create complex UIs.
-
-You can pass data to components using "props". Props are passed as attributes in the JSX, and they are received as an object in the component function.
-
-```tsx
 function App() {
   return (
     <div>
@@ -35,39 +42,38 @@ function App() {
 }
 ```
 
-## Event Handling
+### Event handling
 
-You can handle DOM events like `onclick`, `onchange`, and `onsubmit` by passing a function to the corresponding prop.
+Twiggle maps event handler props (`onclick`, `oninput`, etc.) to DOM event listeners. Provide a function and it will be attached to the element.
 
 ```tsx
 import { createState } from 'twiggle';
 
 function Counter() {
-  const count = createState(0);
-
-  const increment = () => {
-    count.set(count.get() + 1);
-  };
-
+  const { get, set } = createState(0);
   return (
     <div>
-      <p>Count: {count.get()}</p>
-      <button onclick={increment}>Increment</button>
+      <p>Count: {get()}</p>
+      <button onclick={() => set(prev => prev + 1)}>Increment</button>
     </div>
   );
 }
 ```
 
-## Conditional Rendering
+### Attributes, properties and special cases
 
-You can use standard JavaScript `if` statements, ternary operators, or logical AND (`&&`) to conditionally render parts of your UI.
+- `class` / `className` — you can use `className` to set element classes; `class` is also accepted in the JSX transform.
+- Boolean attributes (disabled, checked) are set as properties when the value is true.
+- For value inputs, prefer using `oninput` and `value` props together for controlled inputs.
+
+### Conditional rendering
+
+Any JavaScript expression that returns `null`, `undefined`, `false`, or an empty string will render as nothing. Use ternaries or short-circuiting to control presence.
 
 ```tsx
-import { createState } from 'twiggle';
+const loggedIn = createState(false);
 
 function App() {
-  const loggedIn = createState(false);
-
   return (
     <div>
       {loggedIn.get() ? <p>Welcome back!</p> : <p>Please log in.</p>}
@@ -76,18 +82,26 @@ function App() {
 }
 ```
 
-## Rendering Lists
+### Lists and keys
 
-To render a list of items, you can use the `map` function to iterate over an array and return a JSX element for each item.
+When rendering lists, use stable keys to help Twiggle match existing DOM nodes to new data. Keys should be unique and stable across renders (ids are ideal).
 
 ```tsx
-const items = ['Apple', 'Banana', 'Cherry'];
-
-function ItemList() {
+function ItemList({ items }: { items: string[] }) {
   return (
     <ul>
-      {items.map(item => <li>{item}</li>)}
+      {items.map(item => <li key={item}>{item}</li>)}
     </ul>
   );
 }
 ```
+
+### Optimizations and patterns
+
+- Keep renders fast: don't perform expensive computations directly inside render — use derived state or memoization.
+- Limit deep object mutation: prefer replacing object references when state changes so subscribers see the update.
+- Event delegation: the renderer attaches handlers directly to elements. For very large lists consider manual event delegation if you see performance costs from many listeners.
+
+### Interop notes
+
+Twiggle's runtime is small and designed to interoperate with other libraries. When embedding third-party components that manipulate the DOM, ensure you coordinate mounting/unmounting and side-effects via `runSideEffect` so resources are cleaned up correctly.

@@ -4,147 +4,137 @@ title: Reactivity
 
 # Reactivity in Twiggle
 
-Twiggle provides a simple yet powerful reactivity model that allows you to build dynamic user interfaces with ease. At the heart of this model is the `createState` function.
 
-## `createState`
+Twiggle's reactivity is intentionally small and explicit. It centers on two primitives:
 
-The `createState` function takes an initial value and returns an object with two methods: `get` and `set`.
+- createState(initial) -> `{ get, set }`
+- runSideEffect(fn) -> unsubscribe
 
-- `get()`: Returns the current value of the state.
-- `set(newValue)`: Updates the value of the state.
+The design goals are: predictable updates, explicit reads (no hidden proxies), and cheap subscriptions.
 
-Here's an example of how to use `createState`:
+## API Contract
 
-```tsx
-import { createState } from 'twiggle';
+- createState(initialValue)
+  - Input: any serializable value (primitive or object).
+  - Output: object with `get()` and `set(newValue)`.
+  - Error modes: `set` should accept the same shape as the initial value; passing functions for functional updates is supported (see examples).
 
-const count = createState(0);
+- runSideEffect(fn)
+  - Input: a function which may call state `get` methods.
+  - Output: a cleanup/unsubscribe function.
+  - Behavior: the effect runs immediately; any state `get` calls during the run are recorded as dependencies. When any of those states change, the effect re-runs.
 
-console.log(count.get()); // 0
-
-count.set(1);
-
-console.log(count.get()); // 1
-```
-
-## Automatic UI Updates
-
-What makes `createState` powerful is that it automatically updates your UI whenever the state changes. When you use the `get` method within a component's JSX, Twiggle automatically subscribes that component to the state. When you then use the `set` method to update the state, Twiggle will automatically re-render the component with the new value.
-
-This is made possible by the `vite-plugin-twiggle`, which transforms your JSX code at build time to wrap any state `get` calls in a function. This allows Twiggle to track which components depend on which state.
-
-Here's an example of a reactive component:
+## Basic usage
 
 ```tsx
 import { createState } from 'twiggle';
 
-function Counter() {
-  const count = createState(0);
+const counter = createState(0);
 
-  const increment = () => {
-    count.set(count.get() + 1);
-  };
-
-  return (
-    <div>
-      <p>Count: {count.get()}</p>
-      <button onclick={increment}>Increment</button>
-    </div>
-  );
-}
+console.log(counter.get()); // 0
+counter.set(1);
+console.log(counter.get()); // 1
 ```
 
-In this example, whenever the `increment` function is called and `count.set()` is executed, the component will automatically re-render to display the new count.
+### Functional updates
 
-## Destructuring `get` and `set`
-
-For convenience, you can destructure the `get` and `set` functions from the object returned by `createState`:
+`set` supports passing a function which receives the previous value — useful for updates that depend on the current state, and to avoid race conditions in async flows:
 
 ```tsx
-import { createState } from 'twiggle';
-
-const { 
-  get: getCount, 
-  set: setCount 
-} = createState(0);
-
-function Counter() {
-  const increment = () => {
-    setCount(getCount() + 1);
-  };
-
-  return (
-    <div>
-      <p>Count: {getCount()}</p>
-      <button onclick={increment}>Increment</button>
-    </div>
-  );
-}
+const s = createState(0);
+s.set(prev => prev + 1);
 ```
 
-This can be useful for improving the readability of your code, especially when you are working with multiple state variables.
+## How UI updates work
 
-**Note:** You must rename the `get` and `set` properties when you destructure them if you want to use a different name. The `createState` function returns an object with properties literally named `get` and `set`. If you have multiple state variables, you will need to give their `get` and `set` functions unique names to avoid conflicts.
+When you use `get()` inside a component's rendering function (JSX), the `vite-plugin-twiggle` transforms that read into a tracked read. At runtime the renderer subscribes the component to the state. On `set()`, Twiggle schedules a synchronous (microtask-sized) update for the affected components/effects and updates only the relevant parts of the DOM.
 
-For example, this would cause a conflict:
+This model gives fine-grained updates without a global reconciliation pass.
 
-```javascript
-const { get, set } = createState(0); // get and set for count
-const { get, set } = createState('hello'); // Error: get and set are already defined
-```
+## Computed and Derived State
 
-This is why renaming is important:
-
-```javascript
-const { 
-  get: getCount, 
-  set: setCount 
-} = createState(0);
-
-const { 
-  get: getText, 
-  set: setText 
-} = createState('hello');
-```
-
-## Computed State
-
-You can also create state that depends on other state. This is often called "computed" or "derived" state. In Twiggle, you can create computed state by using the `get` method of one state within the `createState` call of another.
+Computed state in Twiggle is implemented with explicit derived state and side-effects. You can create a derived state and keep it in sync using `runSideEffect`:
 
 ```tsx
 import { createState, runSideEffect } from 'twiggle';
 
 const count = createState(0);
-const double = createState(count.get() * 2);
+const double = createState(() => count.get() * 2); // lazy initializer
 
 runSideEffect(() => {
   double.set(count.get() * 2);
 });
 
-console.log(double.get()); // 0
-
 count.set(2);
-
 console.log(double.get()); // 4
 ```
 
-In this example, the `double` state will automatically update whenever the `count` state changes.
+Patterns for derived values:
 
-## `runSideEffect`
+- Lightweight derived: store a getter-only derived value and compute on access (cheap for simple cases).
+- Cached derived: keep a cached derived `createState` and update it from `runSideEffect` when dependencies change (good when computation is expensive).
 
-For more complex scenarios where you need to manually run a function whenever a state changes, you can use the `runSideEffect` function. This function takes a function as an argument and runs it immediately. If you call any state `get` methods inside this function, Twiggle will subscribe the function to those states. Whenever any of those states change, Twiggle will re-run your function.
+## runSideEffect details
+
+`runSideEffect` is like a minimal effect hook
+
+- It runs the provided function immediately.
+- During the run any `get()` calls register a dependency between the effect and the state.
+- When a dependency updates, the effect re-runs.
+- The returned cleanup function can be used to unsubscribe.
+
+```tsx
+const unsub = runSideEffect(() => {
+  console.log('value:', counter.get());
+});
+
+// later
+unsub();
+```
+
+## Edge cases and best practices
+
+- Avoid mutating objects stored in state directly. Instead, set a new object reference so subscribers detect the change.
+- Use functional `set(prev => newVal)` when the new value depends on the previous value, particularly in async code or when multiple updates may be batched.
+- Keep expensive computations outside render paths; use cached derived state when necessary.
+
+## Examples
+
+Debounced autosave (example using a simple timeout):
 
 ```tsx
 import { createState, runSideEffect } from 'twiggle';
 
-const count = createState(0);
+const text = createState('');
 
 runSideEffect(() => {
-  console.log('The count is:', count.get());
+  let timer: ReturnType<typeof setTimeout> | null = null;
+  const value = text.get();
+  timer = setTimeout(() => saveToServer(value), 300);
+  return () => { if (timer) clearTimeout(timer); };
 });
-
-count.set(1); // This will log "The count is: 1"
-count.set(2); // This will log "The count is: 2"
 ```
 
-This is useful for things like logging, making API requests, or updating the DOM in ways that are not directly related to a component's rendering.
+Multiple independent counters (showing local state per component):
+
+```tsx
+function Counter() {
+  const { get, set } = createState(0);
+  return (
+    <div>
+      <p>{get()}</p>
+      <button onclick={() => set(prev => prev + 1)}>+</button>
+    </div>
+  );
+}
+```
+
+## Implementation notes (for contributors)
+
+- State objects are lightweight and keep a set of subscribers (effects/components) which are called when `set` updates the value.
+- The plugin's compile-time transformation wraps `get()` calls so the renderer/effect runner can register dependencies during rendering or effect execution.
+
+## Troubleshooting
+
+- If your component doesn't update, ensure the `get()` call happens during the JSX render path (reads outside render won't be tracked automatically).
+- If derived state doesn't update, verify that the `runSideEffect` function is created at module/component initialization and that it reads the dependent state using `get()`.
