@@ -1,6 +1,6 @@
 {
     "name": "create-twiggle-app",
-    "version": "1.0.5",
+    "version": "1.0.7",
     "description": "Scaffold a new Twiggle project",
     "main": "dist/index.js",
     "type": "module",
