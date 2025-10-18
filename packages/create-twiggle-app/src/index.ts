@@ -1,18 +1,20 @@
 import { Command } from 'commander'
 import inquirer from 'inquirer'
 import chalk from 'chalk'
-import path from 'path'
+import { join } from 'path'
 import fs from 'fs'
 import { execSync } from 'child_process'
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { version } from '../package.json'
-    
+import { readFileSync } from 'fs' 
+
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-const program = new Command()
+const packageJson = JSON.parse(readFileSync(join(__dirname, '../package.json'), 'utf-8'))
+const version = packageJson.version
 
+const program = new Command()
 program
     .name('create-twiggle-app')
     .description('CLI to create a Twiggle project')
@@ -25,7 +27,7 @@ function copyRecursiveSync(src: string, dest: string) {
     if (isDirectory) {
         fs.mkdirSync(dest, { recursive: true })
         fs.readdirSync(src).forEach(function (childItemName) {
-            copyRecursiveSync(path.join(src, childItemName), path.join(dest, childItemName))
+            copyRecursiveSync(join(src, childItemName), join(dest, childItemName))
         })
     } else {
         fs.copyFileSync(src, dest)
@@ -49,7 +51,7 @@ program
             projectName = answers.projectName
         }
 
-        const projectPath = path.join(process.cwd(), projectName)
+        const projectPath = join(process.cwd(), projectName)
 
         if (fs.existsSync(projectPath)) {
             console.error(chalk.inverse.red(`Error: Directory '${projectName}' already exists.\n`))
@@ -59,7 +61,7 @@ program
         console.log(chalk.green(`🚀 Creating a new Twiggle app in ${projectPath}\n`))
         console.log(chalk.gray('----------------------------------------\n'))
 
-        const templatePath = path.join(__dirname, '../template')
+        const templatePath = join(__dirname, '../template')
 
         try {
             copyRecursiveSync(templatePath, projectPath)

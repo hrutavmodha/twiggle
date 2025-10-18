@@ -1,6 +1,6 @@
 {
     "name": "twiggle",
-    "version": "1.2.1",
+    "version": "1.2.4",
     "type": "module",
     "author": "Hrutav Modha",
     "maintainers": [
@@ -21,7 +21,7 @@
     ],
     "exports": {
         "./client": {
-            "types": "./types/jsx.d.ts",
+            "types": "./types/twiggle.d.ts",
             "import": "./dist/client/twiggle-es.js"
         },
         "./server": {

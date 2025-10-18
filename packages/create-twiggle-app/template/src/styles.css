@@ -11,6 +11,13 @@ body {
   height: 100vh;
 }
 
+code {
+  background: lightgray;
+  color: black;
+  padding: 2px 4px;
+  border-radius: 7px;
+}
+
 .container {
   text-align: center;
   background: #ffffff;

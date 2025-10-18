@@ -1,4 +1,4 @@
-declare module 'twiggle' {
+declare module 'twiggle/client' {
     export function render(element: Element, container: Element): void;
 
     export function runSideEffect(effect: () => void): void;
@@ -13,7 +13,9 @@ declare module 'twiggle' {
         props: P,
         ...children: (Element | string | number)[]
     ): Element;
+}
 
+declare module 'twiggle/server' {
     export function renderToString(
         element: any
     ): {

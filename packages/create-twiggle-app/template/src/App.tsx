@@ -12,6 +12,7 @@ export default function App() {
       <h1>Hello, Twiggle!</h1>
       <p>Count: {count.get()}</p>
       <button class="button" onclick={increment}>Increment</button>
+      <p>Try editing the file at <code>src/App.tsx</code> to see changes!</p>
     </div>
   );
 }
