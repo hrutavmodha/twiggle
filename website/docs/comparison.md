@@ -138,7 +138,3 @@ Migration notes
 3. Replace effects: map useEffect/created hooks to `runSideEffect`.
 4. Replace derived values: use `runSideEffect` to keep cached derived `createState` values in sync, or create getter-only derived helpers.
 5. Gradually add routing/SSR and any ecosystem pieces — don't try to migrate everything at once.
-
----
-
-If you'd like, I can add a printable cheat-sheet or a migration checklist that maps common React/Vue/Svelte idioms to Twiggle equivalents.
