@@ -2,73 +2,158 @@
 title: Server-Side Rendering
 ---
 
-# Server-Side Rendering
+# Server-Side Rendering in Twiggle
 
-Twiggle has built-in support for server-side rendering (SSR), which can help improve your application's performance and SEO.
+Twiggle provides first-class support for server-side rendering (SSR), allowing you to generate HTML on the server for fast initial loads and improved SEO. SSR in Twiggle is designed to be simple, efficient, and easy to integrate with Node.js servers like Express.
 
-## Benefits of SSR
+## Why SSR?
 
--   **Faster Initial Page Load**: With SSR, the server sends a fully rendered HTML page to the client. This means the user can see the content of the page much faster, as they don't have to wait for the JavaScript to download and execute.
--   **Improved SEO**: Search engine crawlers can easily read the content of a server-rendered page, which can lead to better search engine rankings.
+- **Faster Initial Page Load**: The server sends a fully rendered HTML page, so users see meaningful content immediately, even before JavaScript loads.
+- **Improved SEO**: Search engines can index your content more reliably when it's present in the initial HTML.
+- **Predictable hydration**: Twiggle's SSR model is straightforward—there's no virtual DOM diffing, so hydration is fast and predictable.
 
-## `renderToString`
+## SSR API Overview
 
-To render a component to an HTML string on the server, you can use the `renderToString` function from the `twiggle/server` entry point. This function takes a component as an argument and returns an object with two properties:
+Twiggle exposes two main SSR functions from `twiggle/server`:
 
-- `html`: The HTML string representation of the component.
-- `script`: A script tag that includes the event handlers for the component.
+- `renderToString(element)` — renders a component tree to a complete HTML string and returns `{ html, script }`.
+- `renderToStream(element)` — renders a component tree to a Node.js stream for efficient streaming responses; returns `{ stream, script }`.
 
-Here's an example of how to use `renderToString`:
+Both functions serialize event handlers and state so the client can attach interactivity after the initial HTML is loaded.
 
-```tsx
-import { renderToString } from 'twiggle/server';
-import App from './App';
+### `renderToString`
 
-const { html, script } = renderToString(<App />);
+Use this for simple SSR setups or when you want the entire HTML in memory before sending the response.
 
-console.log(html);
-console.log(script);
+**Signature:**
+
+```ts
+function renderToString(element: JSX.Element): { html: string, script: string }
 ```
 
-## How it Works
+### `renderToStream`
 
-The `renderToString` function recursively traverses your component tree and generates an HTML string. It also keeps track of any event handlers that are attached to your components. These event handlers are then serialized into a script tag that you can include in your HTML page. When the page loads on the client, this script will attach the event handlers to the DOM elements, making your server-rendered page interactive.
+Use this for large pages or when you want to start sending HTML to the client before the whole tree is rendered (for example, with HTTP chunked responses).
 
-This process is sometimes called "hydration", although in Twiggle's case, it's a bit simpler than in other frameworks because there is no virtual DOM to reconcile.
+**Signature:**
 
-## Example Server
+```ts
+function renderToStream(element: JSX.Element): { stream: NodeJS.ReadableStream, script: string }
+```
 
-Here's an example of a simple Express server that uses `renderToString` to render a Twiggle application:
+## How SSR Works in Twiggle
+
+Twiggle's SSR engine recursively walks your component tree, rendering each node to HTML. It tracks event handlers and state dependencies, serializing them into a `<script>` tag. When the page loads, this script attaches the correct event listeners and restores interactivity—this is sometimes called "hydration", but in Twiggle it's simpler because there's no virtual DOM reconciliation.
+
+### What gets serialized?
+
+- The HTML markup for your component tree
+- Event handlers (onclick, oninput, etc.)
+- State values needed for initial render
+
+## Example Components
+
+Here's a simple interactive counter component:
+
+```tsx
+import { createState } from 'twiggle';
+
+export function Counter() {
+  const { get, set } = createState(0);
+  return (
+    <div>
+      <h2>Counter Example</h2>
+      <p>Count: {get()}</p>
+      <button onclick={() => set(get() + 1)}>Increment</button>
+    </div>
+  );
+}
+
+export function App() {
+  return (
+    <main>
+      <h1>Welcome to Twiggle SSR</h1>
+      <Counter />
+    </main>
+  );
+}
+```
+
+## Using `renderToString` in Express
+
+Here's a basic Express server that uses `renderToString` to serve SSR HTML:
 
 ```tsx
 import express from 'express';
 import { renderToString } from 'twiggle/server';
-import App from './App';
+import { App } from './App';
 
 const app = express();
 
 app.get('/', (req, res) => {
   const { html, script } = renderToString(<App />);
-
   res.send(`
     <!DOCTYPE html>
     <html>
       <head>
-        <title>Twiggle App</title>
+        <title>Twiggle SSR Example</title>
       </head>
       <body>
         <div id="root">${html}</div>
-        <script>
-          ${script}
-        </script>
+        <script>${script}</script>
       </body>
     </html>
   `);
 });
 
 app.listen(3000, () => {
-  console.log('Server is listening on port 3000');
+  console.log('Server running at http://localhost:3000');
 });
 ```
 
-In this example, when a user visits the root of the site, the server will render the `App` component to an HTML string and send it to the client along with the necessary script to make the page interactive.
+## Using `renderToStream` in Express
+
+For large pages or streaming SSR, use `renderToStream`:
+
+```tsx
+import express from 'express';
+import { renderToStream } from 'twiggle/server';
+import { App } from './App';
+
+const app = express();
+
+app.get('/', (req, res) => {
+  const { stream, script } = renderToStream(<App />);
+  res.write(`
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Twiggle SSR Streaming Example</title>
+      </head>
+      <body>
+        <div id="root">
+  `);
+  stream.pipe(res, { 
+    end: false 
+  });
+  stream.on('end', () => {
+    res.write(`</div><script>${script}</script></body></html>`);
+    res.end();
+  });
+});
+
+app.listen(3000, () => {
+  console.log('Server running at http://localhost:3000');
+});
+```
+
+## SSR Best Practices
+
+- Use SSR for public-facing pages where SEO and fast initial load matter.
+- For interactive widgets, ensure event handlers are attached via the serialized script.
+- Use `renderToStream` for large or dynamic pages to reduce time-to-first-byte.
+- Always test hydration: verify that interactive elements work after the initial HTML loads.
+
+---
+
+Twiggle's SSR is designed to be simple and predictable. If you need advanced SSR features (data prefetching, streaming, partial hydration), you can build on top of these primitives or integrate with your own server logic.
