@@ -54,7 +54,7 @@ function Counter() {
   return (
     <div>
       <p>Count: {get()}</p>
-      <button onclick={() => set(prev => prev + 1)}>Increment</button>
+      <button onclick={() => set(get() + 1)}>Increment</button>
     </div>
   );
 }
@@ -62,7 +62,7 @@ function Counter() {
 
 ### Attributes, properties and special cases
 
-- `class` / `className` — you can use `className` to set element classes; `class` is also accepted in the JSX transform.
+- `class` / `className` — you **cannot** use `className` to set element classes; `class` is accepted in the JSX transform.
 - Boolean attributes (disabled, checked) are set as properties when the value is true.
 - For value inputs, prefer using `oninput` and `value` props together for controlled inputs.
 
@@ -84,13 +84,15 @@ function App() {
 
 ### Lists and keys
 
-When rendering lists, use stable keys to help Twiggle match existing DOM nodes to new data. Keys should be unique and stable across renders (ids are ideal).
+Rendering list:
 
 ```tsx
 function ItemList({ items }: { items: string[] }) {
   return (
     <ul>
-      {items.map(item => <li key={item}>{item}</li>)}
+      {items.map((item: any) => {
+        return <li>{item}</li>
+      })}
     </ul>
   );
 }
