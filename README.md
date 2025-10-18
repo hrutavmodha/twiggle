@@ -1,5 +1,7 @@
 # Twiggle
 
+![Twiggle Logo](./website/static/logo.png)
+
 Tiny, focused front-end primitives: a custom JSX runtime, minimal DOM renderer, a tiny router, and a reactive state primitive.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
