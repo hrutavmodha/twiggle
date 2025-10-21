@@ -1,4 +1,4 @@
-export default function* renderToStream(
+export default function renderToStream(
     element: string,
     chunkSize: number = 1024
 ): any {
@@ -10,6 +10,7 @@ export default function* renderToStream(
                     const chunk = element.slice(i, i + chunkSize)
                     controller.enqueue(encoder.encode(chunk))
                 }
+                controller.close()
             }
             catch (error: any) {
                 controller.error(error)
