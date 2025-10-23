@@ -3,10 +3,10 @@ import inquirer from 'inquirer'
 import chalk from 'chalk'
 import { join } from 'path'
 import fs from 'fs'
-import { execSync } from 'child_process'
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { readFileSync } from 'fs' 
+import { readFileSync } from 'fs'
+import { createApp } from './create-app'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -19,20 +19,6 @@ program
     .name('create-twiggle-app')
     .description('CLI to create a Twiggle project')
     .version(version)
-
-function copyRecursiveSync(src: string, dest: string) {
-    const exists = fs.existsSync(src)
-    const stats = exists && fs.statSync(src)
-    const isDirectory = exists && stats && stats.isDirectory()
-    if (isDirectory) {
-        fs.mkdirSync(dest, { recursive: true })
-        fs.readdirSync(src).forEach(function (childItemName) {
-            copyRecursiveSync(join(src, childItemName), join(dest, childItemName))
-        })
-    } else {
-        fs.copyFileSync(src, dest)
-    }
-}
 
 program
     .argument('[project-name]', 'Name of the project')
@@ -53,30 +39,18 @@ program
 
         const projectPath = join(process.cwd(), projectName)
 
-        if (fs.existsSync(projectPath)) {
-            console.error(chalk.inverse.red(`Error: Directory '${projectName}' already exists.\n`))
-            process.exit(1)
-        }
-
         console.log(chalk.green(`🚀 Creating a new Twiggle app in ${projectPath}\n`))
         console.log(chalk.gray('----------------------------------------\n'))
 
-        const templatePath = join(__dirname, '../template')
+        const templatePath = join(__dirname, '..', 'template')
 
         try {
-            copyRecursiveSync(templatePath, projectPath)
+            await createApp(projectName, projectPath, templatePath)
             console.log(chalk.hex('#32CD32')('✔ Template files copied successfully.'))
-        } catch (error) {
-            console.error(chalk.inverse.red('Error copying template files:'), error)
-            process.exit(1)
-        }
-
-        console.log(chalk.hex('#FFFF99')('📦 Installing dependencies... This might take a moment.'))
-        try {
-            execSync('npm install', { cwd: projectPath, stdio: 'inherit' })
+            console.log(chalk.hex('#FFFF99')('📦 Installing dependencies... This might take a moment.'))
             console.log(chalk.hex('#00CED1')('✔ Dependencies installed successfully.'))
-        } catch (error) {
-            console.error(chalk.inverse.red('Error installing dependencies: '), error)
+        } catch (error: any) {
+            console.error(chalk.inverse.red(error.message))
             process.exit(1)
         }
 
