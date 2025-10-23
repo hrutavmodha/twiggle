@@ -6,9 +6,12 @@
         "packages/*"
     ],
     "scripts": {
-        "build:plugin": "npm run build --workspace=vite-plugin-twiggle",
+        "lint": "eslint .",
+        "format": "prettier --write .",
+        "build:vite-plugin-twiggle": "npm run build --workspace=vite-plugin-twiggle",
         "build:twiggle": "npm run build --workspace=twiggle",
-        "build": "npm run build:plugin && npm run build:twiggle"
+        "build:create-twiggle-app": "npm run build --workspace=create-twiggle-app",
+        "build": "npm run build:plugin && npm run build:twiggle && npm run build:creaet-twiggle-app"
     },
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^8.46.2",
