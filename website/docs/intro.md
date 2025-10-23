@@ -54,25 +54,25 @@ The following is a complete minimal app that demonstrates state, events, and ren
 
 ```tsx
 // src/App.tsx
-import { createState } from 'twiggle';
+import { createState } from 'twiggle'
 
-const { get: getCount, set: setCount } = createState(0);
+const { get: getCount, set: setCount } = createState(0)
 
 export default function App() {
-  return (
-	<div>
-	  <h1>Twiggle Counter</h1>
-		<p>Count: {getCount()}</p>
-		<button onclick={() => setCount(getCount() + 1)}>Increment</button>
-	</div>
-  );
+    return (
+        <div>
+            <h1>Twiggle Counter</h1>
+            <p>Count: {getCount()}</p>
+            <button onclick={() => setCount(getCount() + 1)}>Increment</button>
+        </div>
+    )
 }
 
 // src/main.tsx
-import { render } from 'twiggle';
-import App from './App';
+import { render } from 'twiggle'
+import App from './App'
 
-render(<App />, document.getElementById('root'));
+render(<App />, document.getElementById('root'))
 ```
 
 ## Project Layout

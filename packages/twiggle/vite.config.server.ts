@@ -6,29 +6,27 @@ export default defineConfig({
     resolve: {
         alias: {
             '@jsx': join(__dirname, 'twiggle', 'server', 'src', 'jsx'),
-            '@server': join(__dirname, 'twiggle','server')
-        }
+            '@server': join(__dirname, 'twiggle', 'server'),
+        },
     },
     esbuild: {
         jsx: 'automatic',
         jsxDev: false,
-        jsxImportSource: '@jsx'
+        jsxImportSource: '@jsx',
     },
     build: {
         outDir: 'dist/server',
         lib: {
             entry: '@server/index.ts',
-            formats: [
-                'es'
-            ],
+            formats: ['es'],
             fileName: (format) => {
                 return `twiggle-${format}.js`
-            }
+            },
         },
         rollupOptions: {
             input: {
-                server: '@server'
-            }
-        }
-    }
+                server: '@server',
+            },
+        },
+    },
 })

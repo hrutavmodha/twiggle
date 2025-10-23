@@ -28,7 +28,7 @@ Use this for simple SSR setups or when you want the entire HTML in memory before
 **Signature:**
 
 ```ts
-function renderToString(element: JSX.Element): { html: string, script: string }
+function renderToString(element: JSX.Element): { html: string; script: string }
 ```
 
 ### `renderToStream`
@@ -38,7 +38,7 @@ Use this for large pages or when you want to start sending HTML to the client be
 **Signature:**
 
 ```ts
-function renderToStream(element: JSX.Element): { stream: NodeJS.ReadableStream, script: string }
+function renderToStream(element: JSX.Element): { stream: NodeJS.ReadableStream; script: string }
 ```
 
 ## How SSR Works in Twiggle
@@ -56,26 +56,26 @@ Twiggle's SSR engine recursively walks your component tree, rendering each node 
 Here's a simple interactive counter component:
 
 ```tsx
-import { createState } from 'twiggle';
+import { createState } from 'twiggle'
 
 export function Counter() {
-  const { get, set } = createState(0);
-  return (
-    <div>
-      <h2>Counter Example</h2>
-      <p>Count: {get()}</p>
-      <button onclick={() => set(get() + 1)}>Increment</button>
-    </div>
-  );
+    const { get, set } = createState(0)
+    return (
+        <div>
+            <h2>Counter Example</h2>
+            <p>Count: {get()}</p>
+            <button onclick={() => set(get() + 1)}>Increment</button>
+        </div>
+    )
 }
 
 export function App() {
-  return (
-    <main>
-      <h1>Welcome to Twiggle SSR</h1>
-      <Counter />
-    </main>
-  );
+    return (
+        <main>
+            <h1>Welcome to Twiggle SSR</h1>
+            <Counter />
+        </main>
+    )
 }
 ```
 
@@ -84,15 +84,15 @@ export function App() {
 Here's a basic Express server that uses `renderToString` to serve SSR HTML:
 
 ```tsx
-import express from 'express';
-import { renderToString } from 'twiggle/server';
-import { App } from './App';
+import express from 'express'
+import { renderToString } from 'twiggle/server'
+import { App } from './App'
 
-const app = express();
+const app = express()
 
 app.get('/', (req, res) => {
-  const { html, script } = renderToString(<App />);
-  res.send(`
+    const { html, script } = renderToString(<App />)
+    res.send(`
     <!DOCTYPE html>
     <html>
       <head>
@@ -103,12 +103,12 @@ app.get('/', (req, res) => {
         <script>${script}</script>
       </body>
     </html>
-  `);
-});
+  `)
+})
 
 app.listen(3000, () => {
-  console.log('Server running at http://localhost:3000');
-});
+    console.log('Server running at http://localhost:3000')
+})
 ```
 
 ## Using `renderToStream` in Express
@@ -116,15 +116,15 @@ app.listen(3000, () => {
 For large pages or streaming SSR, use `renderToStream`:
 
 ```tsx
-import express from 'express';
-import { renderToStream } from 'twiggle/server';
-import { App } from './App';
+import express from 'express'
+import { renderToStream } from 'twiggle/server'
+import { App } from './App'
 
-const app = express();
+const app = express()
 
 app.get('/', (req, res) => {
-  const { stream, script } = renderToStream(<App />);
-  res.write(`
+    const { stream, script } = renderToStream(<App />)
+    res.write(`
     <!DOCTYPE html>
     <html>
       <head>
@@ -132,19 +132,19 @@ app.get('/', (req, res) => {
       </head>
       <body>
         <div id="root">
-  `);
-  stream.pipe(res, { 
-    end: false 
-  });
-  stream.on('end', () => {
-    res.write(`</div><script>${script}</script></body></html>`);
-    res.end();
-  });
-});
+  `)
+    stream.pipe(res, {
+        end: false,
+    })
+    stream.on('end', () => {
+        res.write(`</div><script>${script}</script></body></html>`)
+        res.end()
+    })
+})
 
 app.listen(3000, () => {
-  console.log('Server running at http://localhost:3000');
-});
+    console.log('Server running at http://localhost:3000')
+})
 ```
 
 ## SSR Best Practices

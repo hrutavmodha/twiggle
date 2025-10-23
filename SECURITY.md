@@ -4,9 +4,9 @@
 
 This document outlines security practices and guidelines for:
 
-| Version | Supported           |
-|---------|-------------------|
-| 1.x     | :white_check_mark: |
+| Version | Supported                 |
+| ------- | ------------------------- |
+| 1.x     | :white_check_mark:        |
 | 0.x     | :x: (no longer supported) |
 
 All users are strongly encouraged to use the latest stable release.
@@ -20,52 +20,59 @@ If you discover a security vulnerability in this framework, please follow these 
 1. **Do not create a public issue.**
    Report the issue privately via email: `modhahrutav@gmail.com`.
 
-3. Include the following details:
-   - Version of the framework affected
-   - Steps to reproduce
-   - Browser / environment details
-   - Severity assessment (if possible)
-   - Any suggested mitigation
+2. Include the following details:
+    - Version of the framework affected
+    - Steps to reproduce
+    - Browser / environment details
+    - Severity assessment (if possible)
+    - Any suggested mitigation
 
-4. Our team will respond within **72 hours** and work on a fix or mitigation guidance.
+3. Our team will respond within **72 hours** and work on a fix or mitigation guidance.
 
 ---
 
 ## Security Practices
 
 ### 1. XSS Protection
-- Framework **does not automatically sanitize user input** in `element` rendering.  
-- Developers must sanitize or escape any untrusted HTML content.  
+
+- Framework **does not automatically sanitize user input** in `element` rendering.
+- Developers must sanitize or escape any untrusted HTML content.
 - Avoid using `innerHTML` with unsanitized content.
 
 ### 2. DOM Injection
-- Avoid exposing APIs that allow arbitrary JavaScript injection from user input.  
+
+- Avoid exposing APIs that allow arbitrary JavaScript injection from user input.
 - Components like `<Routes>` and `<Link>` safely handle route strings; however, dynamic route generation must be sanitized.
 
 ### 3. Event Handling
-- Inline event handlers (`onclick`) are used internally for routing.  
-- Never pass untrusted scripts into these handlers.  
+
+- Inline event handlers (`onclick`) are used internally for routing.
+- Never pass untrusted scripts into these handlers.
 - Encourage use of framework-provided API (`navigate`) instead of raw JS evaluation.
 
 ### 4. Third-Party Dependencies
-- The framework uses minimal/no dependencies.  
+
+- The framework uses minimal/no dependencies.
 - Keep all dependencies updated and verify their integrity with lock files.
 
 ### 5. Content Security Policy (CSP)
+
 - Users are encouraged to enable a strong CSP:
-  ```text
-  default-src 'self';
-  script-src 'self';
-  style-src 'self';
-  ```
-Prevents inline JS injection or malicious remote scripts.
+    ```text
+    default-src 'self';
+    script-src 'self';
+    style-src 'self';
+    ```
+    Prevents inline JS injection or malicious remote scripts.
 
 ### 6. Safe State Management
+
 - Framework exposes createState() for reactivity.
 - Developers should not bind sensitive data (like auth tokens) directly to DOM elements.
 - Sensitive state should be kept in memory and never injected as raw HTML.
-  
+
 ### 7. Route Handling
+
 - The router validates paths using TypeScript literal types (/${string}).
 - Avoid dynamic evaluation of route strings to prevent arbitrary code execution.
 
@@ -97,4 +104,4 @@ CVE coordination will be done if applicable.
 
 This framework provides client-side rendering only.
 Security largely depends on developer practices (input sanitization, CSP, and state handling).
-The maintainers are not responsible for misuse of the framework in unsafe environments.  
+The maintainers are not responsible for misuse of the framework in unsafe environments.

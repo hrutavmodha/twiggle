@@ -4,7 +4,6 @@ title: Reactivity
 
 # Reactivity in Twiggle
 
-
 Twiggle's reactivity is intentionally small and explicit. It centers on two primitives:
 
 - createState(initial) -> `{ get, set }`
@@ -15,25 +14,25 @@ The design goals are: predictable updates, explicit reads (no hidden proxies), a
 ## API Contract
 
 - createState(initialValue)
-  - Input: any serializable value (primitive or object).
-  - Output: object with `get()` and `set(newValue)`.
-  - Error modes: `set` should accept the same shape as the initial value; passing functions for functional updates is supported (see examples).
+    - Input: any serializable value (primitive or object).
+    - Output: object with `get()` and `set(newValue)`.
+    - Error modes: `set` should accept the same shape as the initial value; passing functions for functional updates is supported (see examples).
 
 - runSideEffect(fn)
-  - Input: a function which may call state `get` methods.
-  - Output: a cleanup/unsubscribe function.
-  - Behavior: the effect runs immediately; any state `get` calls during the run are recorded as dependencies. When any of those states change, the effect re-runs.
+    - Input: a function which may call state `get` methods.
+    - Output: a cleanup/unsubscribe function.
+    - Behavior: the effect runs immediately; any state `get` calls during the run are recorded as dependencies. When any of those states change, the effect re-runs.
 
 ## Basic usage
 
 ```tsx
-import { createState } from 'twiggle';
+import { createState } from 'twiggle'
 
-const counter = createState(0);
+const counter = createState(0)
 
-console.log(counter.get()); // 0
-counter.set(1);
-console.log(counter.get()); // 1
+console.log(counter.get()) // 0
+counter.set(1)
+console.log(counter.get()) // 1
 ```
 
 ## How UI updates work
@@ -52,8 +51,8 @@ This model gives fine-grained reactive updates without a global reconciliation p
 
 ```tsx
 const unsub = runSideEffect(() => {
-  console.log('value:', counter.get());
-});
+    console.log('value:', counter.get())
+})
 ```
 
 ## Edge cases and best practices

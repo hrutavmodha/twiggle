@@ -32,11 +32,12 @@ The process of initiating a new frontend project can often be time-consuming and
 `create-twiggle-app` is engineered for simplicity, efficiency, and developer convenience, offering a range of features to enhance your Twiggle development workflow:
 
 **Example End-to-End Workflow:**
-*   **Integrated Build System (Vite):** Comes pre-configured with Vite, a next-generation frontend tooling that provides an extremely fast development server with Hot Module Replacement (HMR) and highly optimized production builds.
-*   **Seamless Twiggle Plugin Integration:** Automatically sets up and configures `vite-plugin-twiggle` within your new project, ensuring that JSX syntax is correctly transformed for Twiggle's runtime and that reactive expressions are enabled out-of-the-box, eliminating manual configuration steps.
-*   **Automated Dependency Management:** Handles the installation of all necessary project dependencies. It intelligently uses your preferred package manager (npm, Yarn, or pnpm) to ensure a smooth setup process.
-*   **Interactive Command-Line Prompts:** Provides a user-friendly interactive experience, guiding you through the project creation process with clear and concise prompts for essential information like the project name.
-*   **TypeScript-First Approach:** Generates projects with full TypeScript support, including a pre-configured `tsconfig.json` file. This enables type-safe development, enhancing code quality and reducing common errors.
+
+- **Integrated Build System (Vite):** Comes pre-configured with Vite, a next-generation frontend tooling that provides an extremely fast development server with Hot Module Replacement (HMR) and highly optimized production builds.
+- **Seamless Twiggle Plugin Integration:** Automatically sets up and configures `vite-plugin-twiggle` within your new project, ensuring that JSX syntax is correctly transformed for Twiggle's runtime and that reactive expressions are enabled out-of-the-box, eliminating manual configuration steps.
+- **Automated Dependency Management:** Handles the installation of all necessary project dependencies. It intelligently uses your preferred package manager (npm, Yarn, or pnpm) to ensure a smooth setup process.
+- **Interactive Command-Line Prompts:** Provides a user-friendly interactive experience, guiding you through the project creation process with clear and concise prompts for essential information like the project name.
+- **TypeScript-First Approach:** Generates projects with full TypeScript support, including a pre-configured `tsconfig.json` file. This enables type-safe development, enhancing code quality and reducing common errors.
 
 ---
 
@@ -112,15 +113,15 @@ my-twiggle-app/
 └── README.md
 ```
 
-*   **`index.html`**: The main HTML file that serves as the entry point for your Twiggle application. It includes the necessary `<div id="root"></div>` where your Twiggle app will be mounted.
-*   **`src/`**: This directory houses all your application's source code.
-    *   **`App.tsx`**: The root component of your Twiggle application. This is where you'll typically start building your user interface and compose other components.
-    *   **`main.tsx`**: The primary entry point for your Twiggle application. It's responsible for importing your root `App` component and rendering it into the DOM.
-*   **`.gitignore`**: A standard Git configuration file that specifies intentionally untracked files and directories (e.g., `node_modules`, build outputs) that Git should ignore.
-*   **`package.json`**: The manifest file for your project. It contains metadata about your project, lists its dependencies, and defines various scripts for development, building, and testing.
-*   **`tsconfig.json`**: The TypeScript configuration file. It defines compiler options and specifies the root files and compilation options required for your TypeScript project.
-*   **`vite.config.ts`**: The Vite configuration file. This is where you can customize Vite's behavior, add additional plugins, configure build options, and more. It comes pre-configured with `vite-plugin-twiggle`.
-*   **`README.md`**: This very file, providing a comprehensive overview and guide for your Twiggle project.
+- **`index.html`**: The main HTML file that serves as the entry point for your Twiggle application. It includes the necessary `<div id="root"></div>` where your Twiggle app will be mounted.
+- **`src/`**: This directory houses all your application's source code.
+    - **`App.tsx`**: The root component of your Twiggle application. This is where you'll typically start building your user interface and compose other components.
+    - **`main.tsx`**: The primary entry point for your Twiggle application. It's responsible for importing your root `App` component and rendering it into the DOM.
+- **`.gitignore`**: A standard Git configuration file that specifies intentionally untracked files and directories (e.g., `node_modules`, build outputs) that Git should ignore.
+- **`package.json`**: The manifest file for your project. It contains metadata about your project, lists its dependencies, and defines various scripts for development, building, and testing.
+- **`tsconfig.json`**: The TypeScript configuration file. It defines compiler options and specifies the root files and compilation options required for your TypeScript project.
+- **`vite.config.ts`**: The Vite configuration file. This is where you can customize Vite's behavior, add additional plugins, configure build options, and more. It comes pre-configured with `vite-plugin-twiggle`.
+- **`README.md`**: This very file, providing a comprehensive overview and guide for your Twiggle project.
 
 ---
 
@@ -128,22 +129,22 @@ my-twiggle-app/
 
 The `package.json` in your newly created Twiggle project includes several convenient scripts to manage your development workflow:
 
-*   **`npm run dev`**
-    This command initiates the development server powered by Vite. It offers an incredibly fast startup time and features Hot Module Replacement (HMR), which allows you to see changes to your code reflected in the browser instantly without requiring a full page reload. This script is ideal for active development.
+- **`npm run dev`**
+  This command initiates the development server powered by Vite. It offers an incredibly fast startup time and features Hot Module Replacement (HMR), which allows you to see changes to your code reflected in the browser instantly without requiring a full page reload. This script is ideal for active development.
 
     ```bash
     npm run dev
     ```
 
-*   **`npm run build`**
-    Executes the production build process using Vite. This command compiles, optimizes, and bundles your Twiggle application into the `dist` directory, preparing it for deployment to a production environment. The output is highly optimized for performance and size.
+- **`npm run build`**
+  Executes the production build process using Vite. This command compiles, optimizes, and bundles your Twiggle application into the `dist` directory, preparing it for deployment to a production environment. The output is highly optimized for performance and size.
 
     ```bash
     npm run build
     ```
 
-*   **`npm run preview`**
-    After building your application for production, this command allows you to serve the optimized production build locally. It's an excellent way to test how your application will behave in a production-like environment before actual deployment.
+- **`npm run preview`**
+  After building your application for production, this command allows you to serve the optimized production build locally. It's an excellent way to test how your application will behave in a production-like environment before actual deployment.
 
     ```bash
     npm run preview
@@ -155,17 +156,17 @@ The `package.json` in your newly created Twiggle project includes several conven
 
 The project generated by `create-twiggle-app` serves as a robust foundation. You can further tailor it to meet your specific project requirements through various customization options:
 
-*   **Vite Configuration (`vite.config.ts`):**
-    Modify this file to adjust Vite's default behavior. You can add other Vite plugins (e.g., for image optimization, SVG loading), configure proxy rules, or fine-tune build options such as chunking strategies and asset handling.
+- **Vite Configuration (`vite.config.ts`):**
+  Modify this file to adjust Vite's default behavior. You can add other Vite plugins (e.g., for image optimization, SVG loading), configure proxy rules, or fine-tune build options such as chunking strategies and asset handling.
 
-*   **TypeScript Configuration (`tsconfig.json`):**
-    Update the `tsconfig.json` file to align with your team's or project's specific TypeScript linting rules, stricter type checking, or module resolution preferences.
+- **TypeScript Configuration (`tsconfig.json`):**
+  Update the `tsconfig.json` file to align with your team's or project's specific TypeScript linting rules, stricter type checking, or module resolution preferences.
 
-*   **Extending Your Application:**
-    Expand your application's functionality by creating new Twiggle components, organizing them into logical directories, and defining routes using Twiggle's built-in router for multi-page navigation within your single-page application.
+- **Extending Your Application:**
+  Expand your application's functionality by creating new Twiggle components, organizing them into logical directories, and defining routes using Twiggle's built-in router for multi-page navigation within your single-page application.
 
-*   **Styling Solutions:**
-    Integrate your preferred CSS frameworks or preprocessors. For example, you can add Tailwind CSS, Sass, Less, or PostCSS and configure their respective build processes within `vite.config.ts`.
+- **Styling Solutions:**
+  Integrate your preferred CSS frameworks or preprocessors. For example, you can add Tailwind CSS, Sass, Less, or PostCSS and configure their respective build processes within `vite.config.ts`.
 
 ---
 
@@ -173,28 +174,28 @@ The project generated by `create-twiggle-app` serves as a robust foundation. You
 
 Encountering any issues during project creation or while developing your Twiggle application is a normal part of the development process. Here are some common problems and their solutions:
 
-*   **`Error: Directory 'projectName' already exists.`**: 
-    This error indicates that a folder with the specified project name already exists in the directory where you are attempting to create the new project. To resolve this, either choose a different project name or manually delete the existing folder before retrying the `create-twiggle-app` command.
+- **`Error: Directory 'projectName' already exists.`**:
+  This error indicates that a folder with the specified project name already exists in the directory where you are attempting to create the new project. To resolve this, either choose a different project name or manually delete the existing folder before retrying the `create-twiggle-app` command.
 
-*   **Dependency Installation Failures**:
-    *   **Verify Node.js and Package Manager Installation:** Ensure that Node.js and your chosen package manager are correctly installed and accessible in your system's PATH.
-    *   **Check Internet Connection:** A stable internet connection is required to download dependencies.
-    *   **Manual Installation:** Navigate into your newly created project directory and attempt to run `npm install` (or `yarn install`, `pnpm install`) manually to see more detailed error messages.
+- **Dependency Installation Failures**:
+    - **Verify Node.js and Package Manager Installation:** Ensure that Node.js and your chosen package manager are correctly installed and accessible in your system's PATH.
+    - **Check Internet Connection:** A stable internet connection is required to download dependencies.
+    - **Manual Installation:** Navigate into your newly created project directory and attempt to run `npm install` (or `yarn install`, `pnpm install`) manually to see more detailed error messages.
 
-*   **Build or Development Server Errors**:
-    *   **Review Terminal Output:** Carefully examine the error messages displayed in your terminal. They often provide precise clues about the root cause of the problem.
-    *   **Confirm Dependencies:** Ensure all project dependencies are correctly installed and up-to-date.
-    *   **Configuration Check:** Double-check your `vite.config.ts` and `tsconfig.json` files for any syntax errors or misconfigurations.
+- **Build or Development Server Errors**:
+    - **Review Terminal Output:** Carefully examine the error messages displayed in your terminal. They often provide precise clues about the root cause of the problem.
+    - **Confirm Dependencies:** Ensure all project dependencies are correctly installed and up-to-date.
+    - **Configuration Check:** Double-check your `vite.config.ts` and `tsconfig.json` files for any syntax errors or misconfigurations.
 
-*   **`__dirname` / `__filename` issues (for CLI development):**
-    If you are directly modifying the source code of `create-twiggle-app` itself, be aware that `__dirname` and `__filename` are not directly available in ES Module contexts. To correctly resolve paths, you should derive them using `import.meta.url`:
+- **`__dirname` / `__filename` issues (for CLI development):**
+  If you are directly modifying the source code of `create-twiggle-app` itself, be aware that `__dirname` and `__filename` are not directly available in ES Module contexts. To correctly resolve paths, you should derive them using `import.meta.url`:
 
     ```typescript
-    import { dirname } from 'path';
-    import { fileURLToPath } from 'url';
+    import { dirname } from 'path'
+    import { fileURLToPath } from 'url'
 
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = dirname(__filename);
+    const __filename = fileURLToPath(import.meta.url)
+    const __dirname = dirname(__filename)
     ```
 
 For any further assistance or if you encounter persistent issues, please refer to the comprehensive Twiggle documentation or report a detailed issue on the official [GitHub Issues page](https://github.com/hrutavmodha/twiggle/issues).
@@ -249,10 +250,10 @@ Contributions to `create-twiggle-app` are highly valued and encouraged! We welco
 
 Before submitting a pull request, please ensure that you have:
 
-*   Adhered to the project's established coding style and conventions.
-*   Crafted clear, concise, and descriptive commit messages.
-*   Added new tests or updated existing ones to cover your changes.
-*   Verified that all existing tests pass successfully.
+- Adhered to the project's established coding style and conventions.
+- Crafted clear, concise, and descriptive commit messages.
+- Added new tests or updated existing ones to cover your changes.
+- Verified that all existing tests pass successfully.
 
 ---
 

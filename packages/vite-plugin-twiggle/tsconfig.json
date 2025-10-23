@@ -17,6 +17,6 @@
         "noUncheckedSideEffectImports": true,
         "moduleDetection": "force",
         "moduleResolution": "bundler",
-        "skipLibCheck": true,
+        "skipLibCheck": true
     }
 }

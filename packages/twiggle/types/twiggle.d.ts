@@ -1,25 +1,23 @@
 declare module 'twiggle/client' {
-    export function render(element: Element, container: Element): void;
+    export function render(element: Element, container: Element): void
 
-    export function runSideEffect(effect: () => void): void;
+    export function runSideEffect(effect: () => void): void
 
     export function createState<T>(initialValue: T): {
-        get: () => T;
-        set: (newValue: T) => void;
-    };
+        get: () => T
+        set: (newValue: T) => void
+    }
 
     export function createElement<P extends {}>(
         type: string | ((props: P) => Element),
         props: P,
         ...children: (Element | string | number)[]
-    ): Element;
+    ): Element
 }
 
 declare module 'twiggle/server' {
-    export function renderToString(
-        element: any
-    ): {
-        html: string,
+    export function renderToString(element: any): {
+        html: string
         script: string
     }
 }
@@ -29,15 +27,15 @@ declare module 'twiggle/client/jsx-runtime' {
         type: string | ((props: P) => Element),
         props: P,
         ...children: (Element | string | number)[]
-    ): Element;
+    ): Element
 
     export function jsxs<P extends {}>(
         type: string | ((props: P) => Element),
         props: P,
         ...children: (Element | string | number)[]
-    ): Element;
+    ): Element
 
-    export function Fragment(props: { children: (Element | string | number)[] }): DocumentFragment;
+    export function Fragment(props: { children: (Element | string | number)[] }): DocumentFragment
 }
 
 declare module 'twiggle/client/jsx-dev-runtime' {
@@ -45,9 +43,9 @@ declare module 'twiggle/client/jsx-dev-runtime' {
         type: string | ((props: P) => Element),
         props: P,
         ...children: (Element | string | number)[]
-    ): Element;
+    ): Element
 
-    export function Fragment(props: { children: (Element | string | number)[] }): DocumentFragment;
+    export function Fragment(props: { children: (Element | string | number)[] }): DocumentFragment
 }
 
 declare module 'twiggle/server/jsx-runtime' {
@@ -55,15 +53,15 @@ declare module 'twiggle/server/jsx-runtime' {
         type: string | ((props: P) => Element),
         props: P,
         ...children: (Element | string | number)[]
-    ): Element;
+    ): Element
 
     export function jsxs<P extends {}>(
         type: string | ((props: P) => Element),
         props: P,
         ...children: (Element | string | number)[]
-    ): Element;
+    ): Element
 
-    export function Fragment(props: { children: (Element | string | number)[] }): DocumentFragment;
+    export function Fragment(props: { children: (Element | string | number)[] }): DocumentFragment
 }
 
 declare module 'twiggle/server/jsx-dev-runtime' {
@@ -71,7 +69,7 @@ declare module 'twiggle/server/jsx-dev-runtime' {
         type: string | ((props: P) => Element),
         props: P,
         ...children: (Element | string | number)[]
-    ): Element;
+    ): Element
 
-    export function Fragment(props: { children: (Element | string | number)[] }): DocumentFragment;
+    export function Fragment(props: { children: (Element | string | number)[] }): DocumentFragment
 }

@@ -1,8 +1,4 @@
-import {
-    describe,
-    it,
-    expect
-} from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { createState } from '../src/state/state'
 
 describe('createState', () => {

@@ -1,4 +1,1 @@
-export {
-    createState,
-    runSideEffect
-} from './state'
+export { createState, runSideEffect } from './state'

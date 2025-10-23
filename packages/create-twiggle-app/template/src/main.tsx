@@ -1,7 +1,7 @@
-import { render } from 'twiggle/client';
-import App from './App';
-import './styles.css';
+import { render } from 'twiggle/client'
+import App from './App'
+import './styles.css'
 
-const rootElement = document.getElementById('root') as HTMLDivElement;
+const rootElement = document.getElementById('root') as HTMLDivElement
 
-render(<App />, rootElement);
+render(<App />, rootElement)

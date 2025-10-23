@@ -79,9 +79,9 @@ git checkout -b feature/my-new-feature
 ```
 
 - Use descriptive branch names like:
-  - `feature/<feature-name>`
-  - `bugfix/<short-description>`
-  - `docs/<doc-update>`
+    - `feature/<feature-name>`
+    - `bugfix/<short-description>`
+    - `docs/<doc-update>`
 
 - Commit small, self-contained changes:
 
@@ -105,13 +105,13 @@ PRs should include:
 
 ## Reporting Issues
 
-- Use GitHub Issues (avoid public security issues).  
+- Use GitHub Issues (avoid public security issues).
 - Include:
-  - Framework version
-  - Browser / environment
-  - Steps to reproduce
-  - Expected vs actual behavior
-  - Minimal reproducible example if possible
+    - Framework version
+    - Browser / environment
+    - Steps to reproduce
+    - Expected vs actual behavior
+    - Minimal reproducible example if possible
 
 - Use labels appropriately (`bug`, `enhancement`, `question`).
 
@@ -119,8 +119,8 @@ PRs should include:
 
 ## Coding Guidelines
 
-- **Language**: TypeScript + JSX  
-- **Syntax**: Follow Prettier / ESLint rules  
+- **Language**: TypeScript + JSX
+- **Syntax**: Follow Prettier / ESLint rules
 - **File Structure**:
 
 ```
@@ -132,15 +132,15 @@ PRs should include:
 ```
 
 - Naming conventions:
-  - Functions: camelCase
-  - Classes: PascalCase
-  - Variables: descriptive, avoid single-letter names
+    - Functions: camelCase
+    - Classes: PascalCase
+    - Variables: descriptive, avoid single-letter names
 
 ---
 
 ## Testing
 
-- Add tests for new features or fixes in `/tests`.  
+- Add tests for new features or fixes in `/tests`.
 - Run tests:
 
 ```
@@ -153,16 +153,16 @@ npm run test
 
 ## Documentation
 
-- Update docs for any public API change  
-- Keep Markdown formatting clean  
-- Include examples/screenshots when needed  
+- Update docs for any public API change
+- Keep Markdown formatting clean
+- Include examples/screenshots when needed
 
 ---
 
 ## Security Considerations
 
-- Never commit secrets (API keys, tokens)  
-- Follow guidelines in SECURITY.md  
+- Never commit secrets (API keys, tokens)
+- Follow guidelines in SECURITY.md
 - Report vulnerabilities privately
 
 ---

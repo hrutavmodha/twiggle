@@ -2,7 +2,6 @@
 title: Comparison
 ---
 
-
 # Comparing Twiggle to Other Frontend Frameworks
 
 This page gives a concise, practical comparison between Twiggle and several widely-used frontend frameworks: React, Vue, Svelte, Solid, and Preact. It focuses on mental model, reactivity style, runtime characteristics, typical use-cases, and migration considerations.
@@ -122,14 +121,12 @@ Migration notes
 ## Practical guidance
 
 - When to use Twiggle
-
-	- Small-to-medium apps where predictable, low-overhead updates and small bundle size matter.
-	- Projects that benefit from an explicit, easy-to-reason-about reactivity model.
+    - Small-to-medium apps where predictable, low-overhead updates and small bundle size matter.
+    - Projects that benefit from an explicit, easy-to-reason-about reactivity model.
 
 - When not to choose Twiggle
-
-	- Large teams that rely heavily on a mature ecosystem and many off-the-shelf UI libraries.
-	- Projects that need advanced framework features out of the box (opinionated SSR workflows, Suspense-like data loading primitives, etc.).
+    - Large teams that rely heavily on a mature ecosystem and many off-the-shelf UI libraries.
+    - Projects that need advanced framework features out of the box (opinionated SSR workflows, Suspense-like data loading primitives, etc.).
 
 ## Quick Migration Checklist
 

@@ -21,10 +21,10 @@ License: MIT
 - [Installation](#installation)
 - [Quick start](#quick-start)
 - [Core concepts](#core-concepts)
-  - [JSX & createElement](#jsx--createelement)
-  - [Renderer](#renderer)
-  - [State primitive](#state-primitive)
-  - [Router](#router)
+    - [JSX & createElement](#jsx--createelement)
+    - [Renderer](#renderer)
+    - [State primitive](#state-primitive)
+    - [Router](#router)
 - [Vite plugin](#vite-plugin)
 - [API reference](#api-reference)
 - [Development](#development)
@@ -92,7 +92,7 @@ Function component example:
 
 ```tsx
 function Greeting(props: { name: string }) {
-  return <div>Hello, {props.name}!</div>
+    return <div>Hello, {props.name}!</div>
 }
 
 render(<Greeting name="Alice" />, document.getElementById('root'))
@@ -133,27 +133,24 @@ This is a minimal reactive system built around an effect stack and per-state sub
 Example counter:
 
 ```tsx
-import { 
-  createState, 
-  runSideEffect 
-} from 'twiggle'
+import { createState, runSideEffect } from 'twiggle'
 
 const counter = createState(0)
 
 export default function Counter() {
-  runSideEffect(() => {
-    // reads counter.get() to subscribe
-    const value = counter.get()
-    // re-run when counter.set is called
-    console.log('counter', value)
-  })
+    runSideEffect(() => {
+        // reads counter.get() to subscribe
+        const value = counter.get()
+        // re-run when counter.set is called
+        console.log('counter', value)
+    })
 
-  return (
-    <div>
-      <span>{counter.get()}</span>
-      <button onclick={() => counter.set(counter.get() + 1)}>Increment</button>
-    </div>
-  )
+    return (
+        <div>
+            <span>{counter.get()}</span>
+            <button onclick={() => counter.set(counter.get() + 1)}>Increment</button>
+        </div>
+    )
 }
 ```
 
@@ -192,7 +189,7 @@ import { defineConfig } from 'vite'
 import twiggle from 'vite-plugin-twiggle'
 
 export default defineConfig({
-  plugins: [twiggle()]
+    plugins: [twiggle()],
 })
 ```
 
@@ -284,12 +281,12 @@ See `CONTRIBUTING.md` for the project's broader contribution rules.
 
 1. Is Twiggle a full framework?
 
-  No. Twiggle is a tiny set of primitives meant for learning, demos, and small apps. 
+No. Twiggle is a tiny set of primitives meant for learning, demos, and small apps.
 It lacks many features of full frameworks (advanced component lifecycles, SSR, etc.)
 
 2. Can I use Twiggle in production?
 
-  You can, but consider the tradeoffs (small feature set, simpler reactivity). For production apps that need scaling, a more feature-complete framework is recommended.
+You can, but consider the tradeoffs (small feature set, simpler reactivity). For production apps that need scaling, a more feature-complete framework is recommended.
 
 ---
 

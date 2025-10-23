@@ -12,23 +12,21 @@ export default defineConfig({
     esbuild: {
         jsx: 'automatic',
         jsxDev: false,
-        jsxImportSource: '@jsx'
+        jsxImportSource: '@jsx',
     },
     build: {
         outDir: 'dist/client',
         lib: {
             entry: '@client/index.ts',
-            formats: [
-                'es'
-            ],
+            formats: ['es'],
             fileName: (format) => {
                 return `twiggle-${format}.js`
-            }
+            },
         },
         rollupOptions: {
             input: {
-                client: '@client'
-            }
-        }
-    }
+                client: '@client',
+            },
+        },
+    },
 })

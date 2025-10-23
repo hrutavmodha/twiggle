@@ -6,9 +6,7 @@ export function runSideEffect(fn: () => void) {
     context.pop()
 }
 
-export function createState<T>(
-    value: T
-): {
+export function createState<T>(value: T): {
     get: () => T
     set: (newValue: T) => void
 } {
@@ -26,6 +24,6 @@ export function createState<T>(
             for (const sub of subscribers) {
                 sub()
             }
-        }   
+        },
     }
 }

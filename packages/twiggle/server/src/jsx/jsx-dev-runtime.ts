@@ -5,8 +5,4 @@ export function jsxDEV(type: any, props: any) {
     return renderToString(vdom)
 }
 
-export {
-    jsx,
-    jsxs,
-    Fragment
-} from './jsx-runtime'
+export { jsx, jsxs, Fragment } from './jsx-runtime'

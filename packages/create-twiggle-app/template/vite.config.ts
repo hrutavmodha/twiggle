@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite';
-import twiggle from 'vite-plugin-twiggle';
+import { defineConfig } from 'vite'
+import twiggle from 'vite-plugin-twiggle'
 
 export default defineConfig({
-  plugins: [twiggle()]
-});
+    plugins: [twiggle()],
+})

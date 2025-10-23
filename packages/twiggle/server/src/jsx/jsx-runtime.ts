@@ -1,14 +1,14 @@
 import renderToString from '../renderToString/renderToString'
 
 export function Fragment(props: any) {
-    return jsx("Fragment", props)
+    return jsx('Fragment', props)
 }
 
 export function jsx(
     type: any,
     props: any
 ): {
-    html: string,
+    html: string
     script: string
 } {
     const vdom = { type, props: props || {} }
@@ -19,7 +19,7 @@ export function jsxs(
     type: any,
     props: any
 ): {
-    html: string,
+    html: string
     script: string
 } {
     return jsx(type, props)

@@ -29,16 +29,16 @@ Unmount: when a component is removed from the tree (for example a parent conditi
 
 ```tsx
 function Greeting({ name }: { name: string }) {
-  return <h1>Hello, {name}!</h1>;
+    return <h1>Hello, {name}!</h1>
 }
 
 function App() {
-  return (
-    <div>
-      <Greeting name="Twiggle" />
-      <Greeting name="World" />
-    </div>
-  );
+    return (
+        <div>
+            <Greeting name="Twiggle" />
+            <Greeting name="World" />
+        </div>
+    )
 }
 ```
 
@@ -47,16 +47,16 @@ function App() {
 Twiggle maps event handler props (`onclick`, `oninput`, etc.) to DOM event listeners. Provide a function and it will be attached to the element.
 
 ```tsx
-import { createState } from 'twiggle';
+import { createState } from 'twiggle'
 
 function Counter() {
-  const { get, set } = createState(0);
-  return (
-    <div>
-      <p>Count: {get()}</p>
-      <button onclick={() => set(get() + 1)}>Increment</button>
-    </div>
-  );
+    const { get, set } = createState(0)
+    return (
+        <div>
+            <p>Count: {get()}</p>
+            <button onclick={() => set(get() + 1)}>Increment</button>
+        </div>
+    )
 }
 ```
 
@@ -71,14 +71,10 @@ function Counter() {
 Any JavaScript expression that returns `null`, `undefined`, `false`, or an empty string will render as nothing. Use ternaries or short-circuiting to control presence.
 
 ```tsx
-const loggedIn = createState(false);
+const loggedIn = createState(false)
 
 function App() {
-  return (
-    <div>
-      {loggedIn.get() ? <p>Welcome back!</p> : <p>Please log in.</p>}
-    </div>
-  );
+    return <div>{loggedIn.get() ? <p>Welcome back!</p> : <p>Please log in.</p>}</div>
 }
 ```
 
@@ -88,13 +84,13 @@ Rendering list:
 
 ```tsx
 function ItemList({ items }: { items: string[] }) {
-  return (
-    <ul>
-      {items.map((item: any) => {
-        return <li>{item}</li>
-      })}
-    </ul>
-  );
+    return (
+        <ul>
+            {items.map((item: any) => {
+                return <li>{item}</li>
+            })}
+        </ul>
+    )
 }
 ```
 
