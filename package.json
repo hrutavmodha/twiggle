@@ -9,12 +9,14 @@
     "scripts": {
         "lint": "eslint .",
         "format": "prettier --write .",
-        "build:vite-plugin-twiggle": "npm run build --workspace=vite-plugin-twiggle",
-        "build:twiggle": "npm run build --workspace=twiggle",
         "build:create-twiggle-app": "npm run build --workspace=create-twiggle-app",
-        "build": "npm run build:plugin && npm run build:twiggle && npm run build:creaet-twiggle-app"
+        "build:twiggle": "npm run build --workspace=twiggle",
+        "build:vite-plugin-twiggle": "npm run build --workspace=vite-plugin-twiggle",
+        "build": "concurrently \"npm run build:twiggle\" \"npm run build:create-twiggle-app\" \"npm run build:vite-plugin-twiggle\"",
+        "test": "cd packages/twiggle && npm test"
     },
     "devDependencies": {
+        "concurrently": "^9.2.1",
         "eslint": "^9.38.0",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-prettier": "^5.5.4",
