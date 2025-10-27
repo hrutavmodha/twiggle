@@ -8,7 +8,7 @@ declare module 'twiggle/client' {
         set: (newValue: T) => void
     }
 
-    export function createElement<P extends {}>(
+    export function createElement<P extends object>(
         type: string | ((props: P) => Element),
         props: P,
         ...children: (Element | string | number)[]
@@ -23,7 +23,7 @@ declare module 'twiggle/server' {
 }
 
 declare module 'twiggle/client/jsx-runtime' {
-    export function jsx<P extends {}>(
+    export function jsx<P extends object>(
         type: string | ((props: P) => Element),
         props: P,
         ...children: (Element | string | number)[]
@@ -49,7 +49,7 @@ declare module 'twiggle/client/jsx-dev-runtime' {
 }
 
 declare module 'twiggle/server/jsx-runtime' {
-    export function jsx<P extends {}>(
+    export function jsx<P extends object>(
         type: string | ((props: P) => Element),
         props: P,
         ...children: (Element | string | number)[]

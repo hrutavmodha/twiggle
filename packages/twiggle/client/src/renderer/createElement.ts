@@ -1,6 +1,7 @@
 import handleProps from './handleProps'
 
 export default function createElement(
+    // eslint-disable-next-line
     type: keyof HTMLElementTagNameMap | 'Fragment' | ((props?: any) => HTMLElement),
     props: {
         [key: string]: any

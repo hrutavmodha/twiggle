@@ -8,6 +8,7 @@ export function runSideEffect(fn: () => void) {
 
 export function createState<T>(value: T): {
     get: () => T
+    // eslint-disable-next-line
     set: (newValue: T) => void
 } {
     const subscribers = new Set<() => void>()

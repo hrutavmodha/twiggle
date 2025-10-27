@@ -9,7 +9,7 @@ export default function handleProps(
     }
 ): void {
     element = element as HTMLElement
-    for (let key in props) {
+    for (const key in props) {
         if (key.startsWith('on')) {
             element.addEventListener(key.substring(2).toLowerCase(), props[key])
         } else if (key === 'children') {

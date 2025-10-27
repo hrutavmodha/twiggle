@@ -2,6 +2,7 @@
     "name": "twiggle-monorepo",
     "version": "1.0.0",
     "private": true,
+    "type": "module",
     "workspaces": [
         "packages/*"
     ],
@@ -14,11 +15,11 @@
         "build": "npm run build:plugin && npm run build:twiggle && npm run build:creaet-twiggle-app"
     },
     "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^8.46.2",
-        "@typescript-eslint/parser": "^8.46.2",
         "eslint": "^9.38.0",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-prettier": "^5.5.4",
-        "prettier": "^3.6.2"
+        "globals": "^16.4.0",
+        "prettier": "^3.6.2",
+        "typescript-eslint": "^8.46.2"
     }
 }

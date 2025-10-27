@@ -2,7 +2,7 @@ import { Command } from 'commander'
 import inquirer from 'inquirer'
 import chalk from 'chalk'
 import { join } from 'path'
-import fs from 'fs'
+
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
 import { readFileSync } from 'fs'
