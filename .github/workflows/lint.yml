@@ -14,5 +14,7 @@ jobs:
               with:
                   node-version: 22.19.0
                   cache: npm
+            - name: Install ESLint
+              run: npm install eslint
             - name: Lint the codebase
               run: npm run lint

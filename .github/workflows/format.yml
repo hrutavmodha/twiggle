@@ -14,6 +14,8 @@ jobs:
               with:
                   node-version: 22.19.0
                   cache: npm
+            - name: Install Prettier
+              run: npm install prettier
             - name: Format the codebase
               run: npm run format
             
