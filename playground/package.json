@@ -1,16 +1,18 @@
 {
-    "name": "playground",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "workspaces": [
-        "client",
-        "server"
-    ],
+    "name": "twiggle-app",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview"
     },
-    "keywords": [],
-    "author": "",
-    "license": "ISC"
+    "dependencies": {
+        "twiggle": "^1.0.0"
+    },
+    "devDependencies": {
+        "vite": "^7.1.7",
+        "vite-plugin-twiggle": "^1.0.0"
+    }
 }
