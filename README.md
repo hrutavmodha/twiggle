@@ -9,6 +9,8 @@ Tiny, focused front-end primitives: a custom JSX runtime, minimal DOM renderer, 
 
 > **Note:** Twiggle is currently in its early stage and should not be used in the production apps.
 
+Join [Discord](https://discord.com/channels/1429102316652597290/1429102317248053331) for any queries
+
 Maintainer: Hrutav Modha
 
 License: MIT
