@@ -1,0 +1,14 @@
+{
+    "title": "Twiggle Playground",
+    "description": "Twiggle framework's playground",
+    "settings": {
+        "language": "javascript",
+        "framework": "none",
+        "autoRun": true
+    },
+    "files": {
+        "index.html": "<div id='root'></div>\n<script src='main.tsx'></script>",
+        "main.tsx": "import { render } from 'https://cdn.jsdelivr.net/gh/hrutavmodha/twiggle/packages/twiggle/index.ts'\nimport App from './App.tsx'\n\nconst div = document.getElementById('root')\nrender(<App />, div)",
+        "App.tsx": "export default function App() {\n\treturn <h1>Hello World</h1>\n}"
+    }
+}
