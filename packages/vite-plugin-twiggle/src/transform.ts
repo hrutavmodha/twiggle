@@ -19,23 +19,27 @@ const twiggleJsx = declare((api) => {
         name: 'twiggle-jsx-reactive-expressions',
         visitor: {
             JSXExpressionContainer(path) {
-                const expr = path.node.expression
-                if (t.isCallExpression(expr) && t.isMemberExpression(expr.callee)) {
-                    const { property } = expr.callee
-                    if (t.isIdentifier(property) && property.name === 'map') {
-                        const callback = expr.arguments[0]
-                        if (
-                            t.isFunctionExpression(callback) ||
-                            t.isArrowFunctionExpression(callback)
-                        ) {
-                            expr.arguments[0] = t.arrowFunctionExpression(
-                                callback.params,
-                                t.callExpression(t.identifier('runSideEffect'), [
-                                    t.arrowFunctionExpression([], callback.body),
-                                ])
-                            )
+                const exprPath = path.get('expression')
+
+                if (exprPath.isJSXEmptyExpression() || exprPath.isArrowFunctionExpression()) {
+                    return
+                }
+
+                let needsWrapping = false
+                exprPath.traverse({
+                    CallExpression(callPath) {
+                        if (isStateGetCall(callPath.node)) {
+                            needsWrapping = true
+                            callPath.stop()
                         }
-                    }
+                    },
+                })
+
+                if (needsWrapping) {
+                    path.node.expression = t.arrowFunctionExpression(
+                        [],
+                        path.node.expression as any
+                    )
                 }
             },
             CallExpression(path) {
