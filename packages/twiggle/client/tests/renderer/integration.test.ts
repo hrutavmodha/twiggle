@@ -39,4 +39,25 @@ describe('Integration Test: Expression Evaluation', () => {
         render(App(), parent)
         expect(parent.innerHTML).toBe('<ul><li>one</li><li>two</li><li>three</li></ul>')
     })
+
+    it('should render a reactive array and update it', () => {
+        const parent = document.createElement('div')
+        const listState = createState(['one', 'two'])
+
+        const App = () =>
+            createElement('ul', {
+                children: listState.get().map((item) => createElement('li', { children: item })),
+            })
+
+        render(App(), parent)
+
+        // Initial render
+        expect(parent.innerHTML).toBe('<ul><li>one</li><li>two</li></ul>')
+
+        // Update state using spread operator
+        listState.set(['one', 'three'])
+        console.log(listState.get())
+        // Assert that the DOM is updated automatically
+        expect(parent.innerHTML).toBe('<ul><li>one</li><li>three</li></ul>')
+    })
 })
