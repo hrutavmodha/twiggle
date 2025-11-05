@@ -1,5 +1,5 @@
 {
-  "name": "twiggle-plugin-webpack",
+  "name": "webpack-twiggle-plugin",
   "version": "0.0.0",
   "description": "Webpack plugin for Twiggle framework",
   "main": "dist/index.js",
