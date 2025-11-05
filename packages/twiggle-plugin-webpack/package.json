@@ -1,0 +1,36 @@
+{
+  "name": "twiggle-plugin-webpack",
+  "version": "0.0.0",
+  "description": "Webpack plugin for Twiggle framework",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --external babel-loader",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch --external babel-loader",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "twiggle",
+    "webpack",
+    "plugin"
+  ],
+  "author": "Twiggle Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.23.7",
+    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
+    "@babel/helper-plugin-utils": "^7.23.3",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.89.0"
+  },
+  "peerDependencies": {
+    "webpack": "^5.0.0"
+  }
+}
