@@ -1,4 +1,4 @@
-import { runSideEffect } from '../state/state'
+import runSideEffect from '../state/effect'
 
 export default function handleChildren(element: HTMLElement, children: any): void {
     if (!Array.isArray(children)) {

@@ -1,12 +1,6 @@
-const context: Array<() => void> = []
+import { effects } from './effect'
 
-export function runSideEffect(fn: () => void) {
-    context.push(fn)
-    fn()
-    context.pop()
-}
-
-export function createState<T>(value: T): {
+export default function createState<T>(value: T): {
     get: () => T
     // eslint-disable-next-line
     set: (newValue: T) => void
@@ -14,7 +8,7 @@ export function createState<T>(value: T): {
     const subscribers = new Set<() => void>()
     return {
         get: () => {
-            const currentEffect = context[context.length - 1]
+            const currentEffect = effects[effects.length - 1]
             if (currentEffect) {
                 subscribers.add(currentEffect)
             }

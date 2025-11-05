@@ -1,4 +1,4 @@
-import { runSideEffect } from '../state/state'
+import runSideEffect from '../state/effect'
 import handleChildren from './handleChildren'
 
 export default function handleProps(
