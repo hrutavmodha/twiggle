@@ -8,6 +8,6 @@
         "build": "echo \"Error: no build script specified\" && exit 1"
     },
     "dependencies": {
-        "twiggle": "^1.0.0"
+        "twiggle": "^1.6.0"
     }
 }

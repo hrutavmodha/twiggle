@@ -1,6 +1,6 @@
 {
     "name": "parcel-plugin-twiggle",
-    "version": "1.0.1",
+    "version": "1.6.0",
     "description": "Parcel plugin for Twiggle framework",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
