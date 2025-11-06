@@ -8,7 +8,7 @@
         "dist"
     ],
     "scripts": {
-        "build": "tsc",
+        "build": "tsup src/index.ts --format cjs,esm --dts",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [
@@ -25,6 +25,7 @@
         "babel-plugin-twiggle": "^1.6.0"
     },
     "devDependencies": {
-        "typescript": "^5.9.2"
+        "typescript": "^5.9.2",
+        "tsup": "^8.0.1"
     }
 }

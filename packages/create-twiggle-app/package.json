@@ -8,7 +8,7 @@
         "create-twiggle-app": "./dist/index.js"
     },
     "scripts": {
-        "build": "tsc && sed -i '1i#!/usr/bin/env node' dist/index.js",
+        "build": "tsup",
         "start": "node dist/index.js",
         "preview": "npm run build && npm run start"
     },
@@ -31,6 +31,7 @@
         "inquirer": "^10.1.2"
     },
     "devDependencies": {
-        "typescript": "^5.9.2"
+        "typescript": "^5.9.2",
+        "tsup": "^8.0.1"
     }
 }

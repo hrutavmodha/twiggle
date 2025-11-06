@@ -8,7 +8,7 @@
         "dist"
     ],
     "scripts": {
-        "build": "tsc",
+        "build": "tsup src/index.ts --format cjs,esm --dts",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [
@@ -20,7 +20,8 @@
     "license": "MIT",
     "devDependencies": {
         "typescript": "^5.0.0",
-        "rollup": "^4.0.0"
+        "rollup": "^4.0.0",
+        "tsup": "^8.0.1"
     },
     "dependencies": {
         "twiggle-plugin-core": "^1.6.0",
