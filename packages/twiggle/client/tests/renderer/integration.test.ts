@@ -10,9 +10,9 @@ describe('Integration Test: Expression Evaluation', () => {
         // @ts-expect-error - createElement children can be a function
         const App = () => createElement('div', { children: () => myState.get().value })
         render(App(), parent)
-        expect(parent.innerHTML).toBe('<div>initial</div>')
+        expect(parent.innerHTML).toBe('<div><!--reactive-start-->initial<!--reactive-end--></div>')
         myState.set({ value: 'updated' })
-        expect(parent.innerHTML).toBe('<div>updated</div>')
+        expect(parent.innerHTML).toBe('<div><!--reactive-start-->updated<!--reactive-end--></div>')
     })
 
     it('should render a complex reactive expression and update it automatically', () => {
@@ -24,9 +24,9 @@ describe('Integration Test: Expression Evaluation', () => {
             })
         }
         render(App(), parent)
-        expect(parent.innerHTML).toBe('<div>Prefix: initial Suffix</div>')
+        expect(parent.innerHTML).toBe('<div>Prefix: <!--reactive-start-->initial<!--reactive-end--> Suffix</div>')
         myState.set({ value: 'updated' })
-        expect(parent.innerHTML).toBe('<div>Prefix: updated Suffix</div>')
+        expect(parent.innerHTML).toBe('<div>Prefix: <!--reactive-start-->updated<!--reactive-end--> Suffix</div>')
     })
 
     it('should render a static array using .map()', () => {
@@ -46,18 +46,23 @@ describe('Integration Test: Expression Evaluation', () => {
 
         const App = () =>
             createElement('ul', {
-                children: listState.get().map((item) => createElement('li', { children: item })),
+                // @ts-expect-error - createElement children can be a function
+                children: () => {
+                    return listState.get().map((item) => {
+                        return createElement('li', { children: item.toString() })
+                    })
+                },
             })
 
         render(App(), parent)
 
         // Initial render
-        expect(parent.innerHTML).toBe('<ul><li>one</li><li>two</li></ul>')
+        expect(parent.innerHTML).toBe('<ul><!--reactive-start--><li>one</li><li>two</li><!--reactive-end--></ul>')
 
         // Update state using spread operator
-        listState.set(['one', 'three'])
+        listState.set([...listState.get(), 'three'])
         console.log(listState.get())
         // Assert that the DOM is updated automatically
-        expect(parent.innerHTML).toBe('<ul><li>one</li><li>three</li></ul>')
+        expect(parent.innerHTML).toBe('<ul><!--reactive-start--><li>one</li><li>two</li><li>three</li><!--reactive-end--></ul>')
     })
 })

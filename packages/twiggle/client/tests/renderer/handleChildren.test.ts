@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import handleChildren from '../../src/renderer/handleChildren'
-import { createState } from '../../src/state/state'
+import createState from '../../src/state/state'
 
 describe('handleChildren', () => {
     it('should append a string child', () => {

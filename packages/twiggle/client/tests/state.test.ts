@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { createState } from '../src/state/state'
+import createState from '../src/state/state'
 
 describe('createState', () => {
     it('should create a state with an initial value', () => {

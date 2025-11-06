@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import handleProps from '../../src/renderer/handleProps'
-import { createState } from '../../src/state/state'
+import createState from '../../src/state/state'
 
 describe('handleProps', () => {
     it('should set a simple attribute', () => {
