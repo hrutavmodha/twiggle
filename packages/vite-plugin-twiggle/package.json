@@ -1,6 +1,6 @@
 {
     "name": "vite-plugin-twiggle",
-    "version": "1.6.2",
+    "version": "1.6.3",
     "description": "The Vite Plugin for Runtime of Twiggle",
     "main": "./dist/index.js",
     "type": "module",
