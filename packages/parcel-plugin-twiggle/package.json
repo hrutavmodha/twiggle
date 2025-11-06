@@ -25,13 +25,10 @@
     "license": "MIT",
     "dependencies": {
         "@parcel/plugin": "^2.10.3",
-        "@parcel/transformer-babel": "^2.10.3"
+        "@parcel/transformer-babel": "^2.10.3",
+        "twiggle-plugin-core": "^1.6.0"
     },
     "devDependencies": {
-        "@babel/core": "^7.23.7",
-        "@babel/preset-react": "^7.23.3",
-        "@babel/preset-typescript": "^7.23.3",
-        "@babel/helper-plugin-utils": "^7.23.3",
         "tsup": "^8.0.1",
         "typescript": "^5.3.3"
     },

@@ -1,5 +1,5 @@
 import type { Compiler } from 'webpack'
-import twiggleJsx from './transform'
+import { twiggleBabelConfig } from 'twiggle-plugin-core'
 
 class TwiggleWebpackPlugin {
     apply(compiler: Compiler) {
@@ -9,14 +9,7 @@ class TwiggleWebpackPlugin {
             use: {
                 loader: require.resolve('babel-loader'),
                 options: {
-                    presets: [
-                        [
-                            '@babel/preset-react',
-                            { runtime: 'automatic', importSource: 'twiggle/jsx' },
-                        ],
-                        ['@babel/preset-typescript'],
-                    ],
-                    plugins: [twiggleJsx],
+                    ...twiggleBabelConfig(true), // Assuming TypeScript for webpack projects
                 },
             },
         })

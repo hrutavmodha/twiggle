@@ -1,6 +1,5 @@
-import { transformAsync } from '@babel/core';
+import { transform } from 'twiggle-plugin-core';
 import { Plugin } from 'esbuild';
-import twiggleBabelPlugin from 'babel-plugin-twiggle';
 
 interface Options {
   filter?: RegExp;
@@ -15,13 +14,7 @@ export default function twiggleEsbuildPlugin(options: Options = {}): Plugin {
       build.onLoad({ filter }, async (args) => {
         const code = await require('fs').promises.readFile(args.path, 'utf8');
 
-        const result = await transformAsync(code, {
-          plugins: [
-            twiggleBabelPlugin,
-          ],
-          filename: args.path,
-          sourceMaps: true,
-        });
+        const result = transform(code, args.path);
 
         if (result && result.code) {
           return {

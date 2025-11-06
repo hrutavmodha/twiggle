@@ -1,18 +1,15 @@
 import { Transformer } from '@parcel/plugin'
 import babel from '@parcel/transformer-babel'
-import twiggleJsx from './transform'
+import { twiggleBabelConfig } from 'twiggle-plugin-core'
 
 export default new Transformer({
     async transform({ asset, options }) {
+        const isTypeScript = asset.filePath.endsWith('.ts') || asset.filePath.endsWith('.tsx');
         const babelConfig = await (babel as any).config({
             asset,
             options: {
                 ...options,
-                plugins: [twiggleJsx],
-                presets: [
-                    ['@babel/preset-react', { runtime: 'automatic', importSource: 'twiggle/jsx' }],
-                    ['@babel/preset-typescript'],
-                ],
+                ...twiggleBabelConfig(isTypeScript),
             },
         })
 

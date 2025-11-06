@@ -1,6 +1,5 @@
-import { transformAsync } from '@babel/core';
 import { createFilter } from '@rollup/pluginutils';
-import twiggleBabelPlugin from 'babel-plugin-twiggle';
+import { transform } from 'twiggle-plugin-core';
 
 interface Options {
   include?: string | string[];
@@ -18,13 +17,7 @@ export default function twiggleRollupPlugin(options: Options = {}) {
         return null;
       }
 
-      const result = await transformAsync(code, {
-        plugins: [
-          twiggleBabelPlugin,
-        ],
-        filename: id,
-        sourceMaps: true,
-      });
+      const result = transform(code, id);
 
       if (result && result.code) {
         return {
