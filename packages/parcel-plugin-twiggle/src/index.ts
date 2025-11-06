@@ -4,7 +4,7 @@ import { twiggleBabelConfig } from 'twiggle-plugin-core'
 
 export default new Transformer({
     async transform({ asset, options }) {
-        const isTypeScript = asset.filePath.endsWith('.ts') || asset.filePath.endsWith('.tsx');
+        const isTypeScript = asset.filePath.endsWith('.ts') || asset.filePath.endsWith('.tsx')
         const babelConfig = await (babel as any).config({
             asset,
             options: {

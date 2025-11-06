@@ -41,7 +41,7 @@ export async function createApp(
         const configsPath = join(dirname(templatePath), 'configs')
         let configFileName = ''
         let destFileName = ''
-        let shimFileName = ''; // For esbuild
+        let shimFileName = '' // For esbuild
 
         switch (buildTool) {
             case 'vite':
@@ -121,7 +121,7 @@ export async function createApp(
             case 'rollup':
                 packageJson.scripts = {
                     dev: 'rollup -c -w',
-                    build: 'rollup -c'
+                    build: 'rollup -c',
                 }
                 packageJson.devDependencies = {
                     rollup: '^4.0.0',
@@ -129,22 +129,22 @@ export async function createApp(
                     '@rollup/plugin-node-resolve': '^15.0.0',
                     'rollup-plugin-serve': '^3.0.0',
                     typescript: '^5.0.0',
-                    'rollup-plugin-twiggle': '^1.0.0'
+                    'rollup-plugin-twiggle': '^1.0.0',
                 }
                 break
             case 'esbuild':
                 packageJson.scripts = {
                     dev: 'node esbuild.config.js --watch',
-                    build: 'node esbuild.config.js'
+                    build: 'node esbuild.config.js',
                 }
                 packageJson.devDependencies = {
                     esbuild: '^0.20.0',
-                    typescript: '^5.0.0'
+                    typescript: '^5.0.0',
                 }
                 break
             case 'babel':
                 packageJson.scripts = {
-                    build: 'babel src --out-dir dist --extensions \".ts,.tsx\"'
+                    build: 'babel src --out-dir dist --extensions ".ts,.tsx"',
                 }
                 packageJson.devDependencies = {
                     '@babel/cli': '^7.0.0',
@@ -152,7 +152,7 @@ export async function createApp(
                     '@babel/preset-env': '^7.0.0',
                     '@babel/preset-typescript': '^7.0.0',
                     'babel-plugin-twiggle': '^1.0.0',
-                    typescript: '^5.0.0'
+                    typescript: '^5.0.0',
                 }
                 break
         }

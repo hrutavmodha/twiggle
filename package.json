@@ -21,7 +21,6 @@
         "build:plugins": "concurrently \"npm run build:vite-plugin-twiggle\" \"npm run build:rollup-plugin-twiggle\" \"npm run build:esbuild-plugin-twiggle\" \"npm run build:webpack-plugin-twiggle\" \"npm run build:parcel-plugin-twiggle\" \"npm run build:babel-plugin-twiggle\"",
         "build": "npm run build:plugin-core && npm run build:plugins && npm run build:twiggle && npm run build:create-twiggle-app",
         "test": "cd packages/twiggle && npm test",
-
         "version:twiggle": "npm version --workspace=twiggle",
         "version:create-twiggle-app": "npm version --workspace=create-twiggle-app",
         "version:vite-plugin-twiggle": "npm version --workspace=vite-plugin-twiggle",
@@ -31,11 +30,9 @@
         "version:webpack-plugin-twiggle": "npm version --workspace=webpack-plugin-twiggle",
         "version:parcel-plugin-twiggle": "npm version --workspace=parcel-plugin-twiggle",
         "version:babel-plugin-twiggle": "npm version --workspace=babel-plugin-twiggle",
-
         "version:all:major": "npm run version:twiggle major && npm run version:create-twiggle-app major && npm run version:vite-plugin-twiggle major && npm run version:plugin-core major && npm run version:rollup-plugin-twiggle major && npm run version:esbuild-plugin-twiggle major && npm run version:webpack-plugin-twiggle major && npm run version:parcel-plugin-twiggle major && npm run version:babel-plugin-twiggle major",
         "version:all:minor": "npm run version:twiggle minor && npm run version:create-twiggle-app minor && npm run version:vite-plugin-twiggle minor && npm run version:plugin-core minor && npm run version:rollup-plugin-twiggle minor && npm run version:esbuild-plugin-twiggle minor && npm run version:webpack-plugin-twiggle minor && npm run version:parcel-plugin-twiggle minor && npm run version:babel-plugin-twiggle minor",
         "version:all:patch": "npm run version:twiggle patch && npm run version:create-twiggle-app patch && npm run version:vite-plugin-twiggle patch && npm run version:plugin-core patch && npm run version:rollup-plugin-twiggle patch && npm run version:esbuild-plugin-twiggle patch && npm run version:webpack-plugin-twiggle patch && npm run version:parcel-plugin-twiggle patch && npm run version:babel-plugin-twiggle patch",
-
         "publish:twiggle": "npm publish --workspace=twiggle --access public",
         "publish:create-twiggle-app": "npm publish --workspace=create-twiggle-app --access public",
         "publish:vite-plugin-twiggle": "npm publish --workspace=vite-plugin-twiggle --access public",
@@ -45,7 +42,6 @@
         "publish:webpack-plugin-twiggle": "npm publish --workspace=webpack-plugin-twiggle --access public",
         "publish:parcel-plugin-twiggle": "npm publish --workspace=parcel-plugin-twiggle --access public",
         "publish:babel-plugin-twiggle": "npm publish --workspace=babel-plugin-twiggle --access public",
-
         "publish:all": "npm run publish:twiggle && npm run publish:create-twiggle-app && npm run publish:vite-plugin-twiggle && npm run publish:plugin-core && npm run publish:rollup-plugin-twiggle && npm run publish:esbuild-plugin-twiggle && npm run publish:webpack-plugin-twiggle && npm run publish:parcel-plugin-twiggle && npm run publish:babel-plugin-twiggle"
     },
     "devDependencies": {

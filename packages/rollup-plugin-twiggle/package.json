@@ -1,29 +1,29 @@
 {
-  "name": "rollup-plugin-twiggle",
-  "version": "1.6.3",
-  "description": "Rollup plugin for Twiggle JSX transformation",
-  "main": "dist/index.js",
-  "type": "module",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "rollup-plugin",
-    "twiggle",
-    "jsx"
-  ],
-  "author": "Hrutav Modha",
-  "license": "MIT",
-  "devDependencies": {
-    "typescript": "^5.0.0",
-    "rollup": "^4.0.0"
-  },
-  "dependencies": {
-    "twiggle-plugin-core": "^1.6.0",
-    "@rollup/pluginutils": "^5.3.0"
-  }
+    "name": "rollup-plugin-twiggle",
+    "version": "1.6.4",
+    "description": "Rollup plugin for Twiggle JSX transformation",
+    "main": "dist/index.js",
+    "type": "module",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "rollup-plugin",
+        "twiggle",
+        "jsx"
+    ],
+    "author": "Hrutav Modha",
+    "license": "MIT",
+    "devDependencies": {
+        "typescript": "^5.0.0",
+        "rollup": "^4.0.0"
+    },
+    "dependencies": {
+        "twiggle-plugin-core": "^1.6.0",
+        "@rollup/pluginutils": "^5.3.0"
+    }
 }
