@@ -1,6 +1,6 @@
 {
   "name": "esbuild-plugin-twiggle",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "esbuild plugin for Twiggle JSX transformation",
   "main": "dist/index.js",
   "type": "module",
