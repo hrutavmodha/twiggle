@@ -49,16 +49,16 @@ export async function createApp(
                 destFileName = 'vite.config.ts'
                 break
             case 'webpack':
-                configFileName = 'webpack.config.js'
-                destFileName = 'webpack.config.js'
+                configFileName = 'webpack.config.ts'
+                destFileName = 'webpack.config.ts'
                 break
             case 'parcel':
                 configFileName = '.parcelrc'
                 destFileName = '.parcelrc'
                 break
             case 'rollup':
-                configFileName = 'rollup.config.js'
-                destFileName = 'rollup.config.js'
+                configFileName = 'rollup.config.ts'
+                destFileName = 'rollup.config.ts'
                 break
             case 'esbuild':
                 configFileName = 'esbuild.config.js'

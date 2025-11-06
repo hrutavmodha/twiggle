@@ -1,6 +1,6 @@
 import { transformAsync } from '@babel/core';
-import jsx from '@babel/plugin-transform-react-jsx';
 import { createFilter } from '@rollup/pluginutils';
+import twiggleBabelPlugin from 'babel-plugin-twiggle';
 
 interface Options {
   include?: string | string[];
@@ -20,7 +20,7 @@ export default function twiggleRollupPlugin(options: Options = {}) {
 
       const result = await transformAsync(code, {
         plugins: [
-          [jsx, { pragma: 'createElement', pragmaFrag: 'Fragment', importSource: 'twiggle/client' }],
+          twiggleBabelPlugin,
         ],
         filename: id,
         sourceMaps: true,

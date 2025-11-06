@@ -24,6 +24,6 @@
   },
   "dependencies": {
     "@babel/core": "^7.0.0",
-    "@babel/plugin-transform-react-jsx": "^7.0.0"
+    "babel-plugin-twiggle": "^1.0.0"
   }
 }

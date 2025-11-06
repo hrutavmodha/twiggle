@@ -23,6 +23,8 @@
     "@babel/core": "^7.0.0"
   },
   "dependencies": {
-    "@babel/plugin-transform-react-jsx": "^7.0.0"
+    "@babel/plugin-transform-react-jsx": "^7.0.0",
+    "@babel/types": "^7.0.0",
+    "@babel/helper-plugin-utils": "^7.0.0"
   }
 }

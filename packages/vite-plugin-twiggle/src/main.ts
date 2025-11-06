@@ -1,6 +1,6 @@
 import { createFilter } from '@rollup/pluginutils'
 import * as babel from '@babel/core'
-import twiggleJsx from './transform'
+import twiggleJsx from 'babel-plugin-twiggle'
 
 export default function twiggle() {
     const filter = createFilter(/\.(js|ts|jsx|tsx)$/, /node_modules/)
