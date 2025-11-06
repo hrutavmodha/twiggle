@@ -4,15 +4,10 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "dev": "vite",
-        "build": "vite build",
-        "preview": "vite preview"
+        "start": "echo \"Error: no start script specified\" && exit 1",
+        "build": "echo \"Error: no build script specified\" && exit 1"
     },
     "dependencies": {
         "twiggle": "^1.0.0"
-    },
-    "devDependencies": {
-        "vite": "^7.1.7",
-        "vite-plugin-twiggle": "^1.0.0"
     }
 }
