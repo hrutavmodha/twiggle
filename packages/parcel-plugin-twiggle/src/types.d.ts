@@ -1,1 +1,1 @@
-declare module '@parcel/transformer-babel';
+declare module '@parcel/transformer-babel'

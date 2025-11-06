@@ -1,44 +1,44 @@
 {
-  "name": "parcel-plugin-twiggle",
-  "version": "1.0.0",
-  "description": "Parcel plugin for Twiggle framework",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "README.md",
-    "package.json"
-  ],
-  "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
-    "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
-  },
-  "keywords": [
-    "twiggle",
-    "parcel",
-    "plugin"
-  ],
-  "author": "Twiggle Team",
-  "license": "MIT",
-  "dependencies": {
-    "@parcel/plugin": "^2.10.3",
-    "@parcel/transformer-babel": "^2.10.3"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.23.7",
-    "@babel/preset-react": "^7.23.3",
-    "@babel/preset-typescript": "^7.23.3",
-    "@babel/helper-plugin-utils": "^7.23.3",
-    "tsup": "^8.0.1",
-    "typescript": "^5.3.3"
-  },
-  "peerDependencies": {
-    "parcel": "^2.0.0"
-  },
-  "engines": {
-    "parcel": "2.x"
-  }
+    "name": "parcel-plugin-twiggle",
+    "version": "1.0.0",
+    "description": "Parcel plugin for Twiggle framework",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist",
+        "README.md",
+        "package.json"
+    ],
+    "scripts": {
+        "build": "tsup src/index.ts --format cjs,esm --dts",
+        "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+        "lint": "eslint .",
+        "typecheck": "tsc --noEmit"
+    },
+    "keywords": [
+        "twiggle",
+        "parcel",
+        "plugin"
+    ],
+    "author": "Twiggle Team",
+    "license": "MIT",
+    "dependencies": {
+        "@parcel/plugin": "^2.10.3",
+        "@parcel/transformer-babel": "^2.10.3"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.23.7",
+        "@babel/preset-react": "^7.23.3",
+        "@babel/preset-typescript": "^7.23.3",
+        "@babel/helper-plugin-utils": "^7.23.3",
+        "tsup": "^8.0.1",
+        "typescript": "^5.3.3"
+    },
+    "peerDependencies": {
+        "parcel": "^2.0.0"
+    },
+    "engines": {
+        "parcel": "2.x"
+    }
 }

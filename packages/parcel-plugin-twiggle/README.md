@@ -16,10 +16,10 @@ Create a `.parcelrc` file in your project root with the following content:
 
 ```json
 {
-  "extends": "@parcel/config-default",
-  "transformers": {
-    "*.{js,jsx,ts,tsx}": ["parcel-plugin-twiggle", "..."]
-  }
+    "extends": "@parcel/config-default",
+    "transformers": {
+        "*.{js,jsx,ts,tsx}": ["parcel-plugin-twiggle", "..."]
+    }
 }
 ```
 
