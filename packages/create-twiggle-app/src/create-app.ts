@@ -38,70 +38,69 @@ export async function createApp(
     try {
         copyRecursiveSync(templatePath, projectPath)
 
-        const configsPath = join(dirname(templatePath), 'configs');
-        let configFileName = '';
-        let destFileName = '';
+        const configsPath = join(dirname(templatePath), 'configs')
+        let configFileName = ''
+        let destFileName = ''
 
         switch (buildTool) {
             case 'vite':
-                configFileName = 'vite.config.ts';
-                destFileName = 'vite.config.ts';
-                break;
+                configFileName = 'vite.config.ts'
+                destFileName = 'vite.config.ts'
+                break
             case 'webpack':
-                configFileName = 'webpack.config.js';
-                destFileName = 'webpack.config.js';
-                break;
+                configFileName = 'webpack.config.js'
+                destFileName = 'webpack.config.js'
+                break
             case 'parcel':
-                configFileName = '.parcelrc';
-                destFileName = '.parcelrc';
-                break;
+                configFileName = '.parcelrc'
+                destFileName = '.parcelrc'
+                break
         }
 
-        const configSrc = join(configsPath, configFileName);
-        const configDest = join(projectPath, destFileName);
-        fs.copyFileSync(configSrc, configDest);
+        const configSrc = join(configsPath, configFileName)
+        const configDest = join(projectPath, destFileName)
+        fs.copyFileSync(configSrc, configDest)
 
         // Update package.json with build tool specific scripts and devDependencies
-        const packageJsonPath = join(projectPath, 'package.json');
-        const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+        const packageJsonPath = join(projectPath, 'package.json')
+        const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'))
 
         switch (buildTool) {
             case 'vite':
                 packageJson.scripts = {
-                    "dev": "vite",
-                    "build": "vite build",
-                    "preview": "vite preview"
-                };
+                    dev: 'vite',
+                    build: 'vite build',
+                    preview: 'vite preview',
+                }
                 packageJson.devDependencies = {
-                    "vite": "^7.1.7",
-                    "vite-plugin-twiggle": "^1.0.0"
-                };
-                break;
+                    vite: '^7.1.7',
+                    'vite-plugin-twiggle': '^1.0.0',
+                }
+                break
             case 'webpack':
                 packageJson.scripts = {
-                    "build": "webpack"
-                };
+                    build: 'webpack',
+                }
                 packageJson.devDependencies = {
-                    "webpack": "^5.0.0",
-                    "webpack-cli": "^4.0.0",
-                    "ts-loader": "^9.0.0",
-                    "typescript": "^5.0.0"
-                };
-                break;
+                    webpack: '^5.0.0',
+                    'webpack-cli': '^4.0.0',
+                    'ts-loader': '^9.0.0',
+                    typescript: '^5.0.0',
+                }
+                break
             case 'parcel':
                 packageJson.scripts = {
-                    "start": "parcel src/index.html",
-                    "build": "parcel build src/index.html"
-                };
+                    start: 'parcel src/index.html',
+                    build: 'parcel build src/index.html',
+                }
                 packageJson.devDependencies = {
-                    "parcel": "^2.0.0",
-                    "@parcel/transformer-typescript-tsc": "^2.0.0"
-                };
-                break;
+                    parcel: '^2.0.0',
+                    '@parcel/transformer-typescript-tsc': '^2.0.0',
+                }
+                break
         }
 
-        fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
-
+        fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2))
     } catch (error) {
         throw new Error(`Error copying template files: ${error}`)
     }
