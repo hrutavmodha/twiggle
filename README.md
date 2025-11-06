@@ -156,30 +156,6 @@ export default function Counter() {
 }
 ```
 
-### Router
-
-Twiggle ships a tiny client-side router built on the History API.
-
-Components and functions:
-
-- `Routes` — collects `Route` children and registers them via `setRoutes`
-- `Route({ to, element })` — lightweight route descriptor; `element` is a function that returns the element to render
-- `Link({ to, children })` — anchor element that prevents default navigation and calls `navigate`
-- `navigate(to)` — programmatic navigation; pushes a new history entry and renders the route
-
-Example:
-
-```tsx
-<Routes>
-  <Route to="/" element={() => <Home />} />
-  <Route to="/about" element={() => <About />} />
-</Routes>
-
-<Link to="/about">About</Link>
-```
-
----
-
 ## Vite Plugin
 
 Use the official Vite plugin in this monorepo to compile JSX for Twiggle and enable reactive transforms.
@@ -210,14 +186,6 @@ Renderer
 
 - `createElement(type, props)` — internal JSX entry point.
 - `render(element: HTMLElement | DocumentFragment, parent: HTMLElement): void` — mount node to parent.
-
-Router
-
-- `navigate(to: string): void`
-- `setRoutes(routes: Record<string, () => HTMLElement>): void` — internal
-- `Routes(props: { children: any[] }): null`
-- `Route(props: { to: string, element: () => HTMLElement }): any`
-- `Link(props: { to: string, children: any }): HTMLElement`
 
 State
 
