@@ -42,17 +42,15 @@ If you discover a security vulnerability in this framework, please follow these 
 ### 2. DOM Injection
 
 - Avoid exposing APIs that allow arbitrary JavaScript injection from user input.
-- Components like `<Routes>` and `<Link>` safely handle route strings; however, dynamic route generation must be sanitized.
 
 ### 3. Event Handling
 
-- Inline event handlers (`onclick`) are used internally for routing.
+- Inline event handlers (`onclick`) are used internally.
 - Never pass untrusted scripts into these handlers.
-- Encourage use of framework-provided API (`navigate`) instead of raw JS evaluation.
 
 ### 4. Third-Party Dependencies
 
-- The framework uses minimal/no dependencies.
+- The framework uses minimal dependencies.
 - Keep all dependencies updated and verify their integrity with lock files.
 
 ### 5. Content Security Policy (CSP)
@@ -71,17 +69,12 @@ If you discover a security vulnerability in this framework, please follow these 
 - Developers should not bind sensitive data (like auth tokens) directly to DOM elements.
 - Sensitive state should be kept in memory and never injected as raw HTML.
 
-### 7. Route Handling
-
-- The router validates paths using TypeScript literal types (/${string}).
-- Avoid dynamic evaluation of route strings to prevent arbitrary code execution.
-
 ---
 
 ## Recommended Security Guidelines for Developers
 
 1. Sanitize all user inputs before rendering.
-2. Use framework API (navigate, createState) instead of manually manipulating DOM or history.
+2. Use framework API (createState) instead of manually manipulating DOM or history.
 3. Keep dependencies up-to-date and monitor for CVEs.
 4. Apply CSP headers in production.
 5. Avoid recursive component mounting that can crash or freeze the browser.

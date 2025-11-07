@@ -2,7 +2,7 @@
 
 ![Twiggle Logo](./website/static/logo.png)
 
-Tiny, focused front-end primitives: a custom JSX runtime, minimal DOM renderer, a tiny router, and a reactive state primitive.
+Tiny, focused front-end primitives: a custom JSX runtime, minimal DOM renderer, and a reactive state primitive.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
 [![Version](https://img.shields.io/badge/version-1.1.1-brightgreen)](https://www.npmjs.com/package/twiggle)
@@ -26,7 +26,6 @@ License: MIT
     - [JSX & createElement](#jsx--createelement)
     - [Renderer](#renderer)
     - [State primitive](#state-primitive)
-    - [Router](#router)
 - [Vite plugin](#vite-plugin)
 - [API reference](#api-reference)
 - [Development](#development)
@@ -275,5 +274,3 @@ MIT — see the `LICENSE` file for details.
 ---
 
 Maintainer: Hrutav Modha — please open issues for bugs or feature requests.
-
-<!-- https://livecodes.io/?config=https://raw.githubusercontent.com/hrutavmodha/twiggle/main/.livecodes/config.json -->

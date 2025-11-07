@@ -1,6 +1,6 @@
 # Twiggle
 
-Twiggle is a tiny, focused frontend library designed for building user interfaces. It provides core primitives for JSX rendering, reactive state management, and client-side routing, aiming for clarity and a minimal runtime footprint.
+Twiggle is a tiny, focused frontend library designed for building user interfaces. It provides core primitives for JSX rendering and reactive state management, aiming for clarity and a minimal runtime footprint.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/hrutavmodha/twiggle/blob/main/LICENSE)
 [![Version](https://img.shields.io/badge/version-1.2.0-brightgreen)](https://www.npmjs.com/package/twiggle)
@@ -16,7 +16,6 @@ Twiggle is a tiny, focused frontend library designed for building user interface
     - [JSX & createElement](#jsx--createelement)
     - [Renderer](#renderer)
     - [State Primitive](#state-primitive)
-    - [Router](#router)
 - [Development](#development)
 - [Testing](#testing)
 - [Contributing](#contributing)
@@ -26,7 +25,7 @@ Twiggle is a tiny, focused frontend library designed for building user interface
 
 ## Overview
 
-Twiggle is an innovative, minimalist frontend library that empowers developers to construct dynamic and responsive user interfaces with unparalleled clarity and efficiency. Unlike larger, more opinionated frameworks, Twiggle focuses on providing essential primitives: a custom JSX runtime for declarative UI composition, a robust reactive state management system for predictable data flow, and a lightweight client-side router for seamless navigation. Its design philosophy prioritizes a minimal runtime footprint and direct manipulation of the DOM, making it an ideal choice for projects where performance and control are paramount. Twiggle is perfect for learning the intricacies of frontend frameworks, building small to medium-sized applications, or integrating into existing projects where a lightweight, yet powerful, UI solution is needed.
+Twiggle is an innovative, minimalist frontend library that empowers developers to construct dynamic and responsive user interfaces with unparalleled clarity and efficiency. Unlike larger, more opinionated frameworks, Twiggle focuses on providing essential primitives: a custom JSX runtime for declarative UI composition, a robust reactive state management system for predictable data flow. Its design philosophy prioritizes a minimal runtime footprint and direct manipulation of the DOM, making it an ideal choice for projects where performance and control are paramount. Twiggle is perfect for learning the intricacies of frontend frameworks, building small to medium-sized applications, or integrating into existing projects where a lightweight, yet powerful, UI solution is needed.
 
 ---
 
@@ -49,12 +48,7 @@ Twiggle offers a carefully curated set of features, each designed to be powerful
     - `set(newValue: T)`: Update the state, triggering automatic re-renders of components that depend on it.
     - `runSideEffect(fn: () => void)`: A powerful mechanism to define side effects that automatically re-run when any observed state changes, providing a clean way to manage complex interactions and data flows.
 
-- **Client-Side Router:**
-    - Build single-page applications with ease using Twiggle's lightweight client-side router, built on the browser's History API.
-    - `Routes`: Define a collection of routes for your application.
-    - `Route({ to, element })`: Map specific URL paths (`to`) to the Twiggle component (`element`) that should be rendered.
-    - `Link({ to, children })`: A component that renders an anchor tag (`<a>`) and handles navigation internally, preventing full page reloads.
-    - `navigate(path)`: Programmatically change the current route, allowing for dynamic navigation within your application.
+
 
 ---
 

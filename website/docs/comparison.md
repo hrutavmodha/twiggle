@@ -49,7 +49,7 @@ How Twiggle differs
 
 When to choose Vue
 
-- Teams that prefer template-driven authoring, SFCs, and a more opinionated framework with built-in features (router, CLI, devtools).
+- Teams that prefer template-driven authoring, SFCs, and a more opinionated framework with built-in features (CLI, devtools).
 
 Migration notes
 
@@ -134,4 +134,3 @@ Migration notes
 2. Replace local state: map useState/useReducer/ref to `createState`.
 3. Replace effects: map useEffect/created hooks to `runSideEffect`.
 4. Replace derived values: use `runSideEffect` to keep cached derived `createState` values in sync, or create getter-only derived helpers.
-5. Gradually add routing/SSR and any ecosystem pieces — don't try to migrate everything at once.

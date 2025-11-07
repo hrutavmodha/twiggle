@@ -44,8 +44,8 @@ You can contribute by:
 Clone the repo:
 
 ```
-git clone https://github.com/hrutavmodha/nordix.git
-cd nordix
+git clone https://github.com/hrutavmodha/twiggle.git
+cd twiggle
 ```
 
 Install dependencies:
@@ -121,21 +121,11 @@ PRs should include:
 
 - **Language**: TypeScript + JSX
 - **Syntax**: Follow Prettier / ESLint rules
-- **File Structure**:
-
-```
-/src
-  /components   → JSX components
-  /router       → Router logic
-  /renderer     → DOM rendering utilities
-  /state        → Reactive state utilities
-```
 
 - Naming conventions:
     - Functions: camelCase
     - Classes: PascalCase
-    - Variables: descriptive, avoid single-letter names
-
+    - Variables: camelCase and it should carry semantic meaning
 ---
 
 ## Testing
