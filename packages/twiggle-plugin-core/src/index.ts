@@ -1,5 +1,5 @@
 import * as babel from '@babel/core'
-import twiggleJsx from 'babel-plugin-twiggle'
+import twiggleJsx from './transform.js'
 
 export function transform(code: string, id: string) {
     const isTypeScript = id.endsWith('.ts') || id.endsWith('.tsx')
@@ -28,3 +28,5 @@ export const twiggleBabelConfig = (isTypeScript: boolean) => ({
     ].filter(Boolean) as babel.PluginItem[],
     plugins: [twiggleJsx],
 })
+
+export { twiggleJsx }

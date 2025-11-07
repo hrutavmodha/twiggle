@@ -21,8 +21,7 @@
     "dependencies": {
         "@babel/core": "^7.28.4",
         "@babel/preset-react": "^7.27.1",
-        "@babel/preset-typescript": "^7.27.1",
-        "babel-plugin-twiggle": "^1.6.0"
+        "@babel/preset-typescript": "^7.27.1"
     },
     "devDependencies": {
         "typescript": "^5.9.2",
