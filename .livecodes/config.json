@@ -1,0 +1,12 @@
+{
+    "title": "Twiggle Playground",
+    "description": "An interactive playground for experimenting with Twiggle JSX transformations.",
+    "markup": {
+        "language": "html",
+        "content": "<div id=\"root\"></div>\n<script type=\"module\" src=\"main.js\"></script>"
+    },
+    "script": {
+        "language": "javascript",
+        "content": "import { render } from \"twiggle/client\"\nfunction App() {\n  return <h1>Hello, Twiggle!</h1>;\n}\nrender(<App />, document.getElementById('root'));"
+    }
+}
