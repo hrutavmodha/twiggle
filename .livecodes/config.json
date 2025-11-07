@@ -7,6 +7,6 @@
     },
     "script": {
         "language": "tsx",
-        "content": "import { render } from \"twiggle/client\"\nfunction App() {\n  return <h1>Hello, Twiggle!</h1>;\n}\nrender(<App />, document.getElementById('root'));"
+        "content": "/** @jsxImportSource twiggle/client */\nimport { render } from \"twiggle/client\"\nfunction App() {\n  return <h1>Hello, Twiggle!</h1>;\n}\nrender(<App />, document.getElementById('root') as HTMLDivElement);"
     }
 }
