@@ -16,7 +16,6 @@
     "keywords": [
         "frontend",
         "twiggle",
-        "routing",
         "state management"
     ],
     "exports": {

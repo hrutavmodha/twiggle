@@ -27,6 +27,7 @@ const config: Config = {
             {
                 docs: {
                     sidebarPath: './sidebars.ts',
+                    remarkPlugins: [require('remark-livecodes')],
                 },
                 theme: {
                     customCss: './src/styles/index.css',

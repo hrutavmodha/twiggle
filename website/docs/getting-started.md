@@ -40,3 +40,33 @@ npm run dev
 ```
 
 Your Twiggle application will be running at `http://localhost:5173`.
+
+## Live Code Example
+
+Here's a simple Twiggle counter component:
+
+```tsx livecodes
+/** @jsxImportSource twiggle/client */
+import { createState, render } from 'twiggle/client'
+
+function Counter() {
+    const count = createState(0)
+
+    const increment = () => {
+        count.set(count.get() + 1)
+    }
+
+    return (
+        <div>
+            <h1>Counter App</h1>
+            <p>Count: {count.get()}</p>
+            <button onclick={increment}>Increment</button>
+        </div>
+    )
+}
+
+const root = document.getElementById('root')
+if (root) {
+    render(<Counter />, root)
+}
+```
