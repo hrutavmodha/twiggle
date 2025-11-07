@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "module": "es2022",
+        "target": "esnext",
+        "types": [],
+        "outDir": "dist",
+        "emitDeclarationOnly": true,
+        "sourceMap": true,
+        "declaration": true,
+        "declarationMap": true,
+        "noUncheckedIndexedAccess": true,
+        "exactOptionalPropertyTypes": true,
+        "strict": true,
+        "jsx": "react-jsx",
+        "verbatimModuleSyntax": true,
+        "isolatedModules": true,
+        "noUncheckedSideEffectImports": true,
+        "moduleDetection": "force",
+        "moduleResolution": "bundler",
+        "skipLibCheck": true
+    }
+}
