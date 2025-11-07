@@ -5,7 +5,7 @@ const sidebars: SidebarsConfig = {
         {
             type: 'category',
             label: 'Getting Started',
-            items: ['intro', 'comparison'],
+            items: ['getting-started', 'intro', 'comparison'],
         },
         {
             type: 'category',
@@ -14,6 +14,18 @@ const sidebars: SidebarsConfig = {
                 'core-concepts/reactivity',
                 'core-concepts/rendering-and-jsx',
                 'core-concepts/server-side-rendering',
+            ],
+        },
+        {
+            type: 'category',
+            label: 'Integrations',
+            items: [
+                'integrations/vite',
+                'integrations/webpack',
+                'integrations/rollup',
+                'integrations/esbuild',
+                'integrations/babel',
+                'integrations/parcel',
             ],
         },
     ],
