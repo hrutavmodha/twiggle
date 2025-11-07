@@ -1,6 +1,6 @@
 {
     "name": "babel-plugin-twiggle",
-    "version": "1.6.4",
+    "version": "1.6.5",
     "description": "Babel plugin for Twiggle JSX transformation",
     "main": "dist/index.js",
     "type": "module",
@@ -26,4 +26,5 @@
     },
     "dependencies": {
         "twiggle-plugin-core": "^1.6.0"
-    }}
+    }
+}

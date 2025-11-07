@@ -21,10 +21,10 @@ pnpm add rollup-plugin-twiggle
 Add the plugin to your `rollup.config.js` file:
 
 ```javascript
-import twiggle from 'rollup-plugin-twiggle';
+import twiggle from 'rollup-plugin-twiggle'
 
 export default {
-  // ... other rollup configurations
-  plugins: [twiggle()],
-};
+    // ... other rollup configurations
+    plugins: [twiggle()],
+}
 ```

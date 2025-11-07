@@ -22,6 +22,6 @@ Add the plugin to your `.babelrc` file:
 
 ```json
 {
-  "plugins": ["babel-plugin-twiggle"]
+    "plugins": ["babel-plugin-twiggle"]
 }
 ```

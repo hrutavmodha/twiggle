@@ -21,10 +21,10 @@ pnpm add webpack-plugin-twiggle
 Add the plugin to your `webpack.config.js` file:
 
 ```javascript
-const TwiggleWebpackPlugin = require('webpack-plugin-twiggle');
+const TwiggleWebpackPlugin = require('webpack-plugin-twiggle')
 
 module.exports = {
-  // ... other webpack configurations
-  plugins: [new TwiggleWebpackPlugin()],
-};
+    // ... other webpack configurations
+    plugins: [new TwiggleWebpackPlugin()],
+}
 ```

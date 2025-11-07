@@ -21,11 +21,11 @@ pnpm add esbuild-plugin-twiggle
 Add the plugin to your esbuild configuration:
 
 ```javascript
-import { build } from 'esbuild';
-import twiggle from 'esbuild-plugin-twiggle';
+import { build } from 'esbuild'
+import twiggle from 'esbuild-plugin-twiggle'
 
 build({
-  // ... other esbuild configurations
-  plugins: [twiggle()],
-});
+    // ... other esbuild configurations
+    plugins: [twiggle()],
+})
 ```

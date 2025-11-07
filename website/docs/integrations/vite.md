@@ -28,9 +28,7 @@ The `vite-plugin-twiggle` is the official Vite plugin to integrate Twiggle into 
     import twiggle from 'vite-plugin-twiggle'
 
     export default defineConfig({
-        plugins: [
-            twiggle(),
-        ],
+        plugins: [twiggle()],
     })
     ```
 

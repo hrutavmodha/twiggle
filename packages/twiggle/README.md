@@ -48,8 +48,6 @@ Twiggle offers a carefully curated set of features, each designed to be powerful
     - `set(newValue: T)`: Update the state, triggering automatic re-renders of components that depend on it.
     - `runSideEffect(fn: () => void)`: A powerful mechanism to define side effects that automatically re-run when any observed state changes, providing a clean way to manage complex interactions and data flows.
 
-
-
 ---
 
 ## Installation

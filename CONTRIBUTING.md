@@ -126,6 +126,7 @@ PRs should include:
     - Functions: camelCase
     - Classes: PascalCase
     - Variables: camelCase and it should carry semantic meaning
+
 ---
 
 ## Testing
