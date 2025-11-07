@@ -102,6 +102,14 @@ render(<Greeting name="Alice" />, document.getElementById('root'))
 
 Note: The JSX transform must target Twiggle's runtime (see Vite plugin section) or you can import the runtime directly in your build config.
 
+## Playground
+
+Try Twiggle immediately in the browser using the interactive playground:
+
+[Open the Twiggle Playground](https://livecodes.io/?config=https://raw.githubusercontent.com/hrutavmodha/twiggle/main/.livecodes/config.json)
+
+The playground loads a small example and lets you edit components live. It's a great way to experiment without cloning the repo.
+
 ---
 
 ## Core Concepts
@@ -267,3 +275,5 @@ MIT — see the `LICENSE` file for details.
 ---
 
 Maintainer: Hrutav Modha — please open issues for bugs or feature requests.
+
+<!-- https://livecodes.io/?config=https://raw.githubusercontent.com/hrutavmodha/twiggle/main/.livecodes/config.json -->
