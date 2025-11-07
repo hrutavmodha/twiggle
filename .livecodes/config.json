@@ -3,7 +3,7 @@
     "description": "An interactive playground for experimenting with Twiggle JSX transformations.",
     "markup": {
         "language": "html",
-        "content": "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Twiggle Playground</title></head><body><div id=\"root\"></div>\n<script type=\"module\" src=\"main.js\"></script></body></html>"
+        "content": "<!DOCTYPE html><html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>Twiggle Playground</title>\n</head>\n<body>\n<div id=\"root\"></div>\n<script type=\"module\" src=\"main.js\"></script>\n</body>\n</html>"
     },
     "script": {
         "language": "tsx",
