@@ -18,7 +18,7 @@ Add `babel-plugin-twiggle` to your Babel configuration (e.g., `.babelrc` or `bab
 
 ```json
 {
-  "plugins": ["babel-plugin-twiggle"]
+    "plugins": ["babel-plugin-twiggle"]
 }
 ```
 
@@ -27,8 +27,13 @@ Or with options:
 ```javascript
 // babel.config.js
 module.exports = {
-  plugins: [
-    ["babel-plugin-twiggle", { /* options here */ }]
-  ]
-};
+    plugins: [
+        [
+            'babel-plugin-twiggle',
+            {
+                /* options here */
+            },
+        ],
+    ],
+}
 ```

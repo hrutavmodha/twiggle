@@ -19,30 +19,30 @@ This plugin provides a JavaScript utility that wraps Twiggle's Babel-based JSX t
 Example (e.g., in a custom build script or a tool that allows custom SWC configuration):
 
 ```typescript
-import { transform } from '@swc/core';
-import swcTwigglePlugin from 'swc-plugin-twiggle';
+import { transform } from '@swc/core'
+import swcTwigglePlugin from 'swc-plugin-twiggle'
 
 async function processCode(code: string, filename: string) {
-  // Apply Twiggle's JSX transform using the plugin's internal Babel transformation
-  const twiggleTransformedCode = await swcTwigglePlugin().transform(code, filename);
+    // Apply Twiggle's JSX transform using the plugin's internal Babel transformation
+    const twiggleTransformedCode = await swcTwigglePlugin().transform(code, filename)
 
-  // Then, you can use SWC for further transformations if needed
-  const swcResult = await transform(twiggleTransformedCode, {
-    filename,
-    jsc: {
-      parser: {
-        syntax: 'typescript',
-        tsx: true,
-      },
-      transform: {
-        react: {
-          runtime: 'automatic',
+    // Then, you can use SWC for further transformations if needed
+    const swcResult = await transform(twiggleTransformedCode, {
+        filename,
+        jsc: {
+            parser: {
+                syntax: 'typescript',
+                tsx: true,
+            },
+            transform: {
+                react: {
+                    runtime: 'automatic',
+                },
+            },
         },
-      },
-    },
-  });
+    })
 
-  return swcResult.code;
+    return swcResult.code
 }
 
 // Example usage:

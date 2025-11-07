@@ -18,13 +18,15 @@ Add `esbuild-plugin-twiggle` to your esbuild plugins:
 
 ```javascript
 // esbuild.config.js
-import esbuild from 'esbuild';
-import twigglePlugin from 'esbuild-plugin-twiggle';
+import esbuild from 'esbuild'
+import twigglePlugin from 'esbuild-plugin-twiggle'
 
-esbuild.build({
-  entryPoints: ['src/index.tsx'],
-  bundle: true,
-  outfile: 'dist/bundle.js',
-  plugins: [twigglePlugin()],
-}).catch(() => process.exit(1));
+esbuild
+    .build({
+        entryPoints: ['src/index.tsx'],
+        bundle: true,
+        outfile: 'dist/bundle.js',
+        plugins: [twigglePlugin()],
+    })
+    .catch(() => process.exit(1))
 ```

@@ -19,7 +19,7 @@ This package is primarily intended for internal use by other Twiggle plugins and
 For developers building Twiggle plugins, you can import and use the core Babel plugin:
 
 ```javascript
-import twigglePlugin from 'twiggle-plugin-core';
+import twigglePlugin from 'twiggle-plugin-core'
 
 // Use `twigglePlugin` in your Babel configuration or custom transformation logic.
 ```

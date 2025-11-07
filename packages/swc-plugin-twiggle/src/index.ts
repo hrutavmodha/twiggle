@@ -1,19 +1,14 @@
-import { transformAsync } from '@babel/core';
-import twigglePlugin from 'twiggle-plugin-core';
+import { transform } from 'twiggle-plugin-core'
 
 export default function swcTwigglePlugin() {
-  return {
-    name: 'swc-twiggle-plugin',
-    async transform(code: string, id: string) {
-      if (id.endsWith('.tsx') || id.endsWith('.jsx')) {
-        const result = await transformAsync(code, {
-          filename: id,
-          plugins: [twigglePlugin],
-          parserOpts: { sourceType: 'module', plugins: ['jsx', 'typescript'] },
-        });
-        return result?.code || code;
-      }
-      return code;
-    },
-  };
+    return {
+        name: 'swc-twiggle-plugin',
+        async transform(code: string, id: string) {
+            if (id.endsWith('.tsx') || id.endsWith('.jsx')) {
+                const result = await transform(code, id)
+                return result.code || code
+            }
+            return code
+        },
+    }
 }

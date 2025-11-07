@@ -18,14 +18,14 @@ Add `rollup-plugin-twiggle` to your Rollup configuration:
 
 ```javascript
 // rollup.config.js
-import twiggle from 'rollup-plugin-twiggle';
+import twiggle from 'rollup-plugin-twiggle'
 
 export default {
-  input: 'src/main.jsx',
-  output: {
-    file: 'bundle.js',
-    format: 'esm'
-  },
-  plugins: [twiggle()]
-};
+    input: 'src/main.jsx',
+    output: {
+        file: 'bundle.js',
+        format: 'esm',
+    },
+    plugins: [twiggle()],
+}
 ```
