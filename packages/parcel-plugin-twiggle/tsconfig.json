@@ -15,6 +15,6 @@
         "rootDir": "./src",
         "moduleResolution": "node"
     },
-    "include": ["src", "src/types.d.ts"],
+    "include": ["src", "types"],
     "exclude": ["node_modules", "dist"]
 }

@@ -1,4 +1,4 @@
-import { PluginObj } from '@babel/core';
+import { PluginObj } from '@babel/core'
 
-declare const twiggleBabelPlugin: PluginObj;
-export default twiggleBabelPlugin;
+declare const twiggleBabelPlugin: PluginObj
+export default twiggleBabelPlugin
