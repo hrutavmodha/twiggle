@@ -22,7 +22,6 @@
     ],
     "license": "MIT",
     "devDependencies": {
-        "esbuild": "^0.25.10",
         "typescript": "^5.9.2"
     },
     "scripts": {
@@ -38,7 +37,6 @@
         "@swc/core": "^1.3.0"
     },
     "dependencies": {
-        "@babel/core": "^7.20.0",
         "twiggle-plugin-core": "^1.6.0"
     }
 }
