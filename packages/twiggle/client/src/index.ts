@@ -1,3 +1,5 @@
-export * from './renderer'
-export * from './state'
-export * from './jsx'
+export { default as render } from './renderer/render'
+export { default as createElement } from './renderer/createElement'
+export { default as createState, batchUpdates } from './state/state'
+export { default as runSideEffect } from './state/effect'
+export { cleanupElement } from './renderer/handleChildren'

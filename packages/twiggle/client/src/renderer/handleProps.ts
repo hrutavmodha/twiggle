@@ -8,21 +8,58 @@ export default function handleProps(
         children?: Array<any> | string | number
     }
 ): void {
-    element = element as HTMLElement
     for (const key in props) {
         if (key === 'key') {
             continue
         }
-        if (key.startsWith('on')) {
-            element.addEventListener(key.substring(2).toLowerCase(), props[key])
-        } else if (key === 'children') {
+
+        if (key === 'children') {
             handleChildren(element, props[key])
-        } else if (typeof props[key] === 'function') {
-            runSideEffect(() => {
-                element.setAttribute(key, props[key]())
-            })
-        } else {
-            element.setAttribute(key, props[key])
+            continue
         }
+
+        if (!(element instanceof HTMLElement)) {
+            continue
+        }
+
+        if (key.startsWith('on')) {
+            const eventName = key.substring(2).toLowerCase()
+            element.addEventListener(eventName, props[key])
+            continue
+        }
+
+        const attrName = key === 'className' ? 'class' : key
+
+        if (key === 'style' && typeof props[key] === 'object') {
+            Object.assign(element.style, props[key])
+            continue
+        }
+
+        if (typeof props[key] === 'boolean') {
+            if (props[key]) {
+                element.setAttribute(attrName, '')
+            } else {
+                element.removeAttribute(attrName)
+            }
+            continue
+        }
+
+        if (typeof props[key] === 'function') {
+            runSideEffect(() => {
+                const value = props[key]()
+                if (typeof value === 'boolean') {
+                    if (value) {
+                        element.setAttribute(attrName, '')
+                    } else {
+                        element.removeAttribute(attrName)
+                    }
+                } else {
+                    element.setAttribute(attrName, String(value))
+                }
+            })
+            continue
+        }
+
+        element.setAttribute(attrName, String(props[key]))
     }
 }
