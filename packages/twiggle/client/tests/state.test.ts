@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import createState from '../src/state/state'
+import createState, { cacheState } from '../src/state/state'
 
 describe('createState', () => {
     it('should create a state with an initial value', () => {
@@ -12,3 +12,16 @@ describe('createState', () => {
         expect(state.get()).toBe(1)
     })
 })
+
+describe('cacheState', () => {
+    it('should cache derived computations and reactively update', () => {
+        const count = createState(2)
+        const doubled = cacheState(() => count.get() * 2)
+
+        expect(doubled.get()).toBe(4)
+
+        count.set(5)
+        expect(doubled.get()).toBe(10)
+    })
+})
+

@@ -1,6 +1,6 @@
 export { default as render } from './renderer/render'
 export { default as createElement } from './renderer/createElement'
-export { default as createState, batchUpdates } from './state/state'
+export { default as createState, batchUpdates, cacheState } from './state/state'
 export { default as runSideEffect } from './state/effect'
 export { cleanupElement } from './optimizations/cleanups'
 export { default as For } from './renderer/For'
