@@ -1,6 +1,6 @@
 {
     "name": "twiggle-plugin-core",
-    "version": "1.6.7",
+    "version": "1.6.9",
     "description": "Core logic for Twiggle build tool plugins",
     "main": "dist/index.js",
     "type": "module",

@@ -1,4 +1,4 @@
-import renderToString from '../renderToString/renderToString'
+import renderToString from '../renderer/renderToString'
 
 export function Fragment(props: any) {
     return jsx('Fragment', props)

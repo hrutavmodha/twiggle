@@ -1,8 +1,8 @@
 import { describe, it, expect, vi } from 'vitest'
 import { jsx, jsxs, Fragment } from '../../src/jsx/jsx-runtime'
-import renderToString from '../../src/renderToString/renderToString'
+import renderToString from '../../src/renderer/renderToString'
 
-vi.mock('../../src/renderToString/renderToString', () => ({
+vi.mock('../../src/renderer/renderToString', () => ({
     default: vi.fn((vdom) => ({
         html: `mocked-html-${vdom.type}`,
         script: `mocked-script-${vdom.type}`,

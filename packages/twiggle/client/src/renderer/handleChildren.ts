@@ -1,26 +1,22 @@
 import runSideEffect from '../state/effect'
-
-const elementCleanups = new WeakMap<Node, Array<() => void>>()
+import shouldSkipUpdate from '../optimizations/diff'
+import { storeCleanup } from '../optimizations/cleanups'
 
 export default function handleChildren(
     element: HTMLElement | DocumentFragment,
     children: any
 ): void {
-    const processChildren = (childNodes: any) => {
-        const nodes = Array.isArray(childNodes) ? childNodes : [childNodes]
+    const nodes = Array.isArray(children) ? children : [children]
 
-        nodes
-            .filter((child) => child !== null && child !== undefined && child !== false)
-            .forEach((child) => {
-                if (typeof child === 'function') {
-                    handleReactiveChild(element, child)
-                } else {
-                    element.appendChild(renderChild(child))
-                }
-            })
-    }
-
-    processChildren(children)
+    nodes
+        .filter((child) => child !== null && child !== undefined && child !== false)
+        .forEach((child) => {
+            if (typeof child === 'function') {
+                handleReactiveChild(element, child)
+            } else {
+                element.appendChild(renderChild(child))
+            }
+        })
 }
 
 function renderChild(child: any): Node {
@@ -76,47 +72,4 @@ function handleReactiveChild(element: HTMLElement | DocumentFragment, childFn: (
     })
 
     storeCleanup(element, cleanup)
-}
-
-function shouldSkipUpdate(oldNodes: Node[], newNodes: Node[]): boolean {
-    if (oldNodes.length !== newNodes.length) return false
-
-    for (let i = 0; i < oldNodes.length; i++) {
-        const oldNode = oldNodes[i]
-        const newNode = newNodes[i]
-
-        if (oldNode?.nodeType !== newNode?.nodeType) return false
-
-        if (oldNode?.nodeType === Node.TEXT_NODE) {
-            if (oldNode.textContent !== newNode?.textContent) return false
-        } else {
-            return false
-        }
-    }
-
-    return true
-}
-
-function storeCleanup(element: Node, cleanup: () => void): void {
-    if (!elementCleanups.has(element)) {
-        elementCleanups.set(element, [])
-    }
-    elementCleanups.get(element)!.push(cleanup)
-}
-
-export function cleanupElement(element: Node): void {
-    const cleanups = elementCleanups.get(element)
-    if (cleanups) {
-        cleanups.forEach((cleanup) => cleanup())
-        elementCleanups.delete(element)
-    }
-
-    if (element instanceof HTMLElement || element instanceof DocumentFragment) {
-        const children =
-            element instanceof HTMLElement
-                ? Array.from(element.children)
-                : Array.from(element.childNodes)
-
-        children.forEach((child) => cleanupElement(child))
-    }
 }

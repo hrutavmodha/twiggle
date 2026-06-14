@@ -7,7 +7,9 @@ export default defineConfig({
         alias: {
             '@jsx': join(__dirname, 'twiggle', 'server', 'src', 'jsx'),
             '@server': join(__dirname, 'twiggle', 'server'),
+            '@types': join(__dirname, 'twiggle', 'types'),
         },
+        extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.d.ts'],
     },
     esbuild: {
         jsx: 'automatic',

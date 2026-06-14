@@ -1,4 +1,4 @@
-import renderToString from '../renderToString/renderToString'
+import renderToString from '../renderer/renderToString'
 
 export function jsxDEV(type: any, props: any) {
     const vdom = { type, props: props || {} }

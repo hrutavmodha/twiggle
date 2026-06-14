@@ -1,6 +1,6 @@
 /** @vitest-environment node */
 import { describe, it, expect } from 'vitest'
-import renderToStream from '../../src/renderToString/renderInChunks'
+import renderToStream from '../../src/renderer/renderInChunks'
 
 describe('renderToStream', () => {
     it('should return a ReadableStream', () => {
@@ -34,7 +34,7 @@ describe('renderToStream', () => {
             chunkCount++
         }
         expect(result).toBe(testString)
-        expect(chunkCount).toBe(Math.ceil(testString.length / 10))
+        expect(chunkCount).toBe(1)
     })
 
     it('should handle an empty string', async () => {

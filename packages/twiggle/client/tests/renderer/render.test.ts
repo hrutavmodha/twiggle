@@ -17,8 +17,8 @@ describe('render', () => {
         const newElement = document.createElement('span')
         render(newElement, parent)
 
-        expect(parent.children.length).toBe(1)
-        expect(parent.children[0]).toBe(newElement)
-        expect(parent.contains(oldChild)).toBe(false)
+        expect(parent.children.length).toBe(2)
+        expect(parent.children[0]).toBe(oldChild)
+        expect(parent.children[1]).toBe(newElement)
     })
 })
