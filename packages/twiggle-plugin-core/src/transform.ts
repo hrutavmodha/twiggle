@@ -18,6 +18,77 @@ const twiggleJsx = declare((api) => {
     return {
         name: 'twiggle-jsx-reactive-expressions',
         visitor: {
+            JSXElement(path) {
+                const openingElement = path.node.openingElement
+                if (t.isJSXIdentifier(openingElement.name) && openingElement.name.name === 'For') {
+                    let eachParam: any = t.identifier('item')
+                    let ofExpr: any = null
+                    const attributes = openingElement.attributes
+
+                    attributes.forEach((attr) => {
+                        if (t.isJSXAttribute(attr) && t.isJSXIdentifier(attr.name)) {
+                            if (attr.name.name === 'each') {
+                                if (t.isJSXExpressionContainer(attr.value)) {
+                                    eachParam = attr.value.expression
+                                }
+                            } else if (attr.name.name === 'of') {
+                                if (t.isJSXExpressionContainer(attr.value)) {
+                                    ofExpr = attr.value.expression
+                                }
+                            }
+                        }
+                    })
+
+                    // Filter out empty spaces and comments from children
+                    const realChildren = path.node.children.filter((child) => {
+                        if (t.isJSXText(child)) {
+                            return child.value.trim() !== ''
+                        }
+                        return true
+                    })
+
+                    let body: any
+                    if (realChildren.length === 1) {
+                        const child = realChildren[0]
+                        if (t.isJSXText(child)) {
+                            body = t.stringLiteral(child.value.trim())
+                        } else {
+                            body = child
+                        }
+                    } else {
+                        body = t.jsxFragment(
+                            t.jsxOpeningFragment(),
+                            t.jsxClosingFragment(),
+                            realChildren
+                        )
+                    }
+
+                    const arrowFunc = t.arrowFunctionExpression([eachParam], body as any)
+
+                    const newExpressionContainer = t.jsxExpressionContainer(arrowFunc)
+
+                    const newOpeningElement = t.jsxOpeningElement(
+                        openingElement.name,
+                        [
+                            t.jsxAttribute(
+                                t.jsxIdentifier('of'),
+                                t.jsxExpressionContainer(ofExpr || t.arrayExpression([]))
+                            ),
+                        ],
+                        openingElement.selfClosing
+                    )
+
+                    const newForElement = t.jsxElement(
+                        newOpeningElement,
+                        path.node.closingElement,
+                        [newExpressionContainer],
+                        path.node.selfClosing
+                    )
+
+                    path.replaceWith(newForElement)
+                    path.skip()
+                }
+            },
             JSXExpressionContainer(path) {
                 const exprPath = path.get('expression')
 

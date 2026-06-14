@@ -17,4 +17,5 @@ export const selfClosingTags = [
 
 export { default as renderToString } from './renderer/renderToString'
 export { default as renderToStream } from './renderer/renderInChunks'
+export { default as For } from './renderer/For'
 export * from './jsx/index'
