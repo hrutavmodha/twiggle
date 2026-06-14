@@ -45,8 +45,14 @@ export default function handleProps(
         }
 
         if (typeof props[key] === 'function') {
+            let lastValue: any = undefined
             runSideEffect(() => {
                 const value = props[key]()
+                if (value === lastValue) {
+                    return
+                }
+                lastValue = value
+
                 if (typeof value === 'boolean') {
                     if (value) {
                         element.setAttribute(attrName, '')
