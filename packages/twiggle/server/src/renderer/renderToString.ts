@@ -31,7 +31,9 @@ export function* renderElementSync(element: any, context: SSRContext): Generator
     }
 
     if (typeof element === 'function') {
+        yield '<!--reactive-start-->'
         yield* renderElementSync(element(), context)
+        yield '<!--reactive-end-->'
         return
     }
 

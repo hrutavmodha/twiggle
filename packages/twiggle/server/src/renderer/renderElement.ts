@@ -28,6 +28,7 @@ export async function* renderElementAsync(
     }
 
     if (typeof element === 'function') {
+        yield '<!--reactive-start-->'
         const result = element()
 
         if (result instanceof Promise) {
@@ -53,10 +54,12 @@ export async function* renderElementAsync(
                     }
                 })();
             </script>`
+            yield '<!--reactive-end-->'
             return
         }
 
         yield* renderElementAsync(result, context)
+        yield '<!--reactive-end-->'
         return
     }
 
@@ -118,7 +121,7 @@ export function renderElement(element: any, context: SSRContext): string {
     }
 
     if (typeof element === 'function') {
-        return renderElement(element(), context)
+        return `<!--reactive-start-->${renderElement(element(), context)}<!--reactive-end-->`
     }
 
     if (!element.type) {

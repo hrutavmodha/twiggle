@@ -1,4 +1,4 @@
-export { default as render } from './renderer/render'
+export { default as render, hydrate, isHydrating } from './renderer/render'
 export { default as createElement } from './renderer/createElement'
 export { default as createState, batchUpdates, cacheState } from './state/state'
 export { default as runSideEffect } from './state/effect'

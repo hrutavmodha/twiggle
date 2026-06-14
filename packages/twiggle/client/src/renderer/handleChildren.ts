@@ -1,19 +1,28 @@
 import runSideEffect from '../state/effect'
 import shouldSkipUpdate from '../optimizations/diff'
 import { storeCleanup } from '../optimizations/cleanups'
+import { isHydrating } from './render'
 
 export default function handleChildren(
     element: HTMLElement | DocumentFragment,
     children: any
 ): void {
     const nodes = Array.isArray(children) ? children : [children]
+    let currentChildIndex = 0
 
     nodes
         .filter((child) => child !== null && child !== undefined && child !== false)
         .forEach((child) => {
             if (typeof child === 'function') {
-                handleReactiveChild(element, child)
+                const consumed = handleReactiveChild(element, child, currentChildIndex)
+                if (isHydrating) {
+                    currentChildIndex += consumed
+                }
             } else {
+                if (isHydrating) {
+                    currentChildIndex++
+                    return
+                }
                 element.appendChild(renderChild(child))
             }
         })
@@ -32,14 +41,66 @@ function renderChild(child: any): Node {
     return document.createTextNode(String(child))
 }
 
-function handleReactiveChild(element: HTMLElement | DocumentFragment, childFn: () => any): void {
-    const startMarker = document.createComment('reactive-start')
-    const endMarker = document.createComment('reactive-end')
-
-    element.appendChild(startMarker)
-    element.appendChild(endMarker)
-
+function handleReactiveChild(
+    element: HTMLElement | DocumentFragment,
+    childFn: () => any,
+    index?: number
+): number {
+    let startMarker: Comment
+    let endMarker: Comment
     let currentNodes: Node[] = []
+
+    if (isHydrating && index !== undefined && index < element.childNodes.length) {
+        const potentialStart = element.childNodes[index]!
+        if (
+            potentialStart.nodeType === Node.COMMENT_NODE &&
+            potentialStart.nodeValue === 'reactive-start'
+        ) {
+            startMarker = potentialStart as Comment
+            // Find matching reactive-end comment
+            let endNode: Node | null = startMarker.nextSibling
+            const collectedNodes: Node[] = []
+            while (endNode) {
+                if (
+                    endNode.nodeType === Node.COMMENT_NODE &&
+                    endNode.nodeValue === 'reactive-end'
+                ) {
+                    break
+                }
+                collectedNodes.push(endNode)
+                endNode = endNode.nextSibling
+            }
+            if (endNode) {
+                endMarker = endNode as Comment
+                currentNodes = collectedNodes
+            } else {
+                endMarker = document.createComment('reactive-end')
+                if (startMarker.nextSibling) {
+                    element.insertBefore(endMarker, startMarker.nextSibling)
+                } else {
+                    element.appendChild(endMarker)
+                }
+                currentNodes = collectedNodes
+            }
+        } else {
+            // Fallback: the node at index is not reactive-start comment
+            startMarker = document.createComment('reactive-start')
+            endMarker = document.createComment('reactive-end')
+            const existingChild = element.childNodes[index]!
+            element.insertBefore(startMarker, existingChild)
+            if (existingChild.nextSibling) {
+                element.insertBefore(endMarker, existingChild.nextSibling)
+            } else {
+                element.appendChild(endMarker)
+            }
+            currentNodes = [existingChild]
+        }
+    } else {
+        startMarker = document.createComment('reactive-start')
+        endMarker = document.createComment('reactive-end')
+        element.appendChild(startMarker)
+        element.appendChild(endMarker)
+    }
 
     const cleanup = runSideEffect(() => {
         const newContent = childFn()
@@ -147,4 +208,5 @@ function handleReactiveChild(element: HTMLElement | DocumentFragment, childFn: (
     })
 
     storeCleanup(element, cleanup)
+    return currentNodes.length + 2
 }

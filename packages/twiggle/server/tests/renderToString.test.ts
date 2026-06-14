@@ -96,7 +96,7 @@ describe('renderToString', () => {
         const element = { type: 'div', props: { children: reactiveValueFn } }
         const { html, script } = renderToString(element)
 
-        expect(html).toBe('<div>Hello from state</div>')
+        expect(html).toBe('<div><!--reactive-start-->Hello from state<!--reactive-end--></div>')
         expect(script).toBe('')
     })
 
@@ -112,7 +112,7 @@ describe('renderToString', () => {
             type: MyComponent,
             props: { state: myState },
         })
-        expect(html1).toBe('<p>Initial Value</p>')
+        expect(html1).toBe('<p><!--reactive-start-->Initial Value<!--reactive-end--></p>')
         expect(script1).toBe('')
 
         myState.set('Updated Value')
@@ -121,7 +121,7 @@ describe('renderToString', () => {
             type: MyComponent,
             props: { state: myState },
         })
-        expect(html2).toBe('<p>Updated Value</p>')
+        expect(html2).toBe('<p><!--reactive-start-->Updated Value<!--reactive-end--></p>')
         expect(script2).toBe('')
     })
 })
